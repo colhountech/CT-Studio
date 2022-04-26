@@ -372,12 +372,19 @@ Now, open up the Index.cshtml and add the following lines to the start of the fi
 
 }
 ```
+
+Now, your code probably won't recognise the `toDoItem` class, because it's defined in the `ViewModels` folder that this page doesn't know about (yet). Let's fix that.
+
+
+Click the cursor onto one of the `toDoItem` type and press <Ctrl> and . (the full stop key), and Visual Studio will tell the code where the file is. Select the first option and the following line will be added to the start of the file
+
+```c#
+@using TasksWebApp.ViewModels
+```
+
 Now replace the title and description in the bootstrap code to use the new records. 
-For Task Item 1
 
-Replace `Task Item 1` with `@todoItems[0].Title`.
-
-Replace `This is the first thing on my todo list` with `@todoItems[0].Description`.
+For Task Item 1, Replace `Task Item 1` with `@todoItems[0].Title`.  Replace `This is the first thing on my todo list` with `@todoItems[0].Description`.
 
 Repeate this for Task Item 2,3 and 4 but change the relevant index  to [1], [2] or [3] in each of the  bootstrap `<div>`  blocks
 
@@ -427,11 +434,68 @@ So, we are going to move our data setup to the .cshtml.cs code behind page, wher
 We are also going to use a feature of the Razor page that already exists. Do you see the `@model IndexModel` at the top of the Razor Page. This is where the Razor Page is supposed to be getting it's data, so we are going to attach our `ToDoItems` to this `IndexModel`, but we set this up from the `Index.cshtml.cs` code behind page and not the 
 `Index.cshtml` razor page.
 
+First remove the following line from the Index.cshtml page
 
+```c#
+    var todoItems = new List<TodoItem>();
+```
+Open Index.cshtml.cs code behind page, and add the following line just after the opening brace {  of the class declaration, like this:
+
+```c#
+ public class IndexModel : PageModel
+    {
+        public List<TodoItem> TodoItems = new List<TodoItem>();
+        // ... rest of the code
 
 ```
+This introduces a new public property called `ToDoItems` to the `IndexModel` class, and we can access an instance of this IndexModel class in our Razor Page and get access to the data we need.
+
+Next we remove the following 4 lines of data from the Index.cshtml page:
+```c#
+todoItems.Add(new TodoItem("Task Item 1", "This is the first thing on my todo list"));
+todoItems.Add(new TodoItem("Task Item 2", "This is the second thing on my todo list"));
+todoItems.Add(new TodoItem("Task Item 3", "This is the third thing on my todo list"));
+todoItems.Add(new TodoItem("Task Item 4", "This is the fourth thing on my todo list"));
+```
+And now we rewrite these in the code behind page inside the `IndexModel(ILogger<IndexModel> logger)` method, so it looks like this:
+
+```c#
+   public IndexModel(ILogger<IndexModel> logger)
+        {
+            _logger = logger;
+
+            TodoItems.Add(new TodoItem("Task Item 1", "This is the first thing on my todo list"));
+            TodoItems.Add(new TodoItem("Task Item 2", "This is the second thing on my todo list"));
+            TodoItems.Add(new TodoItem("Task Item 3", "This is the third thing on my todo list"));
+            TodoItems.Add(new TodoItem("Task Item 4", "This is the fourth thing on my todo list"));
+
+
+        }
+```
+
+Once again, your code probably won't recognise the `toDoItem` class, Let's fix that again.
+
+Click the cursor onto one of the `toDoItem` type and press <Ctrl> and . (the full stop key), and Visual Studio will tell the code where the file is. Select the first option and the following line will be added to the start of the file
+
+```c#
+@using TasksWebApp.ViewModels
+```
+
+Finally, change the foreach line to reference the new IndexModel `Model` and the new todoItems property of the Model
+```c#
+        @foreach (var item in @Model.todoItems)
+
+```
+Some Razor magic going on here! There is a convention that whatever you describe at the top of the razor page in the `@model` section become the `@Model` property for the page, so the `IndexModel` type has become magically "transmorgofied" (not a real word) into a `@Model` object. This magic is used a lot later in Razor.
+
+Now we have something that is close to an enterprise quality razor page. 
+
+Well Done. Take a break and pat yourself on the back. You deserve it.
+
 
   ### Tasks WebApp - Configure for HTTPS 
+
+
   ### Tasks WebApp Authentication
   
 
