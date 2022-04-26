@@ -133,6 +133,10 @@ Some lesser known files and folders include:
 * Shared\ - Folder of shared resource such as Themes and shared Controls
 * Shared\_ValidationSCriptPartial - This is used for forms that need client side validation before we send form data to the server. Mostly this just works and we won't need to worry about this ( for a while )
 
+OK. Let's run this. Our request is reouted to the default Razor Page `Index.cshtml` and is rendered to our browser. 
+
+
+
   ### Tasks WebApp - Configure for HTTPS 
   ### Tasks WebApp Authentication
   
