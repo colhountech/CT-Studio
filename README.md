@@ -8,14 +8,20 @@ Code for Demos on the [CT Studio YouTube Channel](https://www.youtube.com/channe
   ### Tasks WebApp -  The Most Basic ASP.NET Core WebApp in the World  - Written in C# 10 and .NET 6
 
 
-This WebApp does everything you need except save the tasks. That's for another day
+This WebApp does everything you need except save the tasks.
+
+Open Visual Studio 2022, and create a new Project called using the **ASP.NET Core Web App** Template. 
+
+Choose .NET 6.0 Framework, No Authentication, No support for HTTPS and Don't enable Docker.
+
+To summarise:
 
   * No Authentication
   * No HTTPS support
   * No Docker Supporet
   * .NET 6.0 Support
-  * Minimal APIs
 
+Click [Create] and we get a Basic Web App up and running.
 
 Our basic template `Program.cs` looks like this.
 
@@ -135,6 +141,207 @@ Some lesser known files and folders include:
 
 OK. Let's run this. Our request is reouted to the default Razor Page `Index.cshtml` and is rendered to our browser. 
 
+### A Button
+
+Get rid of the following code:
+```html
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+```
+
+And all the following markdown.
+```html
+<div class="container-fluid">
+    <div class="row">
+      <!-- Add items here -->
+
+
+      <!-- End: Add items here -->
+    </div>
+  </div>
+
+```
+Now, we can add a couple of item to our todo list between   `<!-- Add items here -->` and   `<!-- End: Add items here -->`
+
+Add the following code 4 times, but replace Task Item 1 with 2, 3,4 respectively, and change first, to second, third and fourth respectively.
+
+
+```html
+<div class="col-lg-6 py-2">
+            <div class="card active-box flex-row flex-wrap" id="contacts-nav-box" style="min-width:22rem">
+                <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                <div class="card-block flex-fill mx-auto p-2">
+                    <h3 class="card-title">Task Item 2</h3>
+                    <p class="card-text" style="min-width:22rem"> This is the second thing on my todo list</p>
+                </div>
+            </div>
+        </div>
+```        
+
+Hit the Hot Reload button. (Looks like a red blaze) and you should now have 4 items on your todo list. 
+
+It's nice, but needs some style. Let's add some.
+
+Open wwwroot/css/site.css and replace everything with the following:
+
+```css
+
+
+body {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #333333;
+    text-align: left;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: ghostwhite;
+    padding-top: 5rem;
+}
+
+body-content {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    background-color: white;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6
+.a, .b, .c, .d, .e, .f {
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+    font-weight: 300;
+    line-height: 1.2;
+    color: rgb(23, 162, 184);
+}
+
+h1, .a {
+    font-size: 2.5rem;
+}
+
+h2, .b {
+    font-size: 2rem;
+}
+
+h3, .c {
+    font-size: 1.75rem;
+}
+
+h4, .d {
+    font-size: 1.5rem;
+}
+
+h5, .e {
+    font-size: 1.25rem;
+}
+
+h6, .f {
+    font-size: 1rem;
+}
+
+.text-value {
+    font-size: 2.0rem;
+    line-height: 2.5;
+    font-weight: 600;
+}
+
+footer {
+    text-align: center;
+    font-size: xx-small;
+    height: 20px;
+}
+
+
+.big-icon {
+    color: coral;
+    padding: 5px;
+}
+
+.home-icon {
+    color: #17a2b8;
+    padding: 5px;
+}
+
+
+.active-box {
+    cursor: pointer;
+}
+
+
+.tag {
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: 8px;
+}
+
+.big-tag {
+    padding: 2px;
+}
+
+input[type=checkbox] {
+    /* Double-sized Checkboxes */
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+}
+
+.dotted {
+    border: dotted 1px;
+}
+
+```
+This looks a bit better but some of the awesome fonts are missing. 
+
+Right click on wwwroot and select Add > Client Side Library. 
+
+Using the default Provider of cdjs, search for `font awesome` in the Library: field and change the version to 4.7.0 
+and includ all library files. The target location should be wwwroot. 
+
+You will see the font-awesome libraries added to the wwwroot/lib folder.
+
+Check your libman.json file in the root folder of your project. It should look like this:
+
+```
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "font-awesome@4.7.0",
+      "destination": "wwwroot/lib/font-awesome/"
+    }
+  ]
+}
+```
+
+Now open  Shared/_Layout.cshtml and just below the bootstrap.min.css, add the following line:
+
+```
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+```
+
+The top and <head> section of your _Layout.cshtml file should now look like this:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TasksWebApp</title>
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TasksWebApp.styles.css" asp-append-version="true" />
+</head>
+
+```
+Let's run again. That looks better. We have a nice icon, and nice title font and a nice description.
 
 
   ### Tasks WebApp - Configure for HTTPS 
