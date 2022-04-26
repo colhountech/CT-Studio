@@ -141,7 +141,7 @@ Some lesser known files and folders include:
 
 OK. Let's run this. Our request is reouted to the default Razor Page `Index.cshtml` and is rendered to our browser. 
 
-### A Button
+###  5 minute Bootstrap Crash Course
 
 Get rid of the following code:
 ```html
@@ -343,6 +343,93 @@ The top and <head> section of your _Layout.cshtml file should now look like this
 ```
 Let's run again. That looks better. We have a nice icon, and nice title font and a nice description.
 
+### Razor Iterators
+
+Let's start making this a little more programable.
+
+Create a new Folder called ViewModels and add a new class file called `TodoItems.cs`
+
+add the following code:
+```c#
+namespace TasksWebApp.ViewModels
+{
+    public record TodoItem(string Title, string Description);
+
+}
+```
+We will use this to store records of our Todo Tasks
+
+Now, open up the Index.cshtml and add the following lines to the start of the file, just after the ViewData["Title"] line, like this:
+```
+@{
+    ViewData["Title"] = "Home page";
+
+    var todoItems = new List<TodoItem>();
+    todoItems.Add(new TodoItem("Task Item 1", "This is the first thing on my todo list"));
+    todoItems.Add(new TodoItem("Task Item 2", "This is the second thing on my todo list"));
+    todoItems.Add(new TodoItem("Task Item 3", "This is the third thing on my todo list"));
+    todoItems.Add(new TodoItem("Task Item 4", "This is the fourth thing on my todo list"));
+
+}
+```
+Now replace the title and description in the bootstrap code to use the new records. 
+For Task Item 1
+
+Replace `Task Item 1` with `@todoItems[0].Title`.
+
+Replace `This is the first thing on my todo list` with `@todoItems[0].Description`.
+
+Repeate this for Task Item 2,3 and 4 but change the relevant index  to [1], [2] or [3] in each of the  bootstrap `<div>`  blocks
+
+
+Each Task Item should now look like the folliow
+
+
+```html
+<div class="col-lg-6 py-2">
+    <div class="card active-box flex-row flex-wrap" id="contacts-nav-box" style="min-width:22rem">
+        <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+        <div class="card-block flex-fill mx-auto p-2">
+            <h3 class="card-title">@todoItems[0].Title</h3>
+            <p class="card-text" style="min-width:22rem"> @todoItems[0].Description</p>
+        </div>
+    </div>
+</div>
+```
+
+Run or Hot Reload the Web Application now and we should see the same result, but with a little bit of code added
+
+Now, let's optomise this a bit and remove the repeating `<div>` block.
+
+An important principle when learning how to code is the DRY principle. Do not Repeate Yourself. DRY.
+
+We are repeating the same `<div>` 4 times, so we are going to replace this with an iterator that iteratrates over the complete list of ToDoItem records
+
+For this we are going to wrap the `<div>` block in a @foreach (var item in todoItems) {   } and then replace the indexed collection `todoItems[0]` with the `item` object
+
+```
+@foreach (var item in todoItems)
+{
+    // .. removed some line for clarity
+
+    <h3 class="card-title">@item.Title</h3>
+    <p class="card-text" style="min-width:22rem"> @item.Description</p>
+
+    // .. removed some line for clarity
+}
+```
+This is great, but we have another issue we need to address.
+
+I don't like building up the data we show via todoItem.Add() at the top of the razor page. The Razor page is really supposed to be declarative, in that it declares what the html web page looks like, but it's not the place to setup data. 
+
+So, we are going to move our data setup to the .cshtml.cs code behind page, where it is supposed to be and tidy this file a little more.
+
+We are also going to use a feature of the Razor page that already exists. Do you see the `@model IndexModel` at the top of the Razor Page. This is where the Razor Page is supposed to be getting it's data, so we are going to attach our `ToDoItems` to this `IndexModel`, but we set this up from the `Index.cshtml.cs` code behind page and not the 
+`Index.cshtml` razor page.
+
+
+
+```
 
   ### Tasks WebApp - Configure for HTTPS 
   ### Tasks WebApp Authentication
