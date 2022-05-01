@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TasksWebApp.Services;
 using Xunit;
 
@@ -86,6 +87,7 @@ namespace TestServices
             var items = service.GetItems();
 
             // Assert
+            var count = items.ToList().Count;
 
             foreach (var item in items)
             { 
@@ -128,7 +130,9 @@ namespace TestServices
 
             
         }
-        [Fact] void Test_DeleteItem()
+        
+        [Fact] 
+        void Test_DeleteItem()
         {
             // Arrange
             var service = new ToDoItemService();

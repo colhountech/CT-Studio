@@ -11,7 +11,7 @@
 
     public class ToDoItemService
     {
-        protected static readonly List<TodoItemData> ItemsDatabase = new List<TodoItemData>();
+    protected static readonly List<TodoItemData> ItemsDatabase = new List<TodoItemData>();
 
 
         public IEnumerable<TodoItemData> GetItems()
