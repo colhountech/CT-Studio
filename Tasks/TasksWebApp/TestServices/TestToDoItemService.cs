@@ -15,6 +15,27 @@ namespace TestServices
             Assert.NotNull(service);
 
         }
+
+
+        [Fact]
+        public void Test_InitServiceTwice()
+        {
+            ToDoItemService service1 = new ToDoItemService();
+            ToDoItemService service2 = new ToDoItemService();
+
+            TodoItemData item1 = new TodoItemData { Title = "Title1", Description = "Description1" };
+            TodoItemData item2 = new TodoItemData { Title = "Title2", Description = "Description2" };
+
+            service1.AddItem(item1);
+            service2.AddItem(item2);
+
+            Assert.Collection(service1.GetItems(),
+                item => Assert.Equal("Title1", item1?.Title),
+                item => Assert.Equal("Title2", item2?.Title)
+                );
+        }
+
+
         [Fact]
         public void Test_AddItem()
         {
