@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TasksWebApp.Services;
 using TasksWebApp.ViewModels;
@@ -11,11 +12,14 @@ namespace TasksWebApp.Pages
 
         private readonly ILogger<IndexModel> _logger;
         private readonly IToDoItemService _service;
+        private readonly IMapper _mapper;
 
-        public IndexModel(ILogger<IndexModel> logger, IToDoItemService service)
+        public IndexModel(ILogger<IndexModel> logger, IToDoItemService service, IMapper mapper)
         {
             _logger = logger;
             _service = service;
+            _mapper = mapper; 
+
 
             if (! service.GetItems().Any())
             {
@@ -30,16 +34,8 @@ namespace TasksWebApp.Pages
         {
             var items = _service.GetItems();
 
-            // Map TodoItemData --> TodoItem ViewModel
-
-            // Every Time you refresh, you get 4 more items added
-            // this is not the place to setup the list
-
-            foreach (var item in items)
-            {
-                TodoItems.Add(new TodoItemViewModel  ( item.Title, item.Description ));
-            }
-         
+            // Map TodoItemData --> TodoItem ViewModel      
+            this.TodoItems = _mapper.Map<List<TodoItemViewModel>>(_service.GetItems());         
         }
     }
 }
