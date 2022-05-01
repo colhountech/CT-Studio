@@ -8,27 +8,27 @@ namespace TasksWebApp.Pages
     public class IndexModel : PageModel
     {
         public List<TodoItemViewModel> TodoItems = new List<TodoItemViewModel>();
-        public ToDoItemService service = new ToDoItemService();
 
         private readonly ILogger<IndexModel> _logger;
+        private readonly IToDoItemService _service;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ILogger<IndexModel> logger, IToDoItemService service)
         {
             _logger = logger;
+            _service = service;
 
             if (! service.GetItems().Any())
             {
-
-                service.AddItem(new TodoItemData { Title = "Tast Item 1", Description = "This is the first thing on my todo list" });
-                service.AddItem(new TodoItemData { Title = "Tast Item 2", Description = "This is the second thing on my todo list" });
-                service.AddItem(new TodoItemData { Title = "Tast Item 3", Description = "This is the third thing on my todo list" });
-                service.AddItem(new TodoItemData { Title = "Tast Item 4", Description = "This is the fourth thing on my todo list" });
+                _service.AddItem(new TodoItemData { Title = "Tast Item 1", Description = "This is the first thing on my todo list" });
+                _service.AddItem(new TodoItemData { Title = "Tast Item 2", Description = "This is the second thing on my todo list" });
+                _service.AddItem(new TodoItemData { Title = "Tast Item 3", Description = "This is the third thing on my todo list" });
+                _service.AddItem(new TodoItemData { Title = "Tast Item 4", Description = "This is the fourth thing on my todo list" });
             }
         }
 
         public void OnGet()
         {
-            var items = service.GetItems();
+            var items = _service.GetItems();
 
             // Map TodoItemData --> TodoItem ViewModel
 

@@ -1,7 +1,10 @@
+using TasksWebApp.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSingleton<IToDoItemService, ToDoItemService>();
 
 var app = builder.Build();
 

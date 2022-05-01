@@ -9,9 +9,9 @@
     }
 
 
-    public class ToDoItemService
+    public class ToDoItemService : IToDoItemService
     {
-    protected static readonly List<TodoItemData> ItemsDatabase = new List<TodoItemData>();
+        protected static readonly List<TodoItemData> ItemsDatabase = new List<TodoItemData>();
 
 
         public IEnumerable<TodoItemData> GetItems()
