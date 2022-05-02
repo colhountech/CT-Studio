@@ -6,12 +6,22 @@
         public Guid ID { get; init; } = Guid.NewGuid();
         public string Title { get; init; } = default!;
         public string Description { get; init; } = default!;
+        public bool Archived { get; set; } = default!;
     }
 
 
     public class ToDoItemService : IToDoItemService
     {
         protected static readonly List<TodoItemData> ItemsDatabase = new List<TodoItemData>();
+
+        public ToDoItemService()
+        {
+            AddItem(new TodoItemData { Title = "Tast Item 1", Description = "This is the first thing on my todo list" });
+            AddItem(new TodoItemData { Title = "Tast Item 2", Description = "This is the second thing on my todo list" });
+            AddItem(new TodoItemData { Title = "Tast Item 3", Description = "This is the third thing on my todo list" });
+            AddItem(new TodoItemData { Title = "Tast Item 4", Description = "This is the fourth thing on my todo list" });
+
+        }
 
 
         public IEnumerable<TodoItemData> GetItems()

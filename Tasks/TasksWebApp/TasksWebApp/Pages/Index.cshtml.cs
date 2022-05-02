@@ -20,14 +20,6 @@ namespace TasksWebApp.Pages
             _service = service;
             _mapper = mapper; 
 
-
-            if (! _service.GetItems().Any())
-            {
-                _service.AddItem(new TodoItemData { Title = "Tast Item 1", Description = "This is the first thing on my todo list" });
-                _service.AddItem(new TodoItemData { Title = "Tast Item 2", Description = "This is the second thing on my todo list" });
-                _service.AddItem(new TodoItemData { Title = "Tast Item 3", Description = "This is the third thing on my todo list" });
-                _service.AddItem(new TodoItemData { Title = "Tast Item 4", Description = "This is the fourth thing on my todo list" });
-            }
         }
 
         public void OnGet()

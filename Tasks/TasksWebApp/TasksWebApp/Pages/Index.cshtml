@@ -18,22 +18,29 @@
     <div class="row">
 
 
-        @foreach (var item in @Model.TodoItems)
-            {
+    @foreach (var item in @Model.TodoItems)
+    {
 
-         <div class="col-lg-6 py-2">
+        <div class="col-lg-6 py-2">
             <div class="card active-box flex-row flex-wrap" id="contacts-nav-box" style="min-width:22rem">
+               
                 <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
                 <div class="card-block flex-fill mx-auto p-2">
-                    <h3 class="card-title">@item.Title</h3>
-                    <p class="card-text" style="min-width:22rem"> @item.Description</p>
-                    <p class="card-text" style="min-width:22rem"> <a asp-page="Edit" asp-route-id="@item.ID"> Edit </a> </p>
+                    <h3 class="card-title">@item.Title </h3>
+                    <p class="card-text">
+                        @item.Description<br />
+                        <span class="pull-right">
+                        <a asp-page="Edit" asp-route-id="@item.ID">Edit</a>
+                        <a class="text-danger" asp-page="Delete" asp-route-id="@item.ID">Delete</a>
+                        </span>
+                    </p>
+
                 </div>
             </div>
         </div>  
 
 
-            }
+    }
 
     </div>
 </div>
