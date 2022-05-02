@@ -21,7 +21,7 @@ namespace TasksWebApp.Pages
             _mapper = mapper; 
 
 
-            if (! service.GetItems().Any())
+            if (! _service.GetItems().Any())
             {
                 _service.AddItem(new TodoItemData { Title = "Tast Item 1", Description = "This is the first thing on my todo list" });
                 _service.AddItem(new TodoItemData { Title = "Tast Item 2", Description = "This is the second thing on my todo list" });
@@ -34,7 +34,7 @@ namespace TasksWebApp.Pages
         {
             var items = _service.GetItems();
 
-            // Map TodoItemData --> TodoItem ViewModel      
+            // Map TodoItemData --> TodoItemViewModel      
             this.TodoItems = _mapper.Map<List<TodoItemViewModel>>(_service.GetItems());         
         }
     }
