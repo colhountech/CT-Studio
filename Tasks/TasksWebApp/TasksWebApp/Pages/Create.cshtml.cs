@@ -10,11 +10,13 @@ namespace TasksWebApp.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IToDoItemService _service;
+        private readonly IMapper _mapper;
 
-        public CreateModel(ILogger<IndexModel> logger, IToDoItemService service)
+        public CreateModel(ILogger<IndexModel> logger, IToDoItemService service, IMapper mapper)
         {
             _logger = logger;
             _service = service;
+            _mapper = mapper;
         }
 
 
@@ -31,6 +33,12 @@ namespace TasksWebApp.Pages
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            if (TodoItem != null)
+            {
+                var itemData = _mapper.Map<TodoItemData>(TodoItem);
+                _service.AddItem(itemData);
             }
 
 

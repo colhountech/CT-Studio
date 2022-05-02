@@ -9,7 +9,7 @@ namespace TasksWebApp.Profiles
         public TodoItemProfile()
         {
 
-            CreateMap<TodoItemData, TodoItemViewModel>();
+            CreateMap<TodoItemData, TodoItemViewModel>().ReverseMap();
         }
 
     }
