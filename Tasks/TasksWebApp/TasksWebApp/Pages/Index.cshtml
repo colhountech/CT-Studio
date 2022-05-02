@@ -6,8 +6,17 @@
     ViewData["Title"] = "Home page";    
 }
 
+
 <div class="container-fluid">
+
+    <div class=row>
+       <div class="col-lg-6 py-2">
+            <a class=" card-link btn btn-success" asp-page="Create" />New </a>
+       </div>
+    </div>
+
     <div class="row">
+
 
         @foreach (var item in @Model.TodoItems)
         {

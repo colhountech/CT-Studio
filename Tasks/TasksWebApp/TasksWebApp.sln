@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksWebApp", "TasksWebApp\TasksWebApp.csproj", "{1EA6D73A-25CB-4BD1-B53B-E6322B1D87B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestServices", "TestServices\TestServices.csproj", "{DBBA875A-47D3-48B8-A88A-508F5AF1AFAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestServices", "TestServices\TestServices.csproj", "{DBBA875A-47D3-48B8-A88A-508F5AF1AFAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
