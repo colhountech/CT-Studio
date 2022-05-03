@@ -1,13 +1,5 @@
 ﻿namespace TasksWebApp.Services
 {
-    public record TodoItemData
-    {
-       
-        public Guid ID { get; init; } = Guid.NewGuid();
-        public string Title { get; init; } = default!;
-        public string Description { get; init; } = default!;
-        public bool Archived { get; set; } = default!;
-    }
 
 
     public class ToDoItemService : IToDoItemService
