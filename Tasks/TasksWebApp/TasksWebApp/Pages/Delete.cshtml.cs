@@ -54,7 +54,7 @@ namespace TasksWebApp.Pages
             if (TodoItem != null)
             {
                 var itemData = _mapper.Map<TodoItemData>(TodoItem);
-                _service.DeleteItem(itemData);
+                 _service.DeleteItem(itemData);
             }
 
 

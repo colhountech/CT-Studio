@@ -16,9 +16,11 @@
         }
 
 
-        public IEnumerable<TodoItemData> GetItems()
+        public IEnumerable<TodoItemData> GetItems(bool archived)
         {
-            return ItemsDatabase.AsEnumerable();
+            return ItemsDatabase
+                .Where(x => x.Archived == archived)
+                .AsEnumerable();
 
         }
 
@@ -54,7 +56,12 @@
 
         public bool DeleteItem(TodoItemData item)
         {
-            return ItemsDatabase.Remove(item);
+            // find old item
+            var oldItem = ItemsDatabase.Find(x => x.ID == item.ID);
+            var newItem = new TodoItemData { Archived = true, ID = item.ID, Title = item.Title, Description = item.Description};
+            return UpdateItem(oldItem.ID, newItem);
+            //return ItemsDatabase.Remove(item);
+
         }
     }
 

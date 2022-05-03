@@ -1,22 +1,12 @@
 ﻿@page
 @using TasksWebApp.ViewModels
 
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";    
-}
+@model ArchiveModel
 
 
 <div class="container-fluid">
 
-    <div class=row>
-        <div class="col-lg-6 py-2">
-            <a class="btn btn-success" asp-page="Create">New </a>
-        </div>
-    </div>
-
     <div class="row">
-
 
         @foreach (var item in @Model.TodoItems)
         {
@@ -30,8 +20,7 @@
                         <p class="card-text">
                             @item.Description<br />
                             <span class="pull-right">
-                                <a asp-page="Edit" asp-route-id="@item.ID">Edit</a>
-                                <a class="text-danger" asp-page="Delete" asp-route-id="@item.ID">Delete</a>
+                                <a asp-page="Edit" asp-route-id="@item.ID">Edit</a>                                
                             </span>
                         </p>
 
@@ -44,8 +33,8 @@
 
     </div>
     <div class=row>
-        <div class="col-lg-6 py-2">
-            <a class="btn btn-outline-success" asp-page="Archive">Archived</a>            
+        <div class="col-lg-6 py-2">            
+            <a asp-page="Index" class="btn btn-success m-2 ">Home</a>
         </div>
     </div>
 </div>

@@ -6,7 +6,7 @@ namespace TasksWebApp.Services
         Guid AddItem(TodoItemData item);
         bool DeleteItem(TodoItemData item);
         TodoItemData? GetItemByID(Guid ID);
-        IEnumerable<TodoItemData> GetItems();
+        IEnumerable<TodoItemData> GetItems(bool archived);
         bool UpdateItem(Guid oldID, TodoItemData item);
     }
 }

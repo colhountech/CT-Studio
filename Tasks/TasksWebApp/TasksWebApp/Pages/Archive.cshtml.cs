@@ -6,7 +6,7 @@ using TasksWebApp.ViewModels;
 
 namespace TasksWebApp.Pages
 {
-    public class IndexModel : PageModel
+    public class ArchiveModel : PageModel
     {
         public List<TodoItemViewModel> TodoItems = new List<TodoItemViewModel>();
 
@@ -14,7 +14,7 @@ namespace TasksWebApp.Pages
         private readonly IToDoItemService _service;
         private readonly IMapper _mapper;
 
-        public IndexModel(ILogger<IndexModel> logger, IToDoItemService service, IMapper mapper)
+        public ArchiveModel(ILogger<IndexModel> logger, IToDoItemService service, IMapper mapper)
         {
             _logger = logger;
             _service = service;
@@ -24,11 +24,11 @@ namespace TasksWebApp.Pages
 
         public void OnGet()
         {
-            var items = _service.GetItems(archived: false);
+            var items = _service.GetItems(archived: true);
 
             // Map TodoItemData --> TodoItemViewModel      
-            this.TodoItems = _mapper.Map<List<TodoItemViewModel>>(items);         
-        }
+            this.TodoItems = _mapper.Map<List<TodoItemViewModel>>(items);
 
+        }
     }
 }

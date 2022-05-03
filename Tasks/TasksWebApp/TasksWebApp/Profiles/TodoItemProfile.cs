@@ -10,6 +10,7 @@ namespace TasksWebApp.Profiles
         {
 
             CreateMap<TodoItemData, TodoItemViewModel>().ReverseMap();
+            CreateMap<MessageData, MessageViewModel>().ReverseMap();
         }
 
     }
