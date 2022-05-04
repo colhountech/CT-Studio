@@ -37,7 +37,7 @@
         </div>
         <div class="card-footer bg-light d-flex justify-content-end">
             <input type="submit" value="Save" class=" card-link btn btn-success" />
-            <a asp-page="Index" class="card-link btn btn-outline-danger">Cancel</a>
+            <a asp-page="Details" asp-route-id="@Model.TodoItem?.ID" class="card-link btn btn-outline-danger">Cancel</a>
         </div>
     </div>
 </form>
