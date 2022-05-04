@@ -11,7 +11,9 @@
         @foreach (var item in @Model.TodoItems)
         {
 
-            <div class="col-lg-6 py-2">
+        <div class="col-lg-6 py-2">
+            <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
+
                 <div class="card active-box flex-row flex-wrap" id="contacts-nav-box" style="min-width:22rem">
 
                     <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
@@ -19,14 +21,12 @@
                         <h3 class="card-title">@item.Title </h3>
                         <p class="card-text">
                             @item.Description<br />
-                            <span class="pull-right">
-                                <a asp-page="Edit" asp-route-id="@item.ID">Edit</a>                                
-                            </span>
                         </p>
 
                     </div>
                 </div>
-            </div>
+            </a>
+        </div>
 
 
         }
