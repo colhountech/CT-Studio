@@ -20,9 +20,9 @@
                     <h3 class="card-title">@Model.TodoItem?.Title </h3>
                     <p class="card-text">
                         @Model.TodoItem?.Description<br />
-                        <span class="pull-right">
-                            <a asp-page="Edit" asp-route-id="@Model.TodoItem?.ID">Edit</a>
-                            <a class="text-danger" asp-page="Delete" asp-route-id="@Model.TodoItem?.ID">Delete</a>
+                        <span class="pull-right px-2 mx-auto">
+                            <a class="px-2" asp-page="Edit" asp-route-id="@Model.TodoItem?.ID">Edit</a>
+                            <a class="px-2 text-danger" asp-page="Delete" asp-route-id="@Model.TodoItem?.ID">Delete</a>
                         </span>
                     </p>
 
