@@ -24,7 +24,6 @@ namespace TasksWebApp.Pages
 
         public List<MessageViewModel> Messages = new List<MessageViewModel>();
 
-
         public IActionResult OnGet(Guid? ID)
         {
             if (ID == null)
@@ -44,7 +43,6 @@ namespace TasksWebApp.Pages
             LoadDummyMessage(ID.Value);
 
             return Page();
-
         }
 
         private void LoadDummyMessage(Guid ID)
@@ -70,7 +68,6 @@ namespace TasksWebApp.Pages
 
             Messages.Add(m);
             Messages.Add(read);
-
         }
     }
 }
