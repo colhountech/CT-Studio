@@ -36,70 +36,26 @@
                 <h5 class="card-header">Track Messages</h5>
 
                 <div class="card-body">
-                    <a href="#" class="card-link">Add</a>
-                    <a href="#" class="card-link">Show All</a>
-                   
+                    <a href="#" class="px-2 card-link">Add</a>
+                    <a class="px-2 card-link" asp-page="Details" asp-route-id="@Model.TodoItem?.ID">Show All</a>
+
                     <div class="py-2 toast-container">
-                        <!-- Message -->
-                        <div class="toast fade show" id="myId">
-                            <div class="toast-header">
-                                <strong class="me-auto"><i class="fa fa-envelope"></i> Isn't this cool?</strong>
-                                <small>11 mins ago</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                        @foreach (var message in @Model.Messages)
+                        {
+                            var icon = message.UnRead == true ? "fa fa-envelope" : "fa fa-envelope-open-o";
+                            <!-- Message -->
+                            <div class="toast fade show" id="message-@message?.ID">
+                                <div class="toast-header">
+                                    <strong class="me-auto"><i class="@icon"></i> @message?.Subject </strong>
+                                    <small>@message?.DateCreated</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                                </div>
+                                <div class="toast-body">
+                                    @message?.Body
+                                </div>
                             </div>
-                            <div class="toast-body">
-                                This is a super cool message.</a>
-                            </div>
-                        </div>
-                        <!-- End Message -->
-                        <!-- Message -->
-                        <div class="toast fade show" id="myId">
-                            <div class="toast-header">
-                                <strong class="me-auto"><i class="fa fa-envelope"></i> Isn't this cool?</strong>
-                                <small>11 mins ago</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                            </div>
-                            <div class="toast-body">
-                                This is a super cool message.</a>
-                            </div>
-                        </div>
-                        <!-- End Message -->
-                        <!-- Message -->
-                        <div class="toast fade show" id="myId">
-                            <div class="toast-header">
-                                <strong class="me-auto"><i class="fa fa-envelope-open-o"></i> Isn't this cool?</strong>
-                                <small>11 mins ago</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                            </div>
-                            <div class="toast-body">
-                                This is a super cool message.</a>
-                            </div>
-                        </div>
-                        <!-- End Message -->
-                        <!-- Message -->
-                        <div class="toast fade show" id="myId">
-                            <div class="toast-header">
-                                <strong class="me-auto"><i class="fa fa-envelope-open-o"></i> Isn't this cool?</strong>
-                                <small>11 mins ago</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                            </div>
-                            <div class="toast-body">
-                                This is a super cool message.</a>
-                            </div>
-                        </div>
-                        <!-- End Message -->
-                        <!-- Message -->
-                        <div class="toast fade show" id="myId">
-                            <div class="toast-header">
-                                <strong class="me-auto"><i class="fa fa-envelope-open-o"></i> Isn't this cool?</strong>
-                                <small>11 mins ago</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                            </div>
-                            <div class="toast-body">
-                                This is a super cool message.</a>
-                            </div>
-                        </div>
-                        <!-- End Message -->
+                            <!-- End Message -->
+                        }
 
                     </div>
                 </div>

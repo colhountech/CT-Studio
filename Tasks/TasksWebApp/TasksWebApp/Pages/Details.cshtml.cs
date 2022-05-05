@@ -22,6 +22,8 @@ namespace TasksWebApp.Pages
         [BindProperty]
         public TodoItemViewModel? TodoItem { get; set; }
 
+        public List<MessageViewModel> Messages = new List<MessageViewModel>();
+
 
         public IActionResult OnGet(Guid? ID)
         {
@@ -39,7 +41,35 @@ namespace TasksWebApp.Pages
 
             TodoItem = _mapper.Map<TodoItemViewModel>(itemData);
 
+            LoadDummyMessage(ID.Value);
+
             return Page();
+
+        }
+
+        private void LoadDummyMessage(Guid ID)
+        {
+            var m = new MessageViewModel
+            {
+                ID = Guid.NewGuid(),
+                TodoItemID = ID,
+                Subject = @"Isn't this cool?",
+                Body = "This is a super cool message.",
+                DateCreated = "11 minutes ago",
+                UnRead = true
+            };
+            var read = new MessageViewModel
+            {
+                ID = Guid.NewGuid(),
+                TodoItemID = ID,
+                Subject = @"Isn't this cool?",
+                Body = "This is a super cool message.",
+                DateCreated = "11 minutes ago",
+                UnRead = false
+            };
+
+            Messages.Add(m);
+            Messages.Add(read);
 
         }
     }
