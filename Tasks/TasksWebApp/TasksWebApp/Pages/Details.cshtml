@@ -36,8 +36,13 @@
                 <h5 class="card-header">Track Messages</h5>
 
                 <div class="card-body">
-                    <a href="#" class="px-2 card-link">Add</a>
-                    <a class="px-2 card-link" asp-page="Details" asp-route-id="@Model.TodoItem?.ID">Show All</a>
+                    <form asp-action="Details">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Add New Message"><strong class="me-auto"><i class="fa fa-plus"></i></strong></button>
+                            <button type="submit" asp-page-handler="unread" asp-route-id="@Model.TodoItem?.ID" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Show Unread Messages"><strong class="me-auto"><i class="fa fa-envelope"></i></strong></button>
+                            <button type="submit" asp-page-handler="read" asp-route-id="@Model.TodoItem?.ID" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Show Read Messages"><strong class="me-auto"><i class="fa fa-envelope-open-o"></i></strong></button>
+                        </div>
+                    </form>
 
                     <div class="py-2 toast-container">
                         @foreach (var message in @Model.Messages)
@@ -48,7 +53,10 @@
                                 <div class="toast-header">
                                     <strong class="me-auto"><i class="@icon"></i> @message?.Subject </strong>
                                     <small>@message?.DateCreated</small>
-                                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                                    @if (message.UnRead == true)
+                                    {
+                                        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                                    }
                                 </div>
                                 <div class="toast-body">
                                     @message?.Body
@@ -66,12 +74,19 @@
 </div>
 
 
-@section Scripts {
+@section Scripts
+{
+<script>
+    $(document).ready(function () {
 
-    <script>$(document).ready(function () {
-            $(".toast").toast({
-                autohide: false
-            });
-        });</script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+        $(".toast").toast({
+            autohide: false
+        });
+});
+</script>
 }
 

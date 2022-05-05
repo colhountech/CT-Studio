@@ -40,14 +40,27 @@ namespace TasksWebApp.Pages
 
             TodoItem = _mapper.Map<TodoItemViewModel>(itemData);
 
-            LoadDummyMessage(ID.Value);
-
+           
             return Page();
         }
 
-        private void LoadDummyMessage(Guid ID)
+        public IActionResult OnPostUnreadAsync(Guid? ID)
         {
-            var m = new MessageViewModel
+            LoadDummyMessage(ID.Value, "unread");
+            return OnGet(ID);
+
+        }
+        public IActionResult OnPostReadAsync(Guid? ID)
+        {
+            LoadDummyMessage(ID.Value, "read");
+            LoadDummyMessage(ID.Value, "read");
+            return OnGet(ID);
+        }
+
+        private void LoadDummyMessage(Guid ID, string filter = "unread" )
+        {
+
+            var unread = new MessageViewModel
             {
                 ID = Guid.NewGuid(),
                 TodoItemID = ID,
@@ -60,14 +73,29 @@ namespace TasksWebApp.Pages
             {
                 ID = Guid.NewGuid(),
                 TodoItemID = ID,
-                Subject = @"Isn't this cool?",
+                Subject = @"This is cool too!",
                 Body = "This is a super cool message.",
                 DateCreated = "11 minutes ago",
                 UnRead = false
             };
 
-            Messages.Add(m);
-            Messages.Add(read);
+
+            switch (filter)
+            {
+              
+                case "read":
+                    
+                    {
+                        Messages.Add(read);
+                        break;
+                    }
+                case "unread":
+                default:
+                    {
+                        Messages.Add(unread);
+                        break;
+                    }
+            }
         }
     }
 }
