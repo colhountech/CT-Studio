@@ -26,35 +26,57 @@ namespace TasksWebApp.Pages
 
         public IActionResult OnGet(Guid? ID)
         {
-            if (ID == null)
+            TodoItem = LoadItem(ID);
+
+            if (TodoItem is null)
             {
                 return NotFound();
+            }
+            LoadDummyMessage(ID.Value, "unread");
+            return Page();
+        }
+
+        public IActionResult OnPostUnreadAsync(Guid? ID)
+        {
+          
+            TodoItem = LoadItem(ID);
+
+            if (TodoItem is null)
+            {
+                return NotFound();
+            }
+            LoadDummyMessage(ID.Value, "unread");
+            return Page();
+        }
+
+        public IActionResult OnPostReadAsync(Guid? ID)
+        {
+            TodoItem = LoadItem(ID);
+
+            if (TodoItem is null)
+            {
+                return NotFound();
+            }
+            LoadDummyMessage(ID.Value, "read");
+            return Page();
+        }
+
+        private  TodoItemViewModel? LoadItem(Guid? ID)
+        {
+            if (ID == null)
+            {
+                return null;
             }
 
             var itemData = _service.GetItemByID(ID.Value);
 
             if (itemData == null)
             {
-                return NotFound();
+                return null;
             }
 
-            TodoItem = _mapper.Map<TodoItemViewModel>(itemData);
+            return _mapper.Map<TodoItemViewModel>(itemData);
 
-           
-            return Page();
-        }
-
-        public IActionResult OnPostUnreadAsync(Guid? ID)
-        {
-            LoadDummyMessage(ID.Value, "unread");
-            return OnGet(ID);
-
-        }
-        public IActionResult OnPostReadAsync(Guid? ID)
-        {
-            LoadDummyMessage(ID.Value, "read");
-            LoadDummyMessage(ID.Value, "read");
-            return OnGet(ID);
         }
 
         private void LoadDummyMessage(Guid ID, string filter = "unread" )
