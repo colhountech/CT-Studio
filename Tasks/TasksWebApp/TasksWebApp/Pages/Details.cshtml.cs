@@ -19,8 +19,10 @@ namespace TasksWebApp.Pages
             _mapper = mapper;
         }
 
-        [BindProperty]
         public TodoItemViewModel? TodoItem { get; set; }
+
+        [BindProperty]
+        public MessageViewModel? Message { get; set; }
 
         public List<MessageViewModel> Messages = new List<MessageViewModel>();
 
@@ -60,6 +62,27 @@ namespace TasksWebApp.Pages
             LoadDummyMessage(ID.Value, "read");
             return Page();
         }
+
+        public IActionResult OnPostMessageAsync(Guid? ID)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page(); // This does not hold ID so won't load details
+            }
+            TodoItem = LoadItem(ID);
+
+            if (TodoItem is null)
+            {
+                return NotFound();
+            }
+            // Check did Item bind correctly
+            // check did Message bid correctly
+            // Add Message to Item
+            // Save Item
+            // Redirect to Page("Details");
+            return RedirectToPage("Details", new { id = ID });
+        }
+        
 
         private  TodoItemViewModel? LoadItem(Guid? ID)
         {

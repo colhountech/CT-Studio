@@ -38,9 +38,50 @@
                 <div class="card-body">
                     <form asp-action="Details">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Add New Message"><strong class="me-auto"><i class="fa fa-plus"></i></strong></button>
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-primary"
+                                    data-toggle="tooltip" data-placement="top" title="Add New Message"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                <strong class="me-auto"><i class="fa fa-plus"></i></strong>
+                            </button>
                             <button type="submit" asp-page-handler="unread" asp-route-id="@Model.TodoItem?.ID" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Show Unread Messages"><strong class="me-auto"><i class="fa fa-envelope"></i></strong></button>
                             <button type="submit" asp-page-handler="read" asp-route-id="@Model.TodoItem?.ID" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Show Read Messages"><strong class="me-auto"><i class="fa fa-envelope-open-o"></i></strong></button>
+                        </div>
+
+
+                        <div class="py-2 collapse" id="collapseExample">
+                            <div id="add-message">
+                                <div class="py-2">
+                                    <!-- This is not showing that DateCreated is invalid -->
+                                    <div asp-validation-summary="ModelOnly" class="text-danger alert alert-danger "></div>
+                                </div>
+
+                                <!-- Hack for now -->
+                                <input type="hidden" asp-for="Message.DateCreated" value="Now" />
+
+
+                                <div class="card shadow">
+                                    <div class="card-body ">
+
+                                        <div class="form-group py-2">
+                                            <input asp-for="Message.Subject" placeholder="Subject" class="form-control" />
+                                            <span asp-validation-for="Message.Subject" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group py-2">
+                                            <input asp-for="Message.Body" placeholder="Body" class="form-control" />
+                                            <span asp-validation-for="Message.Body" class="text-danger"></span>
+                                        </div>
+
+                                    </div>
+                                    <div class="card-footer py-2 bg-light d-flex justify-content-end">
+                                        <input type="submit" value="Save"
+                                               asp-page-handler="message" asp-route-id="@Model.TodoItem?.ID"
+                                               class=" card-link btn btn-sm btn-success" />
+                                    </div>
+                                </div>
+
+
+                            </div>
                         </div>
                     </form>
 
@@ -68,25 +109,40 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
-
 @section Scripts
 {
-<script>
-    $(document).ready(function () {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
+    <script>$(document).ready(function () {
 
-        $(".toast").toast({
-            autohide: false
-        });
-});
-</script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+                /* toggle_add_message_input();*/
+            });
+
+            $(".toast").toast({
+                autohide: false
+            });
+            /*
+            function toggle_add_message_input() {
+                console.log("Called toggle_add_message_input");
+                var div = document.getElementById('add-message');
+
+                if (div === null) return;
+
+                if (div.style.display == 'none') {
+                    div.style.display = 'block';
+                    console.log("Show Block");
+                }
+                else {
+                    div.style.display = 'none';
+                    console.log("Hide Block");
+                }
+            };*/
+        });</script>
 }
 
