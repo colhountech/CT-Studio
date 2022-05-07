@@ -56,7 +56,7 @@ namespace TasksWebApp.Pages
             return Page();
         }
 
-        public IActionResult OnPostMessageAsync(Guid? ID)
+        public async Task<IActionResult> OnPostMessageAsync(Guid? ID)
         {
             if (!ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace TasksWebApp.Pages
             }
 
             var messageData = _mapper.Map<MessageData>(Message);
-            var ok = _service.AddItemMessage(ID.Value, messageData);
+            var ok = await _service.AddItemMessage(ID.Value, messageData);
 
             if (!ok) return NotFound();
 

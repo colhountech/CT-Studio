@@ -3,12 +3,12 @@ namespace TasksWebApp.Services
 {
     public interface IToDoItemService
     {
-        Guid AddItem(TodoItemData item);
-        bool DeleteItem(TodoItemData item);
+        Task<Guid> AddItem(TodoItemData item);
+        Task DeleteItem(TodoItemData item);
         TodoItemData? GetItemByID(Guid ID);
         IEnumerable<TodoItemData> GetItems(bool archived);
-        bool UpdateItem(Guid oldID, TodoItemData item);
-        public bool AddItemMessage(Guid itemID, MessageData message);
+        Task<bool> UpdateItem(Guid oldID, TodoItemData item);
+        Task<bool> AddItemMessage(Guid itemID, MessageData message);
 
     }
 }
