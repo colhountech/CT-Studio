@@ -128,7 +128,22 @@ namespace TasksWebApp.Services
             return false;
 
         }
+        public async Task<bool> UpdateItemMessage(Guid itemID, MessageData oldMessage, MessageData newMessage)
+        {
+            var item = ItemsDatabase.Find(x => x.ID == itemID);
 
+            if (item != null)
+            {
+                oldMessage.TodoItemID = item.ID;
+                item.Messages.Remove(oldMessage);
+                item.Messages.Add(newMessage);
+                await SaveAsync();
+                return true;
+            }
+            // didn't find item, can't update
+            return false;
+
+        }
     }
 
 }

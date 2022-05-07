@@ -75,7 +75,29 @@ namespace TasksWebApp.Pages
 
             return RedirectToPage("Details", new { id = ID });
         }
-        
+
+        public async Task<IActionResult> OnPostCloseAsync(Guid? ID)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return Page(); // This does not hold ID so won't load details
+            }
+
+            if (ID == null)
+            {
+                return NotFound();
+            }
+
+            var oldMessage = _mapper.Map<MessageData>(Message);
+            var newMessage = oldMessage with { UnRead = false};
+            var ok = await _service.UpdateItemMessage(ID.Value, oldMessage, newMessage);
+            if (!ok) return NotFound();
+
+            return RedirectToPage("Details", new { id = ID });
+
+        }
+
 
         private  bool LoadItem(Guid? ID, bool unread = true)
         {
