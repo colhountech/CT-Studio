@@ -78,21 +78,27 @@ namespace TasksWebApp.Pages
 
         public async Task<IActionResult> OnPostCloseAsync(Guid? ID)
         {
-
-            if (!ModelState.IsValid)
-            {
-                return Page(); // This does not hold ID so won't load details
-            }
-
-            if (ID == null)
+            if (!LoadItem(ID))
             {
                 return NotFound();
             }
 
-            var oldMessage = _mapper.Map<MessageData>(Message);
-            var newMessage = oldMessage with { UnRead = false};
-            var ok = await _service.UpdateItemMessage(ID.Value, oldMessage, newMessage);
-            if (!ok) return NotFound();
+            var ok = await _service.SeItemMessageRead(ID.Value, Message.ID);
+
+            //var oldMessage = _service.GetItemByID(ID.Value)
+            //    .Messages
+            //    .Where(x => x.ID == Message.ID)
+            //    .FirstOrDefault();
+
+            //if ( oldMessage is null)
+            //{
+            //    return NotFound();
+            //}
+
+            //var newMessage = oldMessage with { UnRead = false};
+
+            //var ok = await _service.UpdateItemMessage(ID.Value, oldMessage, newMessage);
+            //if (!ok) return NotFound();
 
             return RedirectToPage("Details", new { id = ID });
 
@@ -117,7 +123,7 @@ namespace TasksWebApp.Pages
             // Mapper does not map Messages because there is no Messages collection in the todoItem ViewModel
             Messages = _mapper.Map<IEnumerable<MessageViewModel>>(
                 itemData.Messages
-                .Where(x => x.UnRead = unread)
+                .Where(x => x.UnRead == unread)
             );
 
             return true;

@@ -83,33 +83,36 @@
 
                             </div>
                         </div>
-
-
-                        <div class="py-2 toast-container">
-                            @foreach (var message in @Model.Messages)
-                            {
-                                var icon = message.UnRead == true ? "fa fa-envelope" : "fa fa-envelope-open-o";
-                                <!-- Message -->
-                                <div class="toast fade show" id="message-@message?.ID">
-                                    <div class="toast-header">
-                                        <strong class="me-auto"><i class="@icon"></i> @message?.Subject </strong>
-                                        <small>@message?.DateCreated</small>
-                                        @if (message.UnRead == true)
-                                        {
-                                            <button type="button"
-                                                    @*type="submit" asp-page-handler="close" asp-route-id="@Model.TodoItem?.ID"*@
-                                                    class="btn-close" data-bs-dismiss="toast"></button>
-                                        }
-                                    </div>
-                                    <div class="toast-body">
-                                        @message?.Body
-                                    </div>
-                                </div>
-                                <!-- End Message -->
-                            }
-
-                        </div>
                     </form>
+
+                    <div class="py-2 toast-container">
+                        @foreach (var message in @Model.Messages)
+                        {
+                            var icon = message.UnRead == true ? "fa fa-envelope" : "fa fa-envelope-open-o";
+                            <!-- Message -->
+                            <div class="toast fade show" id="message-@message?.ID">
+                                <div class="toast-header">
+                                    <strong class="me-auto"><i class="@icon"></i> @message?.Subject </strong>
+                                    <small>@message?.DateCreated</small>
+                                    @if (message.UnRead == true)
+                                    {
+                                <form asp-page="Details">
+
+                                    <input type="hidden" asp-for="Message.ID" value="@message.ID" />
+                                    <button type="submit" asp-page-handler="close" asp-route-id="@message.TodoItemID"
+                                            class="btn-close" data-bs-dismiss="toast"></button>
+                                </form>
+
+                                    }
+                                </div>
+                                <div class="toast-body">
+                                    @message?.Body
+                                </div>
+                            </div>
+                            <!-- End Message -->
+                        }
+
+                    </div>
                 </div>
             </div>
         </div>

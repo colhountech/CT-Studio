@@ -134,7 +134,7 @@ namespace TasksWebApp.Services
 
             if (item != null)
             {
-                oldMessage.TodoItemID = item.ID;
+                //oldMessage.TodoItemID = item.ID;
                 item.Messages.Remove(oldMessage);
                 item.Messages.Add(newMessage);
                 await SaveAsync();
@@ -143,6 +143,26 @@ namespace TasksWebApp.Services
             // didn't find item, can't update
             return false;
 
+        }
+
+        public async Task<bool> SeItemMessageRead(Guid itemID, Guid MessageID)
+        {
+            var item = ItemsDatabase.Find(x => x.ID == itemID);
+
+            if (item is null) return false;
+
+            var oldMessage = item.Messages.Where(x => x.ID == MessageID).FirstOrDefault();
+
+            if (oldMessage is not null)
+            { 
+                var newMessage = oldMessage with { UnRead = false };
+                item.Messages.Remove(oldMessage);
+                item.Messages.Add(newMessage);
+                await SaveAsync();
+                return true;
+            }
+            // didn't find message, can't update
+            return false;
         }
     }
 
