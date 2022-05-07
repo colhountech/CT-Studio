@@ -76,6 +76,12 @@ namespace TasksWebApp.Pages
             return RedirectToPage("Details", new { id = ID });
         }
 
+
+        /// <summary>
+        /// Handles the Post when the Close x is clicked on a Message to mark it Read
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostCloseAsync(Guid? ID)
         {
             if (!LoadItem(ID))
@@ -85,20 +91,7 @@ namespace TasksWebApp.Pages
 
             var ok = await _service.SeItemMessageRead(ID.Value, Message.ID);
 
-            //var oldMessage = _service.GetItemByID(ID.Value)
-            //    .Messages
-            //    .Where(x => x.ID == Message.ID)
-            //    .FirstOrDefault();
-
-            //if ( oldMessage is null)
-            //{
-            //    return NotFound();
-            //}
-
-            //var newMessage = oldMessage with { UnRead = false};
-
-            //var ok = await _service.UpdateItemMessage(ID.Value, oldMessage, newMessage);
-            //if (!ok) return NotFound();
+            if (!ok) return NotFound();
 
             return RedirectToPage("Details", new { id = ID });
 
