@@ -8,5 +8,7 @@ namespace TasksWebApp.Services
         TodoItemData? GetItemByID(Guid ID);
         IEnumerable<TodoItemData> GetItems(bool archived);
         bool UpdateItem(Guid oldID, TodoItemData item);
+        public bool AddItemMessage(Guid itemID, MessageData message);
+
     }
 }

@@ -24,42 +24,35 @@ namespace TasksWebApp.Pages
         [BindProperty]
         public MessageViewModel? Message { get; set; }
 
-        public List<MessageViewModel> Messages = new List<MessageViewModel>();
+        public IEnumerable<MessageViewModel> Messages = new List<MessageViewModel>();
 
         public IActionResult OnGet(Guid? ID)
         {
-            TodoItem = LoadItem(ID);
 
-            if (TodoItem is null)
+            if (!LoadItem(ID))
             {
                 return NotFound();
             }
-            LoadDummyMessage(ID.Value, "unread");
             return Page();
         }
 
         public IActionResult OnPostUnreadAsync(Guid? ID)
         {
           
-            TodoItem = LoadItem(ID);
-
-            if (TodoItem is null)
+            if (!LoadItem(ID))
             {
                 return NotFound();
             }
-            LoadDummyMessage(ID.Value, "unread");
             return Page();
         }
 
         public IActionResult OnPostReadAsync(Guid? ID)
         {
-            TodoItem = LoadItem(ID);
 
-            if (TodoItem is null)
+            if (!LoadItem(ID, unread: false))
             {
                 return NotFound();
             }
-            LoadDummyMessage(ID.Value, "read");
             return Page();
         }
 
@@ -69,78 +62,46 @@ namespace TasksWebApp.Pages
             {
                 return Page(); // This does not hold ID so won't load details
             }
-            TodoItem = LoadItem(ID);
 
-            if (TodoItem is null)
+            if (ID == null)
             {
                 return NotFound();
             }
-            // Check did Item bind correctly
-            // check did Message bid correctly
-            // Add Message to Item
-            // Save Item
-            // Redirect to Page("Details");
+
+            var messageData = _mapper.Map<MessageData>(Message);
+            var ok = _service.AddItemMessage(ID.Value, messageData);
+
+            if (!ok) return NotFound();
+
             return RedirectToPage("Details", new { id = ID });
         }
         
 
-        private  TodoItemViewModel? LoadItem(Guid? ID)
+        private  bool LoadItem(Guid? ID, bool unread = true)
         {
             if (ID == null)
             {
-                return null;
+                return false;
             }
 
             var itemData = _service.GetItemByID(ID.Value);
 
             if (itemData == null)
             {
-                return null;
+                return false;
             }
+            TodoItem = _mapper.Map<TodoItemViewModel>(itemData);
 
-            return _mapper.Map<TodoItemViewModel>(itemData);
+            // Mapper does not map Messages because there is no Messages collection in the todoItem ViewModel
+            Messages = _mapper.Map<IEnumerable<MessageViewModel>>(
+                itemData.Messages
+                .Where(x => x.UnRead = unread)
+            );
+
+            return true;
 
         }
 
-        private void LoadDummyMessage(Guid ID, string filter = "unread" )
-        {
-
-            var unread = new MessageViewModel
-            {
-                ID = Guid.NewGuid(),
-                TodoItemID = ID,
-                Subject = @"Isn't this cool?",
-                Body = "This is a super cool message.",
-                DateCreated = "11 minutes ago",
-                UnRead = true
-            };
-            var read = new MessageViewModel
-            {
-                ID = Guid.NewGuid(),
-                TodoItemID = ID,
-                Subject = @"This is cool too!",
-                Body = "This is a super cool message.",
-                DateCreated = "11 minutes ago",
-                UnRead = false
-            };
-
-
-            switch (filter)
-            {
-              
-                case "read":
-                    
-                    {
-                        Messages.Add(read);
-                        break;
-                    }
-                case "unread":
-                default:
-                    {
-                        Messages.Add(unread);
-                        break;
-                    }
-            }
-        }
+       
     }
 }

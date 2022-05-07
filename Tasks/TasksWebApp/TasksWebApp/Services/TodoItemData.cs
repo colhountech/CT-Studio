@@ -7,11 +7,12 @@
         public string Title { get; init; } = default!;
         public string Description { get; init; } = default!;
         public bool Archived { get; set; } = default!;
-        //public virtual ICollection<MessageData> Messages { get; set; }
 
-        //public TodoItemData()
-        //{
-        //    Messages = new List<MessageData>();
-        //}
+        public virtual ICollection<MessageData> Messages { get; set; }
+
+        public TodoItemData()
+        {
+            Messages = new List<MessageData>();
+        }
     }
 }

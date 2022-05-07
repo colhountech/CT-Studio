@@ -47,6 +47,7 @@
             {
                 // only if we found item
                 ItemsDatabase.Remove(oldItem);
+                item.Messages = oldItem.Messages;
                 ItemsDatabase.Add(item);
                 return true;
             }
@@ -63,6 +64,21 @@
             //return ItemsDatabase.Remove(item);
 
         }
+        public bool AddItemMessage(Guid itemID, MessageData message)
+        {
+            var item = ItemsDatabase.Find(x => x.ID == itemID);
+
+            if (item != null)
+            {
+                message.TodoItemID = item.ID;
+                item.Messages.Add(message);
+                return true;
+            }
+            // didn't find item, can't update
+            return false;
+
+        }
+
     }
 
 }
