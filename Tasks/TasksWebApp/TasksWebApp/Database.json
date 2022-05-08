@@ -1,20 +1,8 @@
 [
   {
-    "ID": "adf81f5f-5be4-4e7d-b721-4d90441da542",
-    "Title": "Task Item 2",
-    "Description": "This is the second thing on my todo list",
-    "Messages": []
-  },
-  {
     "ID": "1a6d198c-9eec-4a1f-8c72-6d17e9ef023c",
     "Title": "Task Item 4",
     "Description": "This is the fourth thing on my todo list",
-    "Messages": []
-  },
-  {
-    "ID": "f84169e9-82ee-45db-b70b-d4f2871686c9",
-    "Title": "Task Item 3",
-    "Description": "This is the third thing on my todo list",
     "Messages": []
   },
   {
@@ -34,42 +22,112 @@
         "ID": "3a2fd4dc-4fd0-45a0-a181-855703b63a4d",
         "Subject": "Subject 1",
         "Body": "Body 1",
-        "DateCreated": "Now"
+        "DateCreated": "Now",
+        "UnRead": true
       },
       {
         "TodoItemID": "d7b77f1e-ff6f-4fe0-8ff1-ef5ed6804d3b",
         "ID": "0f62b2b9-fc0d-48ad-989d-72f784629a8f",
         "Subject": "First Message",
         "Body": "This is the first Message in a Box",
-        "DateCreated": "Now"
+        "DateCreated": "Now",
+        "UnRead": true
       },
       {
         "TodoItemID": "d7b77f1e-ff6f-4fe0-8ff1-ef5ed6804d3b",
         "ID": "f74c622f-ef5b-446a-9797-040071815c1e",
         "Subject": "2nd Message",
         "Body": "This is another message",
-        "DateCreated": "Now"
+        "DateCreated": "Now",
+        "UnRead": true
       },
       {
         "TodoItemID": "d7b77f1e-ff6f-4fe0-8ff1-ef5ed6804d3b",
         "ID": "dcc28c3a-4a59-42aa-98e5-784bfb0bd624",
         "Subject": "Subject",
         "Body": "Body 1",
-        "DateCreated": "Now"
+        "DateCreated": "Now",
+        "UnRead": true
       },
       {
         "TodoItemID": "d7b77f1e-ff6f-4fe0-8ff1-ef5ed6804d3b",
         "ID": "fb4815d2-eac4-43e8-a183-ec24a546e376",
         "Subject": "New Title",
         "Body": "This is cool",
-        "DateCreated": "Now"
+        "DateCreated": "Now",
+        "UnRead": true
       },
       {
         "TodoItemID": "d7b77f1e-ff6f-4fe0-8ff1-ef5ed6804d3b",
+        "ID": "3e1c5771-98cc-40cd-a114-d8d355a7e574",
         "Subject": "Subject",
         "Body": "Body",
         "DateCreated": "Now",
         "UnRead": true
+      }
+    ]
+  },
+  {
+    "ID": "add37cba-fcfb-4bff-bafa-ab7f609ad1ff",
+    "Title": "Add New Item",
+    "Description": "Add New Item",
+    "Messages": [
+      {
+        "ID": "6eb4f992-59a6-47bb-87d2-923786af2486",
+        "Subject": "Subject 1",
+        "Body": "Body 1",
+        "DateCreated": "Now",
+        "UnRead": true
+      },
+      {
+        "ID": "683db942-68bc-4628-8d95-db4b2923f75f",
+        "Subject": "This is Cool",
+        "Body": "This is a cool message",
+        "DateCreated": "Now",
+        "UnRead": true
+      },
+      {
+        "ID": "41b065ae-cf99-4987-9c35-b62f6435f709",
+        "Subject": "This is Cool",
+        "Body": "This is a cool message",
+        "DateCreated": "Now",
+        "UnRead": true
+      }
+    ]
+  },
+  {
+    "ID": "f84169e9-82ee-45db-b70b-d4f2871686c9",
+    "Title": "Task Item 3",
+    "Description": "This is the third thing on my todo list",
+    "Messages": [
+      {
+        "TodoItemID": "f84169e9-82ee-45db-b70b-d4f2871686c9",
+        "ID": "faa4d7f2-eb1d-48ab-b97d-54b8f9c9c930",
+        "Subject": "Subject",
+        "Body": "Body:",
+        "DateCreated": "Now",
+        "UnRead": true
+      }
+    ]
+  },
+  {
+    "ID": "adf81f5f-5be4-4e7d-b721-4d90441da542",
+    "Title": "Task Item 2 ",
+    "Description": "This is the second thing on my todo list",
+    "Messages": [
+      {
+        "TodoItemID": "adf81f5f-5be4-4e7d-b721-4d90441da542",
+        "ID": "745c78e7-c953-46b3-839d-5ca292e3fec9",
+        "Subject": "Subject 1",
+        "Body": "Body 1",
+        "DateCreated": "Now"
+      },
+      {
+        "TodoItemID": "adf81f5f-5be4-4e7d-b721-4d90441da542",
+        "ID": "89249f9c-dc2b-4639-bb1a-96a75d974c7e",
+        "Subject": "Subject",
+        "Body": "Body",
+        "DateCreated": "Now"
       }
     ]
   }

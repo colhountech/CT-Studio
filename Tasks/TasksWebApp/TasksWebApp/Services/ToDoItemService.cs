@@ -106,7 +106,10 @@ namespace TasksWebApp.Services
         {
             // find old item
             var oldItem = ItemsDatabase.Find(x => x.ID == item.ID);
-            var newItem = new TodoItemData { Archived = true, ID = item.ID, Title = item.Title, Description = item.Description};
+            // this will lose future any Mesages or other properties added in the future
+            // var newItem = new TodoItemData { Archived = true, ID = item.ID, Title = item.Title, Description = item.Description};
+            // instead use  with {} 
+            var newItem = oldItem with { Archived = true };
             var updateItem =  UpdateItem(oldItem.ID, newItem);
             await SaveAsync();
             //return updateItem;

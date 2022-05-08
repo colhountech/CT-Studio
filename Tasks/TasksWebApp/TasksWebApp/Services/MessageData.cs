@@ -8,7 +8,7 @@
         public string Subject { get; set; } = default!;
         public string Body { get; set; } = default!;
         public string DateCreated { get; set; } = default!;
-        public bool UnRead { get; set; } = true;
+        public bool UnRead { get; set; } = default!;
 
     }
 }
