@@ -53,7 +53,7 @@ namespace TasksWebApp.Pages
         if (TodoItem != null)
         {
             var itemData = _mapper.Map<TodoItemData>(TodoItem);
-            _service.UpdateItem(TodoItem.ID, itemData);
+            await _service.UpdateItem(TodoItem.ID, itemData);
             return RedirectToPage("Details", new { id = itemData?.ID });
         }
         return RedirectToPage("Index");
