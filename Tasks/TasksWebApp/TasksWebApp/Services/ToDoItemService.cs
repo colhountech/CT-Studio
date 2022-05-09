@@ -14,7 +14,7 @@ namespace TasksWebApp.Services
         public ToDoItemService()
         {
 
-            FileInfo fi = new FileInfo(_path); // Really don't want this check every time ctor run
+            FileInfo fi = new FileInfo(_path); // TODO: Really don't want this check every time ctor run
             if (!fi.Exists)
             {
                 SetupDummyData();
@@ -106,7 +106,6 @@ namespace TasksWebApp.Services
             {
                 // only if we found item
                 ItemsDatabase.Remove(oldItem);
-                item.Messages = oldItem.Messages;
                 ItemsDatabase.Add(item);
                 await SaveAsync();
                 return true;
