@@ -19,7 +19,10 @@ namespace TasksWebApp.Services
             {
                 SetupDummyData();
             }
-            LoadAsync();
+            else
+            {
+                LoadAsync();
+            }
         }
 
         private void SetupDummyData()
