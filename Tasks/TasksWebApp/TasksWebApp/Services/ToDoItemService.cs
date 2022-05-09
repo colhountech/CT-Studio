@@ -14,7 +14,7 @@ namespace TasksWebApp.Services
         public ToDoItemService()
         {
 
-            FileInfo fi = new FileInfo(_path);
+            FileInfo fi = new FileInfo(_path); // Really don't want this check every time ctor run
             if (!fi.Exists)
             {
                 SetupDummyData();
