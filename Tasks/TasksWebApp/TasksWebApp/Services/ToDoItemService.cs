@@ -132,10 +132,8 @@ namespace TasksWebApp.Services
 
             if (item != null)
             {
-                // add child to parent
-                item.Messages.Add(message);
-                // add parent ID to child
                 message.TodoItemID = item.ID;
+                item.Messages.Add(message);
                 await SaveAsync();
                 return true;
             }
