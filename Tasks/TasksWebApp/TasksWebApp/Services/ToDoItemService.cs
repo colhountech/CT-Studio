@@ -13,13 +13,23 @@ namespace TasksWebApp.Services
 
         public ToDoItemService()
         {
-         /*   AddItem(new TodoItemData { Title = "Tast Item 1", Description = "This is the first thing on my todo list" });
+
+            FileInfo fi = new FileInfo(_path);
+            if (!fi.Exists)
+            {
+                SetupDummyData();
+            }
+            LoadAsync();
+        }
+
+        private void SetupDummyData()
+        {
+            // This is a new database. Setup some dummy data 
+            AddItem(new TodoItemData { Title = "Tast Item 1", Description = "This is the first thing on my todo list" });
             AddItem(new TodoItemData { Title = "Tast Item 2", Description = "This is the second thing on my todo list" });
             AddItem(new TodoItemData { Title = "Tast Item 3", Description = "This is the third thing on my todo list" });
             AddItem(new TodoItemData { Title = "Tast Item 4", Description = "This is the fourth thing on my todo list" });
             SaveAsync();
-         */
-            LoadAsync();
         }
 
         private static readonly string _path = "Database.json";
@@ -161,6 +171,7 @@ namespace TasksWebApp.Services
                 var newMessage = oldMessage with { UnRead = false };
                 item.Messages.Remove(oldMessage);
                 item.Messages.Add(newMessage);
+                //UpdateItem(itemID, item);
                 await SaveAsync();
                 return true;
             }
