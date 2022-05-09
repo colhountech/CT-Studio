@@ -23,12 +23,12 @@
 
             <div class="col-lg-6 py-2">
                 <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
-                    <div class="card active-box flex-row flex-wrap" id="contacts-nav-box" style="min-width:22rem">
+                    <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
                         <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
                         <div class="card-block flex-fill mx-auto p-2">
                             <h3 class="card-title">@item.Title </h3>
-                            <p class="card-text">
+                            <p class="card-text" style="min-width:22rem">
                                 @item.Description<br />
                             </p>
 
