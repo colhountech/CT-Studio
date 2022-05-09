@@ -68,7 +68,11 @@ namespace TasksWebApp.Pages
                 return NotFound();
             }
 
-            var messageData = _mapper.Map<MessageData>(Message) with {  UnRead = true };
+            var messageData = _mapper.Map<MessageData>(Message) with
+            {
+                UnRead = true,
+                ID = Guid.NewGuid()
+            };
             var ok = await _service.AddItemMessage(ID.Value, messageData);
 
             if (!ok) return NotFound();

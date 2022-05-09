@@ -6,13 +6,6 @@
     "Messages": []
   },
   {
-    "ID": "7e211923-6375-4ca4-8d9e-9c07aa605100",
-    "Title": "A New Task",
-    "Description": "This is a new one",
-    "Archived": true,
-    "Messages": []
-  },
-  {
     "ID": "d7b77f1e-ff6f-4fe0-8ff1-ef5ed6804d3b",
     "Title": "Task Item 1",
     "Description": "This is the first thing on my todo list",
@@ -22,30 +15,41 @@
         "ID": "3a2fd4dc-4fd0-45a0-a181-855703b63a4d",
         "Subject": "Subject 1",
         "Body": "Body 1",
-        "DateCreated": "Now",
-        "UnRead": true
+        "DateCreated": "Now"
       },
       {
         "TodoItemID": "d7b77f1e-ff6f-4fe0-8ff1-ef5ed6804d3b",
         "ID": "0f62b2b9-fc0d-48ad-989d-72f784629a8f",
         "Subject": "First Message",
         "Body": "This is the first Message in a Box",
-        "DateCreated": "Now",
-        "UnRead": true
+        "DateCreated": "Now"
       },
       {
         "TodoItemID": "d7b77f1e-ff6f-4fe0-8ff1-ef5ed6804d3b",
         "ID": "f74c622f-ef5b-446a-9797-040071815c1e",
         "Subject": "2nd Message",
         "Body": "This is another message",
-        "DateCreated": "Now",
-        "UnRead": true
+        "DateCreated": "Now"
       },
       {
         "TodoItemID": "d7b77f1e-ff6f-4fe0-8ff1-ef5ed6804d3b",
         "ID": "dcc28c3a-4a59-42aa-98e5-784bfb0bd624",
         "Subject": "Subject",
         "Body": "Body 1",
+        "DateCreated": "Now"
+      },
+      {
+        "TodoItemID": "d7b77f1e-ff6f-4fe0-8ff1-ef5ed6804d3b",
+        "ID": "3e1c5771-98cc-40cd-a114-d8d355a7e574",
+        "Subject": "Subject",
+        "Body": "Body",
+        "DateCreated": "Now"
+      },
+      {
+        "TodoItemID": "d7b77f1e-ff6f-4fe0-8ff1-ef5ed6804d3b",
+        "ID": "4ec6f277-553e-419d-ad4d-0c61c28a6318",
+        "Subject": "This is Cool",
+        "Body": "This is a cool message",
         "DateCreated": "Now",
         "UnRead": true
       },
@@ -54,44 +58,7 @@
         "ID": "fb4815d2-eac4-43e8-a183-ec24a546e376",
         "Subject": "New Title",
         "Body": "This is cool",
-        "DateCreated": "Now",
-        "UnRead": true
-      },
-      {
-        "TodoItemID": "d7b77f1e-ff6f-4fe0-8ff1-ef5ed6804d3b",
-        "ID": "3e1c5771-98cc-40cd-a114-d8d355a7e574",
-        "Subject": "Subject",
-        "Body": "Body",
-        "DateCreated": "Now",
-        "UnRead": true
-      }
-    ]
-  },
-  {
-    "ID": "add37cba-fcfb-4bff-bafa-ab7f609ad1ff",
-    "Title": "Add New Item",
-    "Description": "Add New Item",
-    "Messages": [
-      {
-        "ID": "6eb4f992-59a6-47bb-87d2-923786af2486",
-        "Subject": "Subject 1",
-        "Body": "Body 1",
-        "DateCreated": "Now",
-        "UnRead": true
-      },
-      {
-        "ID": "683db942-68bc-4628-8d95-db4b2923f75f",
-        "Subject": "This is Cool",
-        "Body": "This is a cool message",
-        "DateCreated": "Now",
-        "UnRead": true
-      },
-      {
-        "ID": "41b065ae-cf99-4987-9c35-b62f6435f709",
-        "Subject": "This is Cool",
-        "Body": "This is a cool message",
-        "DateCreated": "Now",
-        "UnRead": true
+        "DateCreated": "Now"
       }
     ]
   },
@@ -127,6 +94,48 @@
         "ID": "89249f9c-dc2b-4639-bb1a-96a75d974c7e",
         "Subject": "Subject",
         "Body": "Body",
+        "DateCreated": "Now"
+      }
+    ]
+  },
+  {
+    "ID": "7e211923-6375-4ca4-8d9e-9c07aa605100",
+    "Title": "A New Task",
+    "Description": "This is a new one",
+    "Messages": []
+  },
+  {
+    "ID": "2dce1b3d-d5c5-4efd-bd35-3e43d7ab93c9",
+    "Title": "Test Messages",
+    "Description": "Test Message are Read or UnRead after restart",
+    "Messages": [
+      {
+        "TodoItemID": "2dce1b3d-d5c5-4efd-bd35-3e43d7ab93c9",
+        "ID": "a58c40da-31c5-4222-b388-955d370265c0",
+        "Subject": "This is Cool",
+        "Body": "This is a cool message",
+        "DateCreated": "Now"
+      },
+      {
+        "TodoItemID": "2dce1b3d-d5c5-4efd-bd35-3e43d7ab93c9",
+        "ID": "e6363ee0-62b3-4526-86b0-35190426437b",
+        "Subject": "This is also Cool",
+        "Body": "This is a cool message",
+        "DateCreated": "Now",
+        "UnRead": true
+      },
+      {
+        "TodoItemID": "2dce1b3d-d5c5-4efd-bd35-3e43d7ab93c9",
+        "ID": "2d73ac0e-3f21-4b67-8684-3bd6aad6af1a",
+        "Subject": "This is Cool",
+        "Body": "This is a cool message",
+        "DateCreated": "Now"
+      },
+      {
+        "TodoItemID": "2dce1b3d-d5c5-4efd-bd35-3e43d7ab93c9",
+        "ID": "e3adfdba-a2a5-4f13-b25f-5f4e5b8e1ade",
+        "Subject": "This is Cool",
+        "Body": "This is a cool message",
         "DateCreated": "Now"
       }
     ]
