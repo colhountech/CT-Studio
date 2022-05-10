@@ -7,6 +7,7 @@
         public string Title { get; init; } = default!;
         public string Description { get; init; } = default!;
         public bool Archived { get; set; } = default!;
+        public int Order { get; set; } = default!;
 
         public virtual ICollection<MessageData> Messages { get; set; }
 

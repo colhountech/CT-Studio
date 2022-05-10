@@ -27,7 +27,7 @@ namespace TasksWebApp.Pages
             var items = _service.GetItems(archived: false);
 
             // Map TodoItemData --> TodoItemViewModel      
-            this.TodoItems = _mapper.Map<List<TodoItemViewModel>>(items);         
+            this.TodoItems = _mapper.Map<List<TodoItemViewModel>>(items.OrderBy(x => x.Order));         
         }
 
     }
