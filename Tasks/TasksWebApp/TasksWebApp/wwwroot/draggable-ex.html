@@ -9,6 +9,16 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="/TasksWebApp.styles.css" asp-append-version="true" />
+
+    <style>
+        #div1 {
+            width: 100%;
+            height: 180px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+        }
+    </style>
+
 </head>
 <body>
     <header>
@@ -43,10 +53,22 @@
                         <a class="btn btn-success" asp-page="Create">New </a>
                     </div>
                 </div>
+                <div class="row" >
+
+                    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        
+                            Drop Here<br />
+                         
+                       
+
+                    </div>
+
+                </div>
+
                 <div class="row">
                     <!-- Open  Container End  -->
                     <!-- Item -->
-                    <div class="col-lg-6 py-2">
+                    <div class="col-lg-6 py-2" id="item1" draggable="true" ondragstart="drag(event)">
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -69,7 +91,7 @@
 
                                 <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
                                 <div class="card-block flex-fill mx-auto p-2">
-                                    <h3 class="card-title">Item 1 </h3>
+                                    <h3 class="card-title">Item 2 </h3>
                                     <p class="card-text" style="min-width:22rem">
                                         This is the first item in the list<br />
                                     </p>
@@ -86,7 +108,7 @@
 
                                 <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
                                 <div class="card-block flex-fill mx-auto p-2">
-                                    <h3 class="card-title">Item 1 </h3>
+                                    <h3 class="card-title">Item 3 </h3>
                                     <p class="card-text" style="min-width:22rem">
                                         This is the first item in the list<br />
                                     </p>
@@ -103,7 +125,7 @@
 
                                 <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
                                 <div class="card-block flex-fill mx-auto p-2">
-                                    <h3 class="card-title">Item 1 </h3>
+                                    <h3 class="card-title">Item 4 </h3>
                                     <p class="card-text" style="min-width:22rem">
                                         This is the first item in the list<br />
                                     </p>
@@ -128,13 +150,39 @@
         </main>
     </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js" asp-append-version="true"></script>
 
-    <!-- Scripts -->
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <!-- Scripts -->
-</body>
-</html>
+    <!-- My Scripts -->
+   
+
+
+ <script>
+     function allowDrop(ev) {
+         // Prevent the Default drop action happening
+         ev.preventDefault();
+     }
+
+     function drag(ev) {
+         ev.dataTransfer.setData("Text", ev.target.id);
+         // Set Data to the target id
+         console.log(`Data set to ${ev.target.id}`);
+     }
+
+     function drop(ev) {
+         var data = ev.dataTransfer.getData("Text");
+         console.log(`Drop - Got data as ${data}`);
+         ev.target.appendChild(document.getElementById(data));
+         ev.preventDefault();
+     }
+
+</script >
+        <!-- End My Scripts-- >
+
+        <!-- Scripts -->
+        <script src="/lib/jquery-validation/dist/jquery.validate.min.js" > </script >
+        <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" > </script >
+        <!-- Scripts -->
+        </body >
+        </html >
