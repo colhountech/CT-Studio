@@ -51,24 +51,18 @@
                 <div class=row>
                     <div class="col-lg-6 py-2">
                         <a class="btn btn-success" asp-page="Create">New </a>
-                    </div>
-                </div>
-                <div class="row" >
-
-                    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
-                        
-                            Drop Here<br />
-                         
-                       
 
                     </div>
-
+                    <div class="col-lg-6 py-2 d-flex justify-content-end">
+                        <a class="btn btn-outline-primary" onclick="Edit()">Edit </a>
+                    </div>
                 </div>
+               
 
-                <div class="row">
+                <div class="row" ondrop="drop(event,this)" ondragover="allowDrop(event)">
                     <!-- Open  Container End  -->
                     <!-- Item -->
-                    <div class="col-lg-6 py-2" id="item1" draggable="true" ondragstart="drag(event)">
+                    <div class="col-lg-6 py-2" data-index="1" id="item1" draggable="true" ondragstart="drag(event)"  >
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -85,7 +79,7 @@
                     </div>
                     <!-- End Item -->
                     <!-- Item -->
-                    <div class="col-lg-6 py-2">
+                    <div class="col-lg-6 py-2" data-index="2" id="item2" draggable="true" ondragstart="drag(event)"  >
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -102,7 +96,7 @@
                     </div>
                     <!-- End Item -->
                     <!-- Item -->
-                    <div class="col-lg-6 py-2">
+                    <div class="col-lg-6 py-2" data-index="3"  id="item3" draggable="true" ondragstart="drag(event)"  >
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -119,7 +113,7 @@
                     </div>
                     <!-- End Item -->
                     <!-- Item -->
-                    <div class="col-lg-6 py-2">
+                    <div class="col-lg-6 py-2" data-index="4" id="item4" draggable="true" ondragstart="drag(event)"  >
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -148,7 +142,8 @@
             <!-- Close Container End  -->
             <!-- End Main-->
         </main>
-    </div>
+   </div>
+
 
     <script src="/lib/jquery/dist/jquery.min.js"></script>
     <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -159,6 +154,21 @@
 
 
  <script>
+     function Edit() {
+
+         //if (!editing)
+         // Set Border Dotted
+
+         // Set Dragable Handles Visible
+
+         // Set Pading top and bottom to allow drop space
+
+         // Enable Draggable Functions
+
+
+         
+     }
+
      function allowDrop(ev) {
          // Prevent the Default drop action happening
          // By default, things can't be dropped on other elements
@@ -174,14 +184,19 @@
          console.log(`Data set to ${ev.target.id}`);
      }
 
-     function drop(ev) {
+     function drop(ev, el) {
          //Find out the element we were dragging 
 
          var data = ev.dataTransfer.getData("Text");
          
          console.log(`Drop handler - Got data as ${data}`);
-         ev.target.appendChild(document.getElementById(data));
 
+         var indexFrom = document.getElementById(data).getAttribute('data-index');
+
+         console.log(`this is from index: ${indexFrom}`);
+
+         // always adds to the end of the container
+         el.appendChild(document.getElementById(data));
          // stop default behaviour. e.g. open link 
          ev.preventDefault();
      }
