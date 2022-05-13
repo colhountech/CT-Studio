@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TasksWebApp</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/TasksWebApp.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">TasksWebApp</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <!-- Main -->
+            <!-- Open Container Start  -->
+
+            <div class="container-fluid">
+                <div class=row>
+                    <div class="col-lg-6 py-2">
+                        <a class="btn btn-success" asp-page="Create">New </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Open  Container End  -->
+                    <!-- Item -->
+                    <div class="col-lg-6 py-2">
+                        <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
+                            <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
+
+                                <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                                <div class="card-block flex-fill mx-auto p-2">
+                                    <h3 class="card-title">Item 1 </h3>
+                                    <p class="card-text" style="min-width:22rem">
+                                        This is the first item in the list<br />
+                                    </p>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- End Item -->
+                    <!-- Item -->
+                    <div class="col-lg-6 py-2">
+                        <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
+                            <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
+
+                                <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                                <div class="card-block flex-fill mx-auto p-2">
+                                    <h3 class="card-title">Item 1 </h3>
+                                    <p class="card-text" style="min-width:22rem">
+                                        This is the first item in the list<br />
+                                    </p>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- End Item -->
+                    <!-- Item -->
+                    <div class="col-lg-6 py-2">
+                        <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
+                            <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
+
+                                <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                                <div class="card-block flex-fill mx-auto p-2">
+                                    <h3 class="card-title">Item 1 </h3>
+                                    <p class="card-text" style="min-width:22rem">
+                                        This is the first item in the list<br />
+                                    </p>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- End Item -->
+                    <!-- Item -->
+                    <div class="col-lg-6 py-2">
+                        <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
+                            <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
+
+                                <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                                <div class="card-block flex-fill mx-auto p-2">
+                                    <h3 class="card-title">Item 1 </h3>
+                                    <p class="card-text" style="min-width:22rem">
+                                        This is the first item in the list<br />
+                                    </p>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- End Item -->
+                    <!-- Close Container Start  -->
+
+                </div>
+                <div class=row>
+                    <div class="col-lg-6 py-2">
+                        <a class="btn btn-outline-success" asp-page="Archive">Archived</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Close Container End  -->
+            <!-- End Main-->
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <!-- Scripts -->
+</body>
+</html>
