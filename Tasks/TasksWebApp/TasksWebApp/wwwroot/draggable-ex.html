@@ -17,6 +17,13 @@
             padding: 10px;
             border: 1px solid #aaaaaa;
         }
+
+        .over {
+            border-block-style: dashed;
+            border-block-width: 1px;
+            border-color: red;
+            background-color: #DDDDDD;
+        }
     </style>
 
 </head>
@@ -57,12 +64,18 @@
                         <a class="btn btn-outline-primary" onclick="Edit()">Edit </a>
                     </div>
                 </div>
-               
+                <!-- Open  Container End  -->
 
-                <div class="row" ondrop="drop(event,this)" ondragover="allowDrop(event)">
-                    <!-- Open  Container End  -->
+
+                <div class="row"
+                     ondrop="drop(event,this)"
+                     ondragover="allowDrop(event)"
+                     ondragenter="dragEnter"
+                     ondragend="dragLeave" >
+
+
                     <!-- Item -->
-                    <div class="col-lg-6 py-2" data-index="1" id="item1" draggable="true" ondragstart="drag(event)"  >
+                    <div class="col-lg-6 py-2" data-index="1" id="item1" draggable="true" ondragstart="drag(event)">
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -78,8 +91,9 @@
                         </a>
                     </div>
                     <!-- End Item -->
+
                     <!-- Item -->
-                    <div class="col-lg-6 py-2" data-index="2" id="item2" draggable="true" ondragstart="drag(event)"  >
+                    <div class="col-lg-6 py-2" data-index="2" id="item2" draggable="true" ondragstart="drag(event)">
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -96,7 +110,7 @@
                     </div>
                     <!-- End Item -->
                     <!-- Item -->
-                    <div class="col-lg-6 py-2" data-index="3"  id="item3" draggable="true" ondragstart="drag(event)"  >
+                    <div class="col-lg-6 py-2" data-index="3" id="item3" draggable="true" ondragstart="drag(event)">
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -113,7 +127,7 @@
                     </div>
                     <!-- End Item -->
                     <!-- Item -->
-                    <div class="col-lg-6 py-2" data-index="4" id="item4" draggable="true" ondragstart="drag(event)"  >
+                    <div class="col-lg-6 py-2" data-index="4" id="item4" draggable="true" ondragstart="drag(event)">
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -129,9 +143,11 @@
                         </a>
                     </div>
                     <!-- End Item -->
-                    <!-- Close Container Start  -->
 
-                </div>
+                </div> <!-- row -->
+
+                <!-- Close Container Start  -->
+
                 <div class=row>
                     <div class="col-lg-6 py-2">
                         <a class="btn btn-outline-success" asp-page="Archive">Archived</a>
@@ -199,6 +215,16 @@
          el.appendChild(document.getElementById(data));
          // stop default behaviour. e.g. open link 
          ev.preventDefault();
+     }
+
+     function dragEnter() {
+         console.log('Event: ', 'dragEnter');
+         this.classList.add('over');
+     }
+
+     function dragLeave() {
+         console.log('Event: ', 'dragLeave');
+         this.classList.remove('over');
      }
 
 </script >
