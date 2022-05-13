@@ -161,19 +161,28 @@
  <script>
      function allowDrop(ev) {
          // Prevent the Default drop action happening
+         // By default, things can't be dropped on other elements
+         // we need to allow this by preventing the default behaviour
+
          ev.preventDefault();
      }
 
      function drag(ev) {
+        // Set Data to the target id, which is the element we are dragging
+
          ev.dataTransfer.setData("Text", ev.target.id);
-         // Set Data to the target id
          console.log(`Data set to ${ev.target.id}`);
      }
 
      function drop(ev) {
+         //Find out the element we were dragging 
+
          var data = ev.dataTransfer.getData("Text");
-         console.log(`Drop - Got data as ${data}`);
+         
+         console.log(`Drop handler - Got data as ${data}`);
          ev.target.appendChild(document.getElementById(data));
+
+         // stop default behaviour. e.g. open link 
          ev.preventDefault();
      }
 
