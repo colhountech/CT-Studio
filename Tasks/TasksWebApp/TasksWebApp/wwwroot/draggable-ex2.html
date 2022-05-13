@@ -1,0 +1,131 @@
+﻿<style>
+
+    .over {
+        border-block-style: dashed;
+        border-block-width: 1px;
+        border-color: red;
+        background-color: #DDDDDD;
+    }
+
+</style>
+
+<p>Drag and drop the items to move</p>
+
+<ul class="draggable-list" id="draggable-list">
+    <li data-index="0">
+        <div class="draggable"
+             draggable="true">
+            <p class="person-name">Five</p>
+        </div>
+    </li>
+
+    <li data-index="1">
+        <div class="draggable"
+             draggable="true">
+            <p class="person-name">Four</p>
+        </div>
+    </li>
+
+    <li data-index="2">
+        <div class="draggable"
+             draggable="true">
+            <p class="person-name">Three</p>
+        </div>
+    </li>
+
+    <li data-index="3">
+        <div class="draggable"
+             draggable="true">
+            <p class="person-name">One</p>
+        </div>
+    </li>
+
+    <li data-index="4">
+        <div class="draggable"
+             draggable="true">
+            <p class="person-name">Two</p>
+        </div>
+    </li>
+
+</ul>
+
+<script>
+
+    const draggableList = document.getElementById('draggable-list');
+
+    init();
+
+    function init() {
+
+        addEventListeners();
+    }
+
+    function dragStart() {
+
+        console.log('Event: ', 'dragStart');
+        dragStartIndex = +this.closest('li').getAttribute('data-index');
+        console.log(dragStartIndex);
+    }
+
+    function dragOver(e) {
+
+        console.log('Event: ', 'dragOver');
+        e.preventDefault();
+    }
+
+    function dragDrop() {
+
+        console.log('Event: ', 'dragDrop');
+        const dragEndIndex = +this.getAttribute('data-index');
+
+        swapItems(dragStartIndex, dragEndIndex);
+
+        this.classList.remove('over');
+    }
+
+// Swap list items that are drag and drop
+
+    function swapItems(from, to) {
+
+        listItems = document.querySelectorAll('.draggable-list li');
+
+        const itemOne = listItems[from].querySelector('.draggable');
+        const itemTwo = listItems[to].querySelector('.draggable');
+
+        listItems[from].appendChild(itemTwo);
+        listItems[to].appendChild(itemOne);
+    }
+
+    function dragEnter() {
+
+        console.log('Event: ', 'dragEnter');
+        this.classList.add('over');
+    }
+
+    function dragLeave() {
+
+        console.log('Event: ', 'dragLeave');
+        this.classList.remove('over');
+    }
+
+
+    function addEventListeners() {
+
+        const draggables = document.querySelectorAll('.draggable');
+
+        draggables.forEach((draggable) => {
+            draggable.addEventListener('dragstart', dragStart);
+        });
+
+        const dragListItems = document.querySelectorAll('.draggable-list li');
+
+        dragListItems.forEach((item) => {
+            item.addEventListener('dragover', dragOver);
+            item.addEventListener('drop', dragDrop);
+            item.addEventListener('dragenter', dragEnter);
+            item.addEventListener('dragleave', dragLeave);
+        });
+    }
+
+
+</script>
