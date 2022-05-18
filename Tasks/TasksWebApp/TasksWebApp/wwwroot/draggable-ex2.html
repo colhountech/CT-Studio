@@ -1,21 +1,43 @@
 ﻿<style>
 
-    .over {
-        border-block-style: dashed;
-        border-block-width: 1px;
-        border-color: red;
-        background-color: #DDDDDD;
+.over {
+    border-block-style: dashed;
+    border-block-width: 1px;
+    border-color: red;
+    background-color: aquamarine;
+}
+
+    .draggable-list {
+        border: 1px solid;
+        list-style-type: none;
+        padding: 0; /* Remove padding */
+        margin: 0; /* Remove margins */
+    }
+
+.draggable-list li.over .draggable {
+   /* background-color: yellow; */
+}
+
+    .person-name {
+        padding: 10px;
+        margin: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
 </style>
 
-<p>Drag and drop the items to move</p>
 
-<ul class="draggable-list" id="draggable-list">
+<ul class="draggable-list" id="draggable-list"> <!-- add draggable-list class and id to <ul> -->
+
     <li data-index="0">
+        <!-- for each <li> item, set data-index as a zero offset value -->
+        <!-- the draggable class needs to be inside the li class -->
         <div class="draggable"
              draggable="true">
-            <p class="person-name">Five</p>
+            <!-- add draggable class and the draggable=true attribute to each card -->
+            <p class="person-name" >Five</p>
         </div>
     </li>
 
@@ -50,6 +72,21 @@
 </ul>
 
 <script>
+    /* foreach element with draggable class:
+     * +-> add a 'dragstart' listener
+     *      'dragstart' saves the drag start index of the <li>
+     *      it find the closest <li> by searching up the dom to the outer elements until it finds a <li>
+     *      then gets the 'data-index' of that <li> element
+     *
+     * foreach <li> within the "draggable-list li" <ul>:
+     *  +-> add four event listeners: dragover, drop, dragenter, dragleave 
+     *      'dragover' had to prevent the default behaviour of dragging to open url or submit    
+     *      'drop' gets the data-index of the drop end index, and swaps elemtn with  start index
+     *       and then removes the 'over' class from the drop end point element
+     *      'dragenter' adds some ui sugar by adding the 'over' class to the entered element
+     *      'dragleave' add soe UI sugar by removing the 'over' class from the left element
+     *
+     */
 
     const draggableList = document.getElementById('draggable-list');
 
@@ -57,7 +94,7 @@
 
     function init() {
 
-        addEventListeners();
+        addEventListeners(); 
     }
 
     function dragStart() {
@@ -99,7 +136,7 @@
     function dragEnter() {
 
         console.log('Event: ', 'dragEnter');
-        this.classList.add('over');
+        this.classList.add("over");
     }
 
     function dragLeave() {

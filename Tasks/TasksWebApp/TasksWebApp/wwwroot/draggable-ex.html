@@ -19,11 +19,26 @@
         }
 
         .over {
-            border-block-style: dashed;
-            border-block-width: 1px;
-            border-color: red;
-            background-color: #DDDDDD;
+            border: 1px dashed;
+            border-color: mediumaquamarine;
         }
+
+        .draggable-list {
+            border: 2px dashed;
+            border-color: mediumaquamarine;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .draggable-list li.over .draggable {
+                border: 1px dashed;
+                border-color: aquamarine;
+            }
+
+
+
+
     </style>
 
 </head>
@@ -67,83 +82,95 @@
                 <!-- Open  Container End  -->
 
 
-                <div class="row"
-                     ondrop="drop(event,this)"
-                     ondragover="allowDrop(event)"
-                     ondragenter="dragEnter"
-                     ondragend="dragLeave" >
+                <div class="row">
+                    <ul class="draggable-list" id="draggable-list">
 
+                        <li data-index="0">
+                            <!-- Item -->
+                            <div class="col-lg-12 py-2 draggable"  id="item0" draggable="true" ondragstart="drag(event)">
+                                <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
+                                    <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
-                    <!-- Item -->
-                    <div class="col-lg-6 py-2" data-index="1" id="item1" draggable="true" ondragstart="drag(event)">
-                        <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
-                            <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
+                                        <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                                        <div class="card-block flex-fill mx-auto p-2">
+                                            <h3 class="card-title">Item 0 </h3>
+                                            <p class="card-text" style="min-width:22rem">
+                                                This is the first item in the list<br />
+                                            </p>
 
-                                <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
-                                <div class="card-block flex-fill mx-auto p-2">
-                                    <h3 class="card-title">Item 1 </h3>
-                                    <p class="card-text" style="min-width:22rem">
-                                        This is the first item in the list<br />
-                                    </p>
+                                        </div>
+                                        <div class="mx-auto p-3"><i class="fa fa-arrows fa-2x home-icon"></i></div>
 
-                                </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                    <!-- End Item -->
 
-                    <!-- Item -->
-                    <div class="col-lg-6 py-2" data-index="2" id="item2" draggable="true" ondragstart="drag(event)">
-                        <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
-                            <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
+                            <!-- End Item -->
+                        </li>
+                        <!-- Item -->
+                        <li data-index="1">
+                            <div class="col-lg-12 py-2 draggable"  id="item1" draggable="true" ondragstart="drag(event)">
+                                <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
+                                    <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
-                                <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
-                                <div class="card-block flex-fill mx-auto p-2">
-                                    <h3 class="card-title">Item 2 </h3>
-                                    <p class="card-text" style="min-width:22rem">
-                                        This is the first item in the list<br />
-                                    </p>
+                                        <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                                        <div class="card-block flex-fill mx-auto p-2">
+                                            <h3 class="card-title">Item 1 </h3>
+                                            <p class="card-text" style="min-width:22rem">
+                                                This is the second item in the list<br />
+                                            </p>
 
-                                </div>
+                                        </div>
+                                        <div class="mx-auto p-3"><i class="fa fa-arrows fa-2x home-icon"></i></div>
+
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                    <!-- End Item -->
-                    <!-- Item -->
-                    <div class="col-lg-6 py-2" data-index="3" id="item3" draggable="true" ondragstart="drag(event)">
-                        <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
-                            <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
+                            <!-- End Item -->
+                        </li>
+                        <li data-index="2">
+                            <!-- Item -->
+                            <div class="col-lg-12 py-2 draggable" id="item2" draggable="true" ondragstart="drag(event)">
+                                <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
+                                    <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
-                                <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
-                                <div class="card-block flex-fill mx-auto p-2">
-                                    <h3 class="card-title">Item 3 </h3>
-                                    <p class="card-text" style="min-width:22rem">
-                                        This is the first item in the list<br />
-                                    </p>
+                                        <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                                        <div class="card-block flex-fill mx-auto p-2">
+                                            <h3 class="card-title">Item 2 </h3>
+                                            <p class="card-text" style="min-width:22rem">
+                                                This is the third item in the list<br />
+                                            </p>
 
-                                </div>
+                                        </div>
+                                        <div class="mx-auto p-3"><i class="fa fa-arrows fa-2x home-icon"></i></div>
+
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                    <!-- End Item -->
-                    <!-- Item -->
-                    <div class="col-lg-6 py-2" data-index="4" id="item4" draggable="true" ondragstart="drag(event)">
-                        <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
-                            <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
+                            <!-- End Item -->
+                        </li>
+                        <li data-index="3">
+                            <!-- Item -->
+                            <div class="col-lg-12 py-2 draggable" id="item3" draggable="true" ondragstart="drag(event)">
+                                <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
+                                    <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
-                                <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
-                                <div class="card-block flex-fill mx-auto p-2">
-                                    <h3 class="card-title">Item 4 </h3>
-                                    <p class="card-text" style="min-width:22rem">
-                                        This is the first item in the list<br />
-                                    </p>
+                                        <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                                        <div class="card-block flex-fill mx-auto p-2">
+                                            <h3 class="card-title">Item 3 </h3>
+                                            <p class="card-text" style="min-width:22rem">
+                                                This is the fourth item in the list<br />
+                                            </p>
 
-                                </div>
+                                        </div>
+                                        <div class="mx-auto p-3"><i class="fa fa-arrows fa-2x home-icon"></i></div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                    <!-- End Item -->
+                            <!-- End Item -->
+                        </li>
 
+                    </ul>
                 </div> <!-- row -->
 
                 <!-- Close Container Start  -->
@@ -169,65 +196,98 @@
    
 
 
- <script>
-     function Edit() {
+    <script>
+        /* foreach element with draggable class:
+         * +-> add a 'dragstart' listener
+         *      'dragstart' saves the drag start index of the <li>
+         *      it find the closest <li> by searching up the dom to the outer elements until it finds a <li>
+         *      then gets the 'data-index' of that <li> element
+         *
+         * foreach <li> within the "draggable-list li" <ul>:
+         *  +-> add four event listeners: dragover, drop, dragenter, dragleave
+         *      'dragover' had to prevent the default behaviour of dragging to open url or submit
+         *      'drop' gets the data-index of the drop end index, and swaps elemtn with  start index
+         *       and then removes the 'over' class from the drop end point element
+         *      'dragenter' adds some ui sugar by adding the 'over' class to the entered element
+         *      'dragleave' add soe UI sugar by removing the 'over' class from the left element
+         *
+         */
 
-         //if (!editing)
-         // Set Border Dotted
+        const draggableList = document.getElementById('draggable-list');
 
-         // Set Dragable Handles Visible
+        init();
 
-         // Set Pading top and bottom to allow drop space
+        function init() {
 
-         // Enable Draggable Functions
+            addEventListeners();
+        }
+
+        function dragStart() {
+
+            console.log('Event: ', 'dragStart');
+            dragStartIndex = +this.closest('li').getAttribute('data-index');
+            console.log(dragStartIndex);
+        }
+
+        function dragOver(e) {
+
+            console.log('Event: ', 'dragOver');
+            e.preventDefault();
+        }
+
+        function dragDrop() {
+
+            console.log('Event: ', 'dragDrop');
+            const dragEndIndex = +this.getAttribute('data-index');
+
+            swapItems(dragStartIndex, dragEndIndex);
+
+            this.classList.remove('over');
+        }
+
+        // Swap list items that are drag and drop
+
+        function swapItems(from, to) {
+
+            listItems = document.querySelectorAll('.draggable-list li');
+
+            const itemOne = listItems[from].querySelector('.draggable');
+            const itemTwo = listItems[to].querySelector('.draggable');
+
+            listItems[from].appendChild(itemTwo);
+            listItems[to].appendChild(itemOne);
+        }
+
+        function dragEnter() {
+
+            console.log('Event: ', 'dragEnter');
+            this.classList.add("over");
+        }
+
+        function dragLeave() {
+
+            console.log('Event: ', 'dragLeave');
+            this.classList.remove('over');
+        }
 
 
-         
-     }
+        function addEventListeners() {
 
-     function allowDrop(ev) {
-         // Prevent the Default drop action happening
-         // By default, things can't be dropped on other elements
-         // we need to allow this by preventing the default behaviour
+            const draggables = document.querySelectorAll('.draggable');
 
-         ev.preventDefault();
-     }
+            draggables.forEach((draggable) => {
+                draggable.addEventListener('dragstart', dragStart);
+            });
 
-     function drag(ev) {
-        // Set Data to the target id, which is the element we are dragging
+            const dragListItems = document.querySelectorAll('.draggable-list li');
 
-         ev.dataTransfer.setData("Text", ev.target.id);
-         console.log(`Data set to ${ev.target.id}`);
-     }
-
-     function drop(ev, el) {
-         //Find out the element we were dragging 
-
-         var data = ev.dataTransfer.getData("Text");
-         
-         console.log(`Drop handler - Got data as ${data}`);
-
-         var indexFrom = document.getElementById(data).getAttribute('data-index');
-
-         console.log(`this is from index: ${indexFrom}`);
-
-         // always adds to the end of the container
-         el.appendChild(document.getElementById(data));
-         // stop default behaviour. e.g. open link 
-         ev.preventDefault();
-     }
-
-     function dragEnter() {
-         console.log('Event: ', 'dragEnter');
-         this.classList.add('over');
-     }
-
-     function dragLeave() {
-         console.log('Event: ', 'dragLeave');
-         this.classList.remove('over');
-     }
-
-</script >
+            dragListItems.forEach((item) => {
+                item.addEventListener('dragover', dragOver);
+                item.addEventListener('drop', dragDrop);
+                item.addEventListener('dragenter', dragEnter);
+                item.addEventListener('dragleave', dragLeave);
+            });
+        }</script>
         <!-- End My Scripts-- >
 
         <!-- Scripts -->
