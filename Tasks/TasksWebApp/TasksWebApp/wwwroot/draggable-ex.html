@@ -375,6 +375,27 @@
             });
         }
 
+        function syncOrder() {
+
+            console.log('Event: ', 'syncOrder');
+
+            items = GetItems();
+
+            fetch(`${uri}/${itemId}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(items)
+            })
+                .then(() => getItems())
+                .catch(error => console.error('Unable to sync items.', error));
+
+            closeInput();
+
+            return false;
+        }
 
 
 
