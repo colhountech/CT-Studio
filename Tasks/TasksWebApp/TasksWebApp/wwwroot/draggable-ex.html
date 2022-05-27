@@ -17,6 +17,9 @@
             padding: 10px;
             border: 1px solid #aaaaaa;
         }
+        .card-index {
+          /* only used for drap/drop */
+        }
 
         .over {
             border: 1px dashed;
@@ -30,7 +33,7 @@
         }
             
 
-            .draggable-list li.over .draggable {
+            .draggable-list div.over .draggable {
                 border: 1px dashed;
                 border-color: aquamarine;
             }
@@ -90,78 +93,71 @@
                 <!-- Open  Container End  -->
 
 
-                <div class="row">
+                <div class="row draggable-list" id="draggable-list">
 
 
-                    <ul class="draggable-list" id="draggable-list">
-
-                        <li data-index="0">
-                            <!-- Item -->
-                            <div class="col-lg-12 py-2 draggable" draggable=isEditMode >
-                                <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
-                                    <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
-
-                                        <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
-                                        <div class="card-block flex-fill mx-auto p-2">
-                                            <h3 class="card-title">Item 0 </h3>
-                                            <p class="card-text" style="min-width:22rem">
-                                                This is the first item in the list<br />
-                                            </p>
-
-                                        </div>
-                                        <div class="mx-auto p-3 editmode-grip "><i class="fa fa-arrows fa-2x home-icon"></i></div>
-
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- End Item -->
-                        </li>
                         <!-- Item -->
-                        <li data-index="1">
-                            <div class="col-lg-12 py-2 draggable" draggable="true" >
-                                <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
-                                    <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
+                        <div class="col-lg-6 py-2 draggable card-index" draggable="true" data-index="0">
+                            <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
+                                <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
-                                        <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
-                                        <div class="card-block flex-fill mx-auto p-2">
-                                            <h3 class="card-title">Item 1 </h3>
-                                            <p class="card-text" style="min-width:22rem">
-                                                This is the second item in the list<br />
-                                            </p>
-
-                                        </div>
-                                        <div class="mx-auto p-3 editmode-grip "><i class="fa fa-arrows fa-2x home-icon"></i></div>
+                                    <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                                    <div class="card-block flex-fill mx-auto p-2">
+                                        <h3 class="card-title">Item 0 </h3>
+                                        <p class="card-text" style="min-width:22rem">
+                                            This is the first item in the list<br />
+                                        </p>
 
                                     </div>
-                                </a>
-                            </div>
-                            <!-- End Item -->
-                        </li>
-                        <li data-index="2">
-                            <!-- Item -->
-                            <div class="col-lg-12 py-2 draggable" draggable="true" >
-                                <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
-                                    <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
+                                    <div class="mx-auto p-3 editmode-grip "><i class="fa fa-arrows fa-2x home-icon"></i></div>
 
-                                        <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
-                                        <div class="card-block flex-fill mx-auto p-2">
-                                            <h3 class="card-title">Item 2 </h3>
-                                            <p class="card-text" style="min-width:22rem">
-                                                This is the third item in the list<br />
-                                            </p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- End Item -->
+                         
+                        <!-- Item -->
+                        <div class="col-lg-6 py-2 draggable card-index" draggable="true" data-index="1">
+                            <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
+                                <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
-                                        </div>
-                                        <div class="mx-auto p-3 editmode-grip "><i class="fa fa-arrows fa-2x home-icon"></i></div>
+                                    <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                                    <div class="card-block flex-fill mx-auto p-2">
+                                        <h3 class="card-title">Item 1 </h3>
+                                        <p class="card-text" style="min-width:22rem">
+                                            This is the second item in the list<br />
+                                        </p>
 
                                     </div>
-                                </a>
-                            </div>
-                            <!-- End Item -->
-                        </li>
-                        <li data-index="3">
-                            <!-- Item -->
-                            <div class="col-lg-12 py-2 draggable" draggable="true" >
+                                    <div class="mx-auto p-3 editmode-grip "><i class="fa fa-arrows fa-2x home-icon"></i></div>
+
+                                </div>
+                            </a>
+                        </div>
+                        <!-- End Item -->
+                       
+                        <!-- Item -->
+                        <div class="col-lg-6 py-2 draggable card-index" draggable="true" data-index="2">
+                            <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
+                                <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
+
+                                    <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                                    <div class="card-block flex-fill mx-auto p-2">
+                                        <h3 class="card-title">Item 2 </h3>
+                                        <p class="card-text" style="min-width:22rem">
+                                            This is the third item in the list<br />
+                                        </p>
+
+                                    </div>
+                                    <div class="mx-auto p-3 editmode-grip "><i class="fa fa-arrows fa-2x home-icon"></i></div>
+
+                                </div>
+                            </a>
+                        </div>
+                        <!-- End Item -->    
+                        
+                        <!-- Item -->
+                        <div class="col-lg-6 py-2 draggable card-index" draggable="true"  data-index="1">
                                 <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                                     <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -177,10 +173,8 @@
                                     </div>
                                 </a>
                             </div>
-                            <!-- End Item -->
-                        </li>
-
-                    </ul>
+                        <!-- End Item -->
+                
                 </div> <!-- row -->
 
                 <!-- Close Container Start  -->
@@ -292,50 +286,39 @@
         }
 
         function dragStart() {
-
-            console.log('Event: ', 'dragStart');
-            dragStartIndex = +this.closest('li').getAttribute('data-index');
+           // console.log('Event: ', 'dragStart');
+            dragStartIndex = this.closest(".card-index");
             console.log(dragStartIndex);
         }
 
         function dragOver(e) {
-
-            console.log('Event: ', 'dragOver');
             e.preventDefault();
         }
 
         function dragDrop() {
 
-            console.log('Event: ', 'dragDrop');
-            const dragEndIndex = +this.getAttribute('data-index');
+            const dragEndIndex = this.closest(".card-index");
 
-            swapItems(dragStartIndex, dragEndIndex);
+            moveItem(dragStartIndex, dragEndIndex);
 
             this.classList.remove('over');
         }
 
         // Swap list items that are drag and drop
 
-        function swapItems(from, to) {
+        function moveItem(from, to) {
+       
+            from.parentNode.insertBefore(from, to );
 
-            listItems = document.querySelectorAll('.draggable-list li');
-
-            const itemOne = listItems[from].querySelector('.draggable');
-            const itemTwo = listItems[to].querySelector('.draggable');
-
-            listItems[from].appendChild(itemTwo);
-            listItems[to].appendChild(itemOne);
         }
 
         function dragEnter() {
 
-            console.log('Event: ', 'dragEnter');
             this.classList.add("over");
         }
 
         function dragLeave() {
 
-            console.log('Event: ', 'dragLeave');
             this.classList.remove('over');
         }
 
@@ -349,7 +332,7 @@
                 draggable.setAttribute('draggable', true);                
             });
 
-            const dragListItems = document.querySelectorAll('.draggable-list li');
+            const dragListItems = document.querySelectorAll('.draggable-list div');
 
             dragListItems.forEach((item) => {
                 item.addEventListener('dragover', dragOver);
@@ -368,7 +351,7 @@
                 draggable.setAttribute('draggable', false);
             });
 
-            const dragListItems = document.querySelectorAll('.draggable-list li');
+            const dragListItems = document.querySelectorAll('.draggable-list div');
 
             dragListItems.forEach((item) => {
                 item.removeEventListener('dragover', dragOver);
