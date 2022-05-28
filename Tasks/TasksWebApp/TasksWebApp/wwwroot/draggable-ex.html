@@ -97,7 +97,7 @@
 
 
                     <!-- Item -->
-                    <div class="col-lg-6 py-2 draggable card-index" draggable="true" data-index="0">
+                    <div id="item-0" class="col-lg-6 py-2 draggable card-index" draggable="true" >
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -116,7 +116,7 @@
                     </div>
                     <!-- End Item -->
                     <!-- Item -->
-                    <div class="col-lg-6 py-2 draggable card-index" draggable="true" data-index="1">
+                    <div id="item-1" class="col-lg-6 py-2 draggable card-index" draggable="true">
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -135,7 +135,7 @@
                     </div>
                     <!-- End Item -->
                     <!-- Item -->
-                    <div class="col-lg-6 py-2 draggable card-index" draggable="true" data-index="2">
+                    <div id="item-2" class="col-lg-6 py-2 draggable card-index" draggable="true" >
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -154,7 +154,7 @@
                     </div>
                     <!-- End Item -->
                     <!-- Item -->
-                    <div class="col-lg-6 py-2 draggable card-index" draggable="true" data-index="3">
+                    <div id="item-3" class="col-lg-6 py-2 draggable card-index" draggable="true">
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -172,7 +172,7 @@
                     </div>
                     <!-- End Item -->
                     <!-- Item -->
-                    <div class="col-lg-6 py-2 draggable card-index" draggable="true" data-index="4">
+                    <div id="item-4" class="col-lg-6 py-2 draggable card-index" draggable="true" >
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -190,7 +190,7 @@
                     </div>
                     <!-- End Item -->
                     <!-- Item -->
-                    <div class="col-lg-6 py-2 draggable card-index" draggable="true" data-index="5">
+                    <div id="item-5" class="col-lg-6 py-2 draggable card-index" draggable="true">
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -318,34 +318,27 @@
 
         }
 
-        function dragStart() {
-           // console.log('Event: ', 'dragStart');
-            dragStartIndex = this.closest(".card-index").getAttribute('data-index');;
-            console.log(dragStartIndex);
+        function dragStart(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
         }
 
-        function dragOver(e) {
-            e.preventDefault();
+        function dragOver(ev) {
+            ev.preventDefault();
         }
 
-        function dragDrop() {
-            event.stopImmediatePropagation();
+        function dragDrop(ev) {
 
-            const dragEndIndex = this.closest(".card-index").getAttribute('data-index');;
+            ev.preventDefault();
 
-            moveItem(dragStartIndex, dragEndIndex);
+            var sourceId = ev.dataTransfer.getData("text");
+            var sourceElement = document.getElementById(sourceId);
+
+            ev.target.closest(".draggable")
+                .parentNode.insertBefore(sourceElement, ev.target.closest(".draggable"));
 
             this.classList.remove('over');
         }
 
-        // Swap list items that are drag and drop
-
-        function moveItem(from, to) {
-
-            listItems = document.getElementsByClassName('draggable');
-            listItems[to].parentNode.insertBefore(listItems[from], listItems[to]);
-
-        }
 
         function dragEnter() {
 
