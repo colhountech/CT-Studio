@@ -313,6 +313,9 @@
                 // remove listeners
                 removeEventListeners();
 
+                // finally, sync with server
+                syncOrder();
+
             }
             console.log('Edit: ', isEditMode);
 
@@ -337,6 +340,10 @@
                 .parentNode.insertBefore(sourceElement, ev.target.closest(".draggable"));
 
             this.classList.remove('over');
+
+            // without this, the dragDrop event is fired 3 times
+            ev.stopImmediatePropagation();
+
         }
 
 
@@ -388,25 +395,38 @@
                 item.removeEventListener('dragleave', dragLeave);
             });
         }
+        function getItems() {
+            const elements = document.getElementsByClassName('draggable');
+            let i = 0;
+            var items = [...elements].map(function (x) {
+                return {
+                    id: x.id,
+                    order: i++
+                }
+            });
+           
+            return items;
+          
+        }
 
         function syncOrder() {
 
             console.log('Event: ', 'syncOrder');
 
-            items = GetItems();
+            items = getItems();
+            console.log(items);
+            //fetch('/SyncOrder', {
+            //    method: 'PUT',
+            //    headers: {
+            //        'Accept': 'application/json',
+            //        'Content-Type': 'application/json'
+            //    },
+            //    body: JSON.stringify(items)
+            //})
+            //    .then(() => getItems())
+            //    .catch(error => console.error('Unable to sync items.', error));
 
-            fetch(`${uri}/${itemId}`, {
-                method: 'PUT',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(items)
-            })
-                .then(() => getItems())
-                .catch(error => console.error('Unable to sync items.', error));
-
-            closeInput();
+            //closeInput();
 
             return false;
         }
