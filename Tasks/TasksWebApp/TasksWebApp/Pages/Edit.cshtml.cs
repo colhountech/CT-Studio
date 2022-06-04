@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TasksAppData;
 using TasksWebApp.Services;
 using TasksWebApp.ViewModels;
 
@@ -55,7 +56,7 @@ namespace TasksWebApp.Pages
                 var oldData = _service.GetItemByID(TodoItem.ID);
                 if (oldData is null) return Page(); // edited item does not exist
                 var itemData = _mapper.Map<TodoItemData>(TodoItem) with { Messages = oldData.Messages };
-                await _service.UpdateItem(TodoItem.ID, itemData);
+                await _service.UpdateItemAsync(TodoItem.ID, itemData);
 
             return RedirectToPage("Details", new { id = itemData?.ID });
         }

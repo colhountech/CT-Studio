@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TasksAppData;
 using TasksWebApp.Services;
 using TasksWebApp.ViewModels;
 
@@ -9,8 +10,15 @@ namespace TasksWebApp.Profiles
         public TodoItemProfile()
         {
 
-            CreateMap<TodoItemData, TodoItemViewModel>().ReverseMap();
+            CreateMap<TodoItemData, TodoItemViewModel>();
             CreateMap<MessageData, MessageViewModel>().ReverseMap();
+
+            // if ID is Empty in View Model, Ignore Mapping and it will pick up the newGuid() in the Data Model
+            CreateMap<TodoItemViewModel, TodoItemData>()
+                .ForMember(
+                dest => dest.ID, 
+                opt => opt.Condition(source => source.ID != Guid.Empty) );
+
         }
 
     }

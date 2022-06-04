@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TasksAppData;
 using TasksWebApp.Services;
 using TasksWebApp.ViewModels;
 
@@ -54,7 +55,7 @@ namespace TasksWebApp.Pages
             if (TodoItem != null)
             {
                 var itemData = _mapper.Map<TodoItemData>(TodoItem);
-                 _service.DeleteItem(itemData);
+                 await _service.DeleteItemAsync(itemData);
             }
 
 

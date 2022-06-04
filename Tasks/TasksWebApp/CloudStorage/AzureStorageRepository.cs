@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
+using TasksAppData;
 
 namespace CloudStorage
 {
@@ -13,9 +14,8 @@ namespace CloudStorage
     {
         private readonly ILogger<AzureStorageRepository> _logger;
         private readonly IConfiguration _config;
-        private string _azureConnectionString;
-        private string _azureBlobStore;
-        
+        private readonly string _azureConnectionString;
+        private readonly string _azureBlobStore;        
 
         public AzureStorageRepository(
             ILogger<AzureStorageRepository> logger,
@@ -28,25 +28,25 @@ namespace CloudStorage
         }
 
 
-        public async Task StoreBlobAsync(MyMessage message)
+        public async Task StoreBlobAsync(List<TodoItemData> blob)
         {
             BlobContainerClient container = new BlobContainerClient(_azureConnectionString, _azureBlobStore);
             await container.CreateIfNotExistsAsync();
             BlobClient blobClient = container.GetBlobClient(_azureBlobStore);     
-            var json = JsonSerializer.Serialize<MyMessage>(message);
+            var json = JsonSerializer.Serialize<List<TodoItemData>>(blob);
             await blobClient.UploadAsync(BinaryData.FromString(json), overwrite: true);
         }
 
-        public async Task<MyMessage> RestoreBlobAsync()
+        public async Task<List<TodoItemData>?> RestoreBlobAsync()
         {
             BlobContainerClient container = new BlobContainerClient(_azureConnectionString, _azureBlobStore);
             BlobClient blobClient = container.GetBlobClient(_azureBlobStore);
             using (Stream downloadStream = (await blobClient.DownloadStreamingAsync()).Value.Content)
             {
                 var options = new JsonSerializerOptions();
-                var myMessage = await JsonSerializer.DeserializeAsync<MyMessage>(downloadStream, options);
-                _logger.LogTrace($"Restored Message:{myMessage?.Subject} {myMessage?.Body}");
-                return myMessage;
+                var blob = await JsonSerializer.DeserializeAsync<List<TodoItemData>>(downloadStream, options);
+                _logger.LogTrace($"Restored Message: Got ({blob?.Count}) Items");
+                return blob;
             }
         }
     }

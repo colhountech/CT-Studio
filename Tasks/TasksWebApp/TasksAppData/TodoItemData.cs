@@ -1,4 +1,4 @@
-﻿namespace TasksWebApp.Services
+﻿namespace TasksAppData
 {
     public record TodoItemData
     {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TasksAppData;
 using TasksWebApp.Services;
 using TasksWebApp.ViewModels;
 
@@ -73,7 +74,7 @@ namespace TasksWebApp.Pages
                 UnRead = true,
                 ID = Guid.NewGuid()
             };
-            var ok = await _service.AddItemMessage(ID.Value, messageData);
+            var ok = await _service.AddItemMessageAsync(ID.Value, messageData);
 
             if (!ok) return NotFound();
 
@@ -93,7 +94,7 @@ namespace TasksWebApp.Pages
                 return NotFound();
             }
 
-            var ok = await _service.SeItemMessageRead(ID.Value, Message.ID);
+            var ok = await _service.MarkItemMessageRead(ID!.Value, Message!.ID);
 
             if (!ok) return NotFound();
 

@@ -1,8 +1,10 @@
-﻿namespace CloudStorage
+﻿using TasksAppData;
+
+namespace CloudStorage
 {
     public interface ICloudStorageRepository
     {
-        Task StoreBlobAsync(MyMessage message);
-        Task<MyMessage> RestoreBlobAsync();
+        Task StoreBlobAsync(List<TodoItemData> blob);
+        Task<List<TodoItemData>?> RestoreBlobAsync();
     }
 }
