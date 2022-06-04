@@ -58,7 +58,7 @@ namespace TasksWebApp.Services
                 var backup = $"{ _path }~";
                 File.Move(_path, backup, true);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //   _logger.LogError($"CommitChangesAsync Backup FAILED: {ex.Message}");
             }
