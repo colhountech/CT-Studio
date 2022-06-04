@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using TasksWebApp.Services;
 using Xunit;
 
@@ -37,7 +38,7 @@ namespace TestServices
             service2.AddItem(item2);
 
             // Assert
-            Assert.Collection(service1.GetItems(),
+            Assert.Collection(service1.GetItems(archived: false),
                 item => Assert.Equal("Title1", item1?.Title),
                 item => Assert.Equal("Title2", item2?.Title)
                 );
@@ -45,7 +46,7 @@ namespace TestServices
 
 
         [Fact]
-        public void Test_AddItem()
+        public async Task Test_AddItem()
         {
             // Arrange 
             var service = new ToDoItemService();
@@ -53,7 +54,7 @@ namespace TestServices
             TodoItemData item = new TodoItemData { Title = "Title", Description = "Description" };            
 
             // Act
-            var result = service.AddItem(item);
+            var result = await service.AddItem(item);
 
             // Assert
             Assert.True(Guid.Empty != result);
@@ -84,7 +85,7 @@ namespace TestServices
             service.AddItem(item2);
 
             // Act
-            var items = service.GetItems();
+            var items = service.GetItems(archived: false);
 
             // Assert
             var count = items.ToList().Count;
@@ -113,7 +114,7 @@ namespace TestServices
 
         }
         [Fact]
-        public void Test_UpdateItem()
+        public async Task Test_UpdateItem()
         {
             // Arrange
             var service = new ToDoItemService();
@@ -123,7 +124,7 @@ namespace TestServices
             TodoItemData updateItem = new TodoItemData { Title = item1.Title, Description = item1.Description };
 
             // Act
-            var result = service.UpdateItem(item1.ID, updateItem);
+            var result = await service.UpdateItem(item1.ID, updateItem);
 
             // Assert 
             Assert.True(result);
@@ -132,18 +133,17 @@ namespace TestServices
         }
         
         [Fact] 
-        void Test_DeleteItem()
+        async Task Test_DeleteItem()
         {
             // Arrange
             var service = new ToDoItemService();
             TodoItemData item1 = new TodoItemData { Title = "Title1", Description = "Description1" };
-            service.AddItem(item1);
+            await service.AddItem(item1);
             var item = service.GetItemByID(item1.ID);
             // Act
-            var result = service.DeleteItem(item);
+            await service.DeleteItem(item);
 
             // Assert
-            Assert.True(result);
 
         }
     }
