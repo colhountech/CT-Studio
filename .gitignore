@@ -351,3 +351,6 @@ MigrationBackup/
 
 # Mac OS X junk
 .DS_Store
+
+# No Secrets setup for Mac OS X so storing secrets here. don't commit
+launchSettings.json
