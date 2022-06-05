@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using TodoApi.Models;
+
 namespace TasksWebApi
 {
     public class Program
@@ -9,16 +12,13 @@ namespace TasksWebApi
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
+            builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -30,9 +30,7 @@ namespace TasksWebApi
                     options.RoutePrefix = string.Empty;
                 });
             }
-
             app.MapControllers();
-
             app.Run();
         }
     }
