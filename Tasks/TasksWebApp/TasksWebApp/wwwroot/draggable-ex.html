@@ -88,7 +88,7 @@
 
 
                     <!-- Item -->
-                    <div id="item-0" class="col-lg-6 py-2 draggable " >
+                    <div class="col-lg-6 py-2 draggable " id="item-0"  >
                         <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;">
                             <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -358,7 +358,7 @@
                 draggable.setAttribute('draggable', true);                
             });
 
-            const dragListItems = document.querySelectorAll('.draggable-list div');
+            const dragListItems = document.querySelectorAll('.draggable');
 
             dragListItems.forEach((item) => {
                 item.addEventListener('dragover', dragOver);
