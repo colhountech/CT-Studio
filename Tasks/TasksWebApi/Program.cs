@@ -21,9 +21,8 @@ namespace TasksWebApi
             app.UseAuthorization();
             if (app.Environment.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                //app.UseSwaggerUI();
-
                 app.UseSwaggerUI(options =>
                 {
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
