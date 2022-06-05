@@ -9,6 +9,7 @@ namespace TasksWebApi
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
@@ -17,6 +18,12 @@ namespace TasksWebApi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
 
             app.MapControllers();
 
