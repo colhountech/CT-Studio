@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestOrder", "TestOrder\Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudStorage", "CloudStorage\CloudStorage.csproj", "{2BB30608-3838-41F7-A8B6-E6547A770FBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksAppData", "TasksAppData\TasksAppData.csproj", "{9BB73AE1-D43C-4D43-B152-FF9BD0316660}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksAppData", "TasksAppData\TasksAppData.csproj", "{9BB73AE1-D43C-4D43-B152-FF9BD0316660}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksWebApi", "..\TasksWebApi\TasksWebApi.csproj", "{9CAB0D02-851B-4F3F-87F8-2295B360C2F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9BB73AE1-D43C-4D43-B152-FF9BD0316660}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BB73AE1-D43C-4D43-B152-FF9BD0316660}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BB73AE1-D43C-4D43-B152-FF9BD0316660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CAB0D02-851B-4F3F-87F8-2295B360C2F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CAB0D02-851B-4F3F-87F8-2295B360C2F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CAB0D02-851B-4F3F-87F8-2295B360C2F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CAB0D02-851B-4F3F-87F8-2295B360C2F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
