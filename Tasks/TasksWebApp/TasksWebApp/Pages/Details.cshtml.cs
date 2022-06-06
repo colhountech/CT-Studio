@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using AutoMapper;
 using TasksAppData;
-using TasksWebApp.Services;
+using TasksServices.Services;
 using TasksWebApp.ViewModels;
 
 namespace TasksWebApp.Pages

@@ -54,7 +54,7 @@
         @foreach (var item in @Model.TodoItems)
         {
 
-            <div id="item-@item.ID"  class="col-lg-6 py-2 draggable" >
+            <div id="@item.ID"  class="col-lg-6 py-2 draggable" >
                 <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;" >
                     <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
 
@@ -244,24 +244,21 @@
         }
 
         function syncOrder() {
-
+            var uri = 'https://localhost:7011/SyncOrder';
             console.log('Event: ', 'syncOrder');
 
             items = getItems();
             console.log(items);
-            //fetch('/SyncOrder', {
-            //    method: 'PUT',
-            //    headers: {
-            //        'Accept': 'application/json',
-            //        'Content-Type': 'application/json'
-            //    },
-            //    body: JSON.stringify(items)
-            //})
-            //    .then(() => getItems())
-            //    .catch(error => console.error('Unable to sync items.', error));
-
-            //closeInput();
-
+            fetch(uri, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(items)
+            })
+                .then(() => getItems())
+                .catch(error => console.error('Unable to sync items.', error));
             return false;
         }
     </script>

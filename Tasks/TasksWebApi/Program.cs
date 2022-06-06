@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
-using TodoApi.Models;
+using CloudStorage;
+using TasksServices.Services;
 
 namespace TasksWebApi
 {
@@ -9,13 +9,12 @@ namespace TasksWebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
-            builder.Services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddSingleton<IToDoItemService, ToDoItemAzureBlobService>();
+            builder.Services.AddTransient<ICloudStorageRepository, AzureStorageRepository>();
             var app = builder.Build();
             app.UseHttpsRedirection();
             app.UseAuthorization();
@@ -23,11 +22,7 @@ namespace TasksWebApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-                    options.RoutePrefix = string.Empty;
-                });
+                app.UseSwaggerUI();
             }
             app.MapControllers();
             app.Run();

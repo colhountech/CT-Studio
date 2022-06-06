@@ -1,5 +1,5 @@
 ﻿using CloudStorage;
-using TasksWebApp.Services;
+using TasksServices.Services;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

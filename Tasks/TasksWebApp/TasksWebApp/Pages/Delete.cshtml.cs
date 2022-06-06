@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TasksAppData;
-using TasksWebApp.Services;
+using TasksServices.Services;
 using TasksWebApp.ViewModels;
 
 namespace TasksWebApp.Pages
