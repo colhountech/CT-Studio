@@ -2,14 +2,11 @@
 using System.Text.Json.Serialization;
 using TasksAppData;
 
-namespace TasksWebApp.Services
+namespace TasksServices.Services
 {
-
-
     public class ToDoItemService : IToDoItemService
     {
         protected static List<TodoItemData> ItemsDatabase = new List<TodoItemData>();
-
 
         public ToDoItemService()
         {
@@ -22,7 +19,6 @@ namespace TasksWebApp.Services
             else
             {
                 LoadAsync().GetAwaiter().GetResult();
-
             }
         }
 

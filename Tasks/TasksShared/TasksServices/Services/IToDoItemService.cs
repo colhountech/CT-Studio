@@ -1,7 +1,7 @@
 ﻿
 using TasksAppData;
 
-namespace TasksWebApp.Services
+namespace TasksServices.Services
 {
     public interface IToDoItemService
     {

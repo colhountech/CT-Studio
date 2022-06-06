@@ -1,12 +1,12 @@
 ﻿
 using CloudStorage;
+using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TasksAppData;
 
-namespace TasksWebApp.Services
+namespace TasksServices.Services
 {
-
 
     public class ToDoItemAzureBlobService : IToDoItemService
     {
