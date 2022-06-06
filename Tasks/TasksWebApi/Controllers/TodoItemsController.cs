@@ -54,6 +54,8 @@ namespace TasksWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTodoItem(long id, TodoItem todoItem)
         {
+            // Valaidate that id matches or reject request
+
             if (id != todoItem.Id)
             {
                 return BadRequest();
@@ -65,7 +67,7 @@ namespace TasksWebApi.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException) // EF Core
             {
                 if (!TodoItemExists(id))
                 {
@@ -80,9 +82,9 @@ namespace TasksWebApi.Controllers
             return NoContent();
         }
 
-        // POST: api/TodoItems
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
         {
           if (_context.TodoItems == null)
@@ -92,7 +94,8 @@ namespace TasksWebApi.Controllers
             _context.TodoItems.Add(todoItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
+            // This is new - a HTTP 201 response on create informing where it's created
+            return CreatedAtAction(nameof (GetTodoItem), new { id = todoItem.Id }, todoItem);
         }
 
         // DELETE: api/TodoItems/5
