@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TasksServices.Services;
 using TasksAppData;
 using TasksWebApi.ViewModels;
@@ -12,40 +11,62 @@ namespace TasksWebApp
     {
         private readonly ILogger<SyncOrder> _logger;
         private readonly IToDoItemService _service;
-        private readonly IMapper _mapper;
 
         public SyncOrder(
             ILogger<SyncOrder> logger,
-            IToDoItemService service,
-            IMapper mapper
+            IToDoItemService service
             )
         {
             _logger = logger;
             _service = service;
-            _mapper = mapper;
 
         }
 
-
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
-        public async Task<IActionResult> PutTodoItem(IList<SyncOrderViewModel> items)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]   // happy path
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> PutTodoItems(IList<SyncOrderViewModel> items)
         {
 
             if (items == null) return BadRequest("list is empty");
 
             try
             {
-                // do something
+                var storedItems = _service.GetItems(archived: false);
+                var updateItems = new List<TodoItemData>();
+
+                foreach ( var updateItem in items)
+                {
+                    // find match in db
+                    var match = storedItems.Where(x => x.ID == updateItem.ID).FirstOrDefault();
+
+                    // update Order to new item.Order
+                    if (match is not null && match.Order != updateItem.Order)
+                    {                        
+                        match.Order = updateItem.Order;
+                        updateItems.Add(match);
+                    }
+                }
+                _logger.LogTrace($"matched {updateItems.Count}");
+
+                if (updateItems.Count == 0)
+                {
+                    // nothing to update;
+                    return NotFound();
+                }
+
+                // update db
+                // TODO
+                await _service.UpdateItems(updateItems);
+
+                 
             }
             catch (Exception ex)
-            {
-                //if (!TodoItemExists(id))
-                //{
-                //    return NotFound();
-                //}
-                //else
+            {                
                 {
+                    _logger.LogWarning("Couldn't update Order:" + ex.Message);
                     throw;
                 }
             }
@@ -55,5 +76,7 @@ namespace TasksWebApp
 
 
         }
+
+
     }
 }

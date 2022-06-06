@@ -151,6 +151,24 @@ namespace TasksServices.Services
             // didn't find message, can't update
             return false;
         }
+
+        public async Task UpdateItems(List<TodoItemData> items)
+        {
+            foreach (var item in items)
+            {
+                // find old item
+                var oldItem = ItemsDatabase.Find(x => x.ID == item.ID);
+
+                if (oldItem != null)
+                {
+                    // only if we found item
+                    ItemsDatabase.Remove(oldItem);
+                    ItemsDatabase.Add(item);
+                }
+            }
+            await SaveAsync();
+
+        }
     }
 
 }

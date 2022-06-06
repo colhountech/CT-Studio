@@ -12,6 +12,7 @@ namespace TasksServices.Services
         Task<bool> UpdateItemAsync(Guid oldID, TodoItemData item);
         Task<bool> AddItemMessageAsync(Guid itemID, MessageData message);
         Task<bool> MarkItemMessageRead(Guid itemID, Guid MessageID);
+        Task UpdateItems(List<TodoItemData> items);
 
     }
 }
