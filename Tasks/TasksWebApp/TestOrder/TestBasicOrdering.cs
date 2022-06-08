@@ -89,10 +89,11 @@ namespace TestOrder
         }
         private static void Swap<T>(List<T> list, int left, int right)
         {
-            T temp;
-            temp = list[left];
-            list[left] = list[right];
-            list[right] = temp;
+            //T temp;
+            //temp = list[left];
+            (list[left], list[right]) = (list[right], list[left]);
+            //list[left] = list[right];
+            //list[right] = temp;
         }
 
 
