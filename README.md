@@ -5,10 +5,21 @@ Code for Demos on the [CT Studio YouTube Channel](https://www.youtube.com/channe
 ## Tasks 
 
 
-  ### Tasks WebApp -  The Most Basic ASP.NET Core WebApp in the World  - Written in C# 10 and .NET 6
+### Tasks WebApp -  The Most Basic ASP.NET Core WebApp in the World  - Written in C# 10 and .NET Core 6
 
+The Purpose of this TasksWebApp is to teach and demonstrate the evolution of a simple ASP.NET Core 6 and ASP.NET Core 6 Rest API as a teaching tool. 
 
-This WebApp does everything you need except save the tasks.
+It's suitable for a young C# developer who has basic understanding of C# .NET Programming and basic familiarity with Visual Studio 2022.
+
+No knowledge of Web Programming is assumed but there is a lot going on and a lot to learn here.
+
+We start with just minimal Razor syntax and some pretty css and eventually evolve to a fully features Enterprise standard Web App using Azure Blob Storage.
+
+The project is filled with little Markdown documents on little learning tips and insights
+
+As it evolves you will need to Download and install `Azure Storage Explorer` and create a storage account on Azure.
+
+#### Lessson 1: Getting Started
 
 Open Visual Studio 2022, and create a new Project called using the **ASP.NET Core Web App** Template. 
 
