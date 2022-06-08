@@ -12,18 +12,15 @@ namespace TasksServices.Repository
         // on mac os x, Alt-Enter is Quick Fix
         //
         private readonly ILogger<ToDoItemFileRepository> _logger;
-        private readonly ICloudStorageRepository _cloudStorageRepository;
 
         private static readonly string _path = "Database.json";
 
 
         public ToDoItemFileRepository(
-            ILogger<ToDoItemFileRepository> logger,
-            ICloudStorageRepository cloudStorageRepository
+            ILogger<ToDoItemFileRepository> logger
             )
         {
             _logger = logger;
-            _cloudStorageRepository = cloudStorageRepository;
         }
 
         public async Task<List<TodoItemData>> RestoreData()

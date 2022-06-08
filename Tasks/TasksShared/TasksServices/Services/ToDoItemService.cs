@@ -1,31 +1,32 @@
-﻿using System.Text.Json;
+﻿
+using Microsoft.Extensions.Logging;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using TasksAppData;
+using TasksServices.Repository;
 
 namespace TasksServices.Services
 {
-
-    // Next commit, this files gets deleted
+    // Next commit, this files gets renamed to ToDoItemService
 
     public class ToDoItemService : IToDoItemService
     {
+        private readonly ILogger<ToDoItemService> _logger;
+        private readonly IToDoItemRepository _toDoItemRepository;
         protected static List<TodoItemData> ItemsDatabase = new List<TodoItemData>();
-
-        public ToDoItemService()
+  
+        public ToDoItemService(
+            ILogger<ToDoItemService> logger,
+            IToDoItemRepository toDoItemRepository
+            )
         {
+            _logger = logger;
+            _toDoItemRepository = toDoItemRepository;
+            LoadAsync().GetAwaiter().GetResult();
 
-            FileInfo fi = new FileInfo(_path); // TODO: Really don't want this check every time ctor run
-            if (!fi.Exists)
-            {
-                SetupDummyData();
-            }
-            else
-            {
-                LoadAsync().GetAwaiter().GetResult();
-            }
         }
 
-        private async void SetupDummyData()
+        private async void SetupDummyDataAsync()
         {
             // This is a new database. Setup some dummy data 
             await AddItemAsync(new TodoItemData { Title = "Tast Item 1", Description = "This is the first thing on my todo list" });
@@ -35,52 +36,39 @@ namespace TasksServices.Services
             await SaveAsync();
         }
 
-        private static readonly string _path = "Database.json";
+        //private static readonly string _path = "Database.json";
 
         private async Task LoadAsync()
         {
-            if (ItemsDatabase.Count == 0)
+           try
             {
-                using (var fs = File.OpenRead(_path))
-                {
-                    var options = new JsonSerializerOptions();
-                    var db = await JsonSerializer.DeserializeAsync<List<TodoItemData>>(fs, options);
-                    if (db is not null) ItemsDatabase = db;
-                }
+                var db = await _toDoItemRepository.RestoreData();
+                _logger.LogInformation($"Restored ({db?.Count}) items to db from Blob.");
+                if (db is not null) ItemsDatabase = db;
             }
+            catch (Azure.RequestFailedException ex)
+            {
+                _logger.LogWarning($"LoadAsync: No Data: Setting up Dummy Data: {ex.Message}");
+                SetupDummyDataAsync();
+                await SaveAsync();
+            }           
         }
-
+ 
         private async Task SaveAsync()
         {
-            try
-            {
-                var backup = $"{ _path }~";
-                File.Move(_path, backup, true);
-            }
-            catch (Exception)
-            {
-                //   _logger.LogError($"CommitChangesAsync Backup FAILED: {ex.Message}");
-            }
-
-            using (var fs = File.Open(_path, FileMode.Create))
-            {
-                var options = new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
-                };
-                await JsonSerializer.SerializeAsync(fs, ItemsDatabase, options);
-            }
+            var db = ItemsDatabase;
+            _logger.LogInformation($"Storing {db?.Count} items");
+            if (db is not null) await _toDoItemRepository.StoreData(db);
         }
 
 
         public IEnumerable<TodoItemData> GetItems(bool archived)
-        {
+        {            
             return ItemsDatabase
                 .Where(x => x.Archived == archived)
                 .AsEnumerable();
         }
-
+      
         public TodoItemData? GetItemByID(Guid ID)
         {
             return ItemsDatabase.FirstOrDefault(x => x.ID == ID);
@@ -92,7 +80,6 @@ namespace TasksServices.Services
             ItemsDatabase.Add(item);
             await SaveAsync();
             return item.ID;
-
         }
 
         // Removes old item by ID and replace with new item
@@ -116,7 +103,7 @@ namespace TasksServices.Services
         public async Task DeleteItemAsync(TodoItemData item)
         {
             // find old item
-            var oldItem  = ItemsDatabase.Find(x => x.ID == item.ID);
+            var oldItem = ItemsDatabase.Find(x => x.ID == item.ID);
             // this will lose future any Mesages or other properties added in the future
             // var newItem = new TodoItemData { Archived = true, ID = item.ID, Title = item.Title, Description = item.Description};
             // instead use  with {} 
@@ -125,7 +112,7 @@ namespace TasksServices.Services
                 var newItem = oldItem with { Archived = true };
                 var updateItem = UpdateItemAsync(oldItem.ID, newItem);
                 await SaveAsync();
-            }
+            }         
             //return updateItem;
             //return ItemsDatabase.Remove(item);
 
@@ -145,7 +132,7 @@ namespace TasksServices.Services
             return false;
 
         }
-      
+
         public async Task<bool> MarkItemMessageRead(Guid itemID, Guid MessageID)
         {
             var item = ItemsDatabase.Find(x => x.ID == itemID);

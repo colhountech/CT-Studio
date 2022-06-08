@@ -1,9 +1,11 @@
 ﻿using CloudStorage;
+using TasksServices.Repository;
 using TasksServices.Services;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddSingleton<IToDoItemService, ToDoItemAzureBlobService>();
+builder.Services.AddTransient<IToDoItemService, ToDoItemService>();
+builder.Services.AddTransient<IToDoItemRepository, ToDoItemAzureBlobRepository>();
 builder.Services.AddTransient<ICloudStorageRepository, AzureStorageRepository>();
 var app = builder.Build();
 app.UseStaticFiles().UseRouting().UseAuthorization();
