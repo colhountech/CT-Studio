@@ -1,25 +1,30 @@
 ﻿
-using CloudStorage;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TasksAppData;
+using TasksServices.Repository;
 
 namespace TasksServices.Services
 {
+    // Next commit, this files gets renamed to ToDoItemService
 
     public class ToDoItemAzureBlobService : IToDoItemService
     {
         private readonly ILogger<ToDoItemAzureBlobService> _logger;
-        private readonly ICloudStorageRepository _cloudStorageRepository;
+        private readonly IToDoItemRepository _toDoItemRepository;
+        //private readonly ICloudStorageRepository _cloudStorageRepository;
         protected static List<TodoItemData> ItemsDatabase = new List<TodoItemData>();
   
         public ToDoItemAzureBlobService(
-            ILogger<ToDoItemAzureBlobService> logger, 
-            ICloudStorageRepository cloudStorageRepository)
+            ILogger<ToDoItemAzureBlobService> logger,
+            IToDoItemRepository toDoItemRepository
+            //ICloudStorageRepository cloudStorageRepository
+            )
         {
             _logger = logger;
-            _cloudStorageRepository = cloudStorageRepository;
+            _toDoItemRepository = toDoItemRepository;
+            //_cloudStorageRepository = cloudStorageRepository;
             LoadAsync().GetAwaiter().GetResult();
 
         }
@@ -40,7 +45,7 @@ namespace TasksServices.Services
         {
            try
             {
-                var db = await _cloudStorageRepository.RestoreBlobAsync();
+                var db = await _toDoItemRepository.RestoreData();
                 _logger.LogInformation($"Restored ({db?.Count}) items to db from Blob.");
                 if (db is not null) ItemsDatabase = db;
             }
@@ -55,8 +60,8 @@ namespace TasksServices.Services
         private async Task SaveAsync()
         {
             var db = ItemsDatabase;
-            _logger.LogInformation($"Storing {db?.Count} tiems from db to Blob.");
-            if (db is not null) await _cloudStorageRepository.StoreBlobAsync(db);
+            _logger.LogInformation($"Storing {db?.Count} items");
+            if (db is not null) await _toDoItemRepository.StoreData(db);
         }
 
 

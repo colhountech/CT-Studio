@@ -11,4 +11,10 @@
     <ProjectReference Include="..\TasksAppData\TasksAppData.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Repository\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repository\" />
+  </ItemGroup>
 </Project>
