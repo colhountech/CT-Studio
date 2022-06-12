@@ -254,9 +254,16 @@ I added the code to open the window in Startup.cs
      Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
 ```
 
+
+# Multiple class library projects fail to build?
+
+If you are trying to build a project that consists of multiple libraries you may get the following error:
+```
+error NETSDK1099: Publishing to a single-file is only supported for executable applications.
+```
+Use the following to fix:
+```
+electronize build /target win /PublishSingleFile false /PublishReadyToRun false
+```
 All Good in the universe.
-
-
-
-
 
