@@ -225,6 +225,35 @@ so `electronize start` is working. Now let's build
 
 
 
+All works fine with .NET Core 6. You just need .NET Core 5.0 to electronize the app.
+
+
+The Startup is different and now looks like this, and we add back the Startup.cs class
+
+
+```c#
+
+using ElectronNET.API;
+
+await Host.CreateDefaultBuilder(args)
+    .ConfigureWebHostDefaults(webBuilder =>
+    {
+        webBuilder.UseElectron(args);
+        webBuilder.UseStartup<Startup>();
+    })
+    .Build()
+    .RunAsync();
+
+```
+
+I added the code to open the window in Startup.cs
+
+```c#
+     Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
+```
+
+All Good in the universe.
+
 
 
 
