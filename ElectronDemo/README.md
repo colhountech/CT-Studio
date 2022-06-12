@@ -84,6 +84,7 @@ This tool also added the blank template for `electron.manifest.json`
 ```
 % electronize start /watch
 Start Electron Desktop Application...
+
 ```
 I get npm warning that my version 4.1.1 is bad.
 
