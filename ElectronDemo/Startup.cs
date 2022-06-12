@@ -17,7 +17,6 @@ public class Startup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-            Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
        
         if (!env.IsDevelopment())
         {
@@ -37,7 +36,7 @@ public class Startup
             endpoints.MapRazorPages();
         });
 
-
+        Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
 
     }
 }

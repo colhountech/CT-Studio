@@ -76,8 +76,9 @@ What did this add? I did a quick `git diff`:
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
 </ItemGroup>
+```
 
-This tool also added the blank template for electron.manifest.json 
+This tool also added the blank template for `electron.manifest.json`
 
 
 ```
