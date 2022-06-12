@@ -1,4 +1,6 @@
-﻿public class Startup
+﻿using ElectronNET.API;
+
+public class Startup
 {
 
     public Startup(IConfiguration configuration)
@@ -15,6 +17,8 @@
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+            Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
+       
         if (!env.IsDevelopment())
         {
             app.UseExceptionHandler("/Error");
@@ -32,5 +36,8 @@
         {
             endpoints.MapRazorPages();
         });
+
+
+
     }
 }

@@ -1,15 +1,15 @@
 {
-  "executable": "Electron.Net",
+  "executable": "ElectronDemo",
   "splashscreen": {
     "imageFile": ""
   },
-  "name": "Electron.Net",
+  "name": "ElectronDemo",
   "author": "",
   "singleInstance": false,
   "environment": "Production",
   "build": {
-    "appId": "com.Electron.Net.app",
-    "productName": "Electron.Net",
+    "appId": "com.ElectronDemo.app",
+    "productName": "ElectronDemo",
     "copyright": "Copyright © 2020",
     "buildVersion": "1.0.0",
     "compression": "maximum",

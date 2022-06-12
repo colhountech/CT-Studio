@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Electron.Net.Pages;
+namespace ElectronDemo.Pages;
 
 public class IndexModel : PageModel
 {
