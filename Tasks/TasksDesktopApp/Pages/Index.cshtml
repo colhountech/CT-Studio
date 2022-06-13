@@ -1,11 +1,267 @@
 ﻿@page
+@using TasksDesktopApp.ViewModels
+
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@section Styles {
+    <style>
+
+        .over {
+            border: 1px dashed;
+            border-color: mediumaquamarine;
+        }
+
+        .draggable-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+
+            .draggable-list div.over .draggable {
+                border: 1px dashed;
+                border-color: aquamarine;
+            }
+
+            .draggable-list.editmode {
+                border: 2px dashed;
+                border-color: mediumaquamarine;
+            }
+
+        .editmode-grip {
+            display: none;
+        }
+    </style>
+
+}
+
+<div class="container-fluid">
+
+    <div class=row>
+        <div class="col-lg-6 py-2">
+            <a class="btn btn-success" asp-page="Create">New </a>
+        </div>
+        <div class="col-lg-6 py-2 d-flex justify-content-end">
+            <a class="btn btn-outline-primary" id="edit-button" onclick="edit()">Edit </a>
+        </div>
+    </div>
+
+    <div class="row draggable-list" id="draggable-list">
+
+        @foreach (var item in @Model.TodoItems)
+        {
+
+            <div id="@item.ID"  class="col-lg-6 py-2 draggable" >
+                <a asp-page="Details" asp-route-id="@item.ID" style="text-decoration:inherit; color:inherit;" >
+                    <div class="card active-box flex-row flex-wrap" style="min-width:22rem">
+
+                        <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                        <div class="card-block flex-fill mx-auto p-2">
+                            <h3 class="card-title">@item.Title </h3>
+                            <p class="card-text" style="min-width:22rem">
+                                @item.Description<br />
+                            </p>
+
+                        </div>
+                        <div class="mx-auto p-3 editmode-grip "><i class="fa fa-arrows fa-2x home-icon"></i></div>
+
+                    </div>
+                </a>
+            </div>
+
+
+        }
+
+    </div>
+    <div class=row>
+        <div class="col-lg-6 py-2">
+            <a class="btn btn-outline-success" asp-page="Archive">Archived</a>
+        </div>
+    </div>
 </div>
+
+@section scripts {
+    <script>
+
+        const draggableList = document.getElementById('draggable-list');
+        var isEditMode = false;
+
+        init();
+
+        function init() {
+
+        }
+
+
+        function edit() {
+
+            isEditMode = !isEditMode;
+
+            if (isEditMode) {
+                console.log('Edit: ', "adding editmode");
+
+                // make edit button solid
+                var editButton = document.getElementById("edit-button");
+                editButton.classList.remove("btn-outline-primary");
+                editButton.classList.add("btn-primary");
+                editButton.innerText = "Save";
+
+
+
+                // add editmode class to draggable-list
+                const dragList = document.getElementById('draggable-list');
+                dragList.classList.add("editmode");
+
+                // make grips visible
+                grips = document.querySelectorAll('.editmode-grip');
+                grips.forEach((grip) => {
+                    grip.style.display = "block";
+                });
+                // add listeners
+                addEventListeners();
+
+            }
+            else {
+
+                console.log('Edit: ', "removing editmode");
+
+                // make eidt button outlined
+                var editButton = document.getElementById("edit-button");
+                editButton.classList.remove("btn-primary");
+                editButton.classList.add("btn-outline-primary");
+                editButton.innerText = "Edit";
+
+
+                // remove editmode class from draggble-list
+                const dragList = document.getElementById('draggable-list');
+                dragList.classList.remove("editmode");
+
+                // hide grips
+                grips = document.querySelectorAll('.editmode-grip');
+                grips.forEach((grip) => {
+                    grip.style.display = "none";
+                });
+
+                // remove listeners
+                removeEventListeners();
+
+                // finally, sync with server
+                syncOrder();
+
+            }
+            console.log('Edit: ', isEditMode);
+
+        }
+
+        function dragStart(ev) {
+            var draggable = ev.target.closest(".draggable");
+            ev.dataTransfer.setData("text", draggable.id);
+        }
+
+        function dragOver(ev) {
+            ev.preventDefault();
+        }
+
+        function dragDrop(ev) {
+
+            ev.preventDefault();
+
+            var sourceId = ev.dataTransfer.getData("text");
+            var sourceElement = document.getElementById(sourceId);
+
+            var draggable = ev.target.closest(".draggable");
+            var parentNode = draggable.parentNode;
+
+            //draggable.parentNode.insertBefore(sourceElement, ev.target.closest(".draggable"));
+
+            parentNode.insertBefore(sourceElement, draggable);
+
+
+            this.classList.remove('over');
+
+            // without this, the dragDrop event is fired 3 times
+            ev.stopImmediatePropagation();
+
+        }
+
+
+        function dragEnter() {
+
+            this.classList.add("over");
+        }
+
+        function dragLeave() {
+
+            this.classList.remove('over');
+        }
+
+
+        function addEventListeners() {
+
+            const draggables = document.querySelectorAll('.draggable');
+
+            draggables.forEach((draggable) => {
+                draggable.setAttribute('draggable', true);
+
+                draggable.addEventListener('dragstart', dragStart);
+                draggable.addEventListener('dragover', dragOver);
+                draggable.addEventListener('drop', dragDrop);
+                draggable.addEventListener('dragenter', dragEnter);
+                draggable.addEventListener('dragleave', dragLeave);
+            });
+        }
+
+        function removeEventListeners() {
+
+            const draggables = document.querySelectorAll('.draggable');
+
+            draggables.forEach((draggable) => {
+                draggable.setAttribute('draggable', false);
+
+                draggable.removeEventListener('dragstart', dragStart);
+                draggable.removeEventListener('dragover', dragOver);
+                draggable.removeEventListener('drop', dragDrop);
+                draggable.removeEventListener('dragenter', dragEnter);
+                draggable.removeEventListener('dragleave', dragLeave);
+            });
+        }
+
+        function getItems() {
+            const elements = document.getElementsByClassName('draggable');
+            let i = 0;
+            var items = [...elements].map(function (x) {
+                return {
+                    id: x.id,
+                    order: i++
+                }
+            });
+
+            return items;
+
+        }
+
+        function syncOrder() {
+            var uri = 'https://localhost:7011/SyncOrder';
+            console.log('Event: ', 'syncOrder');
+
+            items = getItems();
+            console.log(items);
+            fetch(uri, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(items)
+            })
+                .then(() => getItems())
+                .catch(error => console.error('Unable to sync items.', error));
+            return false;
+        }
+    </script>
+
+}
 

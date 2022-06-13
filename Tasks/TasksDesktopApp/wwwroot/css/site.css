@@ -1,18 +1,96 @@
-﻿html {
-  font-size: 14px;
+﻿body {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #333333;
+    text-align: left;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: ghostwhite;
+    /*padding-top: 5rem;*/
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+body-content {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    background-color: white;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6
+.a, .b, .c, .d, .e, .f {
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+    font-weight: 300;
+    line-height: 1.2;
+    color: rgb(23, 162, 184);
 }
 
-body {
-  margin-bottom: 60px;
+h1, .a {
+    font-size: 2.5rem;
 }
+
+h2, .b {
+    font-size: 2rem;
+}
+
+h3, .c {
+    font-size: 1.75rem;
+}
+
+h4, .d {
+    font-size: 1.5rem;
+}
+
+h5, .e {
+    font-size: 1.25rem;
+}
+
+h6, .f {
+    font-size: 1rem;
+}
+
+.text-value {
+    font-size: 2.0rem;
+    line-height: 2.5;
+    font-weight: 600;
+}
+
+.big-icon {
+    color: coral;
+    padding: 5px;
+}
+
+.home-icon {
+    color: #17a2b8;
+    padding: 5px;
+}
+
+
+.active-box {
+    cursor: pointer;
+}
+
+
+.tag {
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: 8px;
+}
+
+.big-tag {
+    padding: 2px;
+}
+
+/*input[type=checkbox] {*/
+/* Double-sized Checkboxes */
+/*-ms-transform: scale(2);*/ /* IE */
+/*-moz-transform: scale(2);*/ /* FF */
+/*-webkit-transform: scale(2);*/ /* Safari and Chrome */
+/*-o-transform: scale(2);*/ /* Opera */
+/*}*/
+
+.dotted {
+    border: dotted 1px;
+}
+/* copyright 2022 ColhounTech Limited. All Rights Reserved */
