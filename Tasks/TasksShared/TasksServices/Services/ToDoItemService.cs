@@ -13,7 +13,7 @@ namespace TasksServices.Services
     {
         private readonly ILogger<ToDoItemService> _logger;
         private readonly IToDoItemRepository _toDoItemRepository;
-        protected static List<TodoItemData> ItemsDatabase = new List<TodoItemData>();
+        protected List<TodoItemData> ItemsDatabase = new List<TodoItemData>();
   
         public ToDoItemService(
             ILogger<ToDoItemService> logger,
@@ -22,8 +22,12 @@ namespace TasksServices.Services
         {
             _logger = logger;
             _toDoItemRepository = toDoItemRepository;
-            LoadAsync().GetAwaiter().GetResult();
-
+           
+            // change from static, so db is loaded in memory on **every**  _service call
+            if (ItemsDatabase.Count == 0)
+            {
+                LoadAsync().GetAwaiter().GetResult();
+            }
         }
 
         private async void SetupDummyDataAsync()
@@ -47,11 +51,13 @@ namespace TasksServices.Services
                 if (db is not null) ItemsDatabase = db;
             }
             catch (Azure.RequestFailedException ex)
-            {
-                _logger.LogWarning($"LoadAsync: No Data: Setting up Dummy Data: {ex.Message}");
-                SetupDummyDataAsync();
-                await SaveAsync();
-            }           
+            {                
+                _logger.LogWarning($"LoadAsync: No Data: Uncomment LoadAsync() catch to setup Dummy Data: {ex.Message}");
+                // new blob storage container is not the only reason that an exception happens
+                //_logger.LogWarning($"LoadAsync: No Data: Setting up Dummy Data: {ex.Message}");
+                //SetupDummyDataAsync();
+                //await SaveAsync();
+            }
         }
  
         private async Task SaveAsync()
