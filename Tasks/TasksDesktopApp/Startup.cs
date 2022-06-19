@@ -27,6 +27,7 @@ public class Startup
         services.AddRazorPages();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         services.AddTransient<IToDoItemService, ToDoItemService>();
+        //services.AddTransient<IToDoItemRepository, ToDoItemFileRepository>();
         services.AddTransient<IToDoItemRepository, ToDoItemAzureBlobRepository>();
         services.AddTransient<ICloudStorageRepository, AzureStorageRepository>();
     }
@@ -35,13 +36,13 @@ public class Startup
     {
         if (!env.IsDevelopment())
         {
-            app.UseExceptionHandler("/Error");
             app.UseHsts();
         }
         else
         {
             app.UseMigrationsEndPoint(); // Apply EF pending migrations (dev only)
-        }     
+        }
+        app.UseExceptionHandler("/Error");
         app.UseHttpsRedirection();
         app.UseStaticFiles();
         app.UseRouting();

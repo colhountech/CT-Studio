@@ -14,6 +14,8 @@ namespace TasksServices.Repository
         private readonly ILogger<ToDoItemFileRepository> _logger;
 
         private static readonly string _path = "Database.json";
+        private static bool validated = false;
+
 
 
         public ToDoItemFileRepository(
@@ -23,14 +25,28 @@ namespace TasksServices.Repository
             _logger = logger;
         }
 
-        public async Task<List<TodoItemData>> RestoreData()
+
+        public async Task ValidateSourceAsync()
+        {
+            if (!validated)
+            {
+                var exists = File.Exists(_path);
+
+                if (!exists)
+                {
+                    throw new ApplicationException("Can't find Your Database. Have you changed something");
+                }
+                validated = true;
+            }
+            await Task.CompletedTask;
+        }
+
+        public async Task<List<TodoItemData>?> RestoreData()
         {
             using (var fs = File.OpenRead(_path))
             {
                 var options = new JsonSerializerOptions();
-                var db = await JsonSerializer.DeserializeAsync<List<TodoItemData>>(fs, options);
-                if (db is null) throw (new ApplicationException("No Database: Check Database.json exists"));
-                return db;
+                return await JsonSerializer.DeserializeAsync<List<TodoItemData>>(fs, options);
             }
             
         }

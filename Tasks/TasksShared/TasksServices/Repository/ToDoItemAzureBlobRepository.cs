@@ -1,4 +1,5 @@
 ﻿using System;
+using Azure;
 using CloudStorage;
 using Microsoft.Extensions.Logging;
 using TasksAppData;
@@ -10,6 +11,8 @@ namespace TasksServices.Repository
 
         private readonly ILogger<ToDoItemAzureBlobRepository> _logger;
         private readonly ICloudStorageRepository _cloudStorageRepository;
+        private static bool validated = false;
+
 
         public ToDoItemAzureBlobRepository(
             ILogger<ToDoItemAzureBlobRepository> logger,
@@ -20,11 +23,26 @@ namespace TasksServices.Repository
             _cloudStorageRepository = cloudStorageRepository;
 		}
 
-        public async Task<List<TodoItemData>> RestoreData()
+        /// <summary>
+        /// Check that the Database Souce Exists and is Valid.
+        /// Application Exceptions are caught in the ExceptionHandler
+        /// and are handled by the /Error Razor page.
+        /// Is only checked on startup
+        /// </summary>
+        /// <exception cref="ApplicationException">Throws an Application Exception with
+        /// a human readable message for the end user if source is not valid</exception>
+        public async Task ValidateSourceAsync()
         {
-            var db = await _cloudStorageRepository.RestoreBlobAsync();
-            if (db is null) throw (new ApplicationException("No Database: Check App Settings"));
-            return db;
+            if (!validated)
+            {
+                await _cloudStorageRepository.ValidateSourceAsync();
+                validated = true;
+            }
+        }
+
+        public async Task<List<TodoItemData>?> RestoreData()
+        {
+            return await _cloudStorageRepository.RestoreBlobAsync();
         }
 
         public async Task StoreData(List<TodoItemData>? db)

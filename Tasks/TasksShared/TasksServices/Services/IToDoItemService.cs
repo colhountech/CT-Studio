@@ -5,14 +5,17 @@ namespace TasksServices.Services
 {
     public interface IToDoItemService
     {
-        Task<Guid> AddItemAsync(TodoItemData item);
-        Task DeleteItemAsync(TodoItemData item);
+        // Queries
         TodoItemData? GetItemByID(Guid ID);
         IEnumerable<TodoItemData> GetItems(bool archived);
-        Task<bool> UpdateItemAsync(Guid oldID, TodoItemData item);
-        Task<bool> AddItemMessageAsync(Guid itemID, MessageData message);
-        Task<bool> MarkItemMessageRead(Guid itemID, Guid MessageID);
+
+        // Commands
+        Task AddItemAsync(TodoItemData item);
+        Task UpdateItemAsync(Guid oldID, TodoItemData item);
         Task UpdateItems(List<TodoItemData> items);
+        Task DeleteItemAsync(TodoItemData item);
+        Task AddItemMessageAsync(Guid itemID, MessageData message);
+        Task MarkItemMessageRead(Guid itemID, Guid MessageID);
 
     }
 }

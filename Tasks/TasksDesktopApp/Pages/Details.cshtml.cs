@@ -74,9 +74,9 @@ namespace TasksDesktopApp.Pages
                 UnRead = true,
                 ID = Guid.NewGuid()
             };
-            var ok = await _service.AddItemMessageAsync(ID.Value, messageData);
+            await _service.AddItemMessageAsync(ID.Value, messageData);
 
-            if (!ok) return NotFound();
+            //if (!ok) return NotFound();
 
             return RedirectToPage("Details", new { id = ID });
         }
@@ -94,9 +94,9 @@ namespace TasksDesktopApp.Pages
                 return NotFound();
             }
 
-            var ok = await _service.MarkItemMessageRead(ID!.Value, Message!.ID);
+            await _service.MarkItemMessageRead(ID!.Value, Message!.ID);
 
-            if (!ok) return NotFound();
+            //if (!ok) return NotFound();
 
             return RedirectToPage("Details", new { id = ID });
 

@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using Azure;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -12,6 +14,8 @@ public class ErrorModel : PageModel
 
     public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
+    public string? ExceptionMessage { get; set; }
+
     private readonly ILogger<ErrorModel> _logger;
 
     public ErrorModel(ILogger<ErrorModel> logger)
@@ -19,9 +23,33 @@ public class ErrorModel : PageModel
         _logger = logger;
     }
 
+    // this will only get hit on Proudction Page
+    // so How do you test this in Development code??
+
     public void OnGet()
     {
         RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+
+        var exHPF = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+
+        if (exHPF?.Error is ApplicationException)
+       
+        {
+            ExceptionMessage ??= string.Empty;
+            ExceptionMessage += $" Something Went Wrong: {exHPF.Error.Message}";
+
+           
+        }
+        if (exHPF?.Path == "/")
+        {
+            ExceptionMessage += " Page: Home.";
+        }
+        else
+        {
+            ExceptionMessage += $" Page: {exHPF?.Path}";
+        }
+
+        _logger.LogCritical($"Request Id: {RequestId}  {ExceptionMessage ?? string.Empty}");
     }
 }
 

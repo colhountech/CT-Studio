@@ -32,6 +32,19 @@ namespace CloudStorage
             _azureBlobStore = _config["AppConfig:AzureBlobStore"];
         }
 
+
+        public async Task ValidateSourceAsync()
+        {
+            BlobContainerClient container = new BlobContainerClient(_azureConnectionString, _azureContainer);
+            BlobClient blobClient = container.GetBlobClient(_azureBlobStore);
+            var exists = await blobClient.ExistsAsync();
+
+            if (!exists)
+            {
+                throw new ApplicationException("Can't find Your Database. Have you changed something?");
+            }
+        }
+
         public async Task StoreBlobAsync(List<TodoItemData> blob)
         {
             BlobUploadOptions blobUploadOptions = setETag(_eTag);
@@ -51,6 +64,8 @@ namespace CloudStorage
                 {
                     _logger.LogError($"Blob's ETag does not match ETag provided.");
                 }
+                // We probably want to mark database as IsDirty and allow the
+                // calling app to fallback and try again
             }
         }
 

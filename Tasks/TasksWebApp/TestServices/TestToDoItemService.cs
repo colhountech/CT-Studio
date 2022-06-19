@@ -50,10 +50,9 @@ namespace TestServices
             TodoItemData item = new TodoItemData { Title = "Title", Description = "Description" };            
 
             // Act
-            var result = await service!.AddItemAsync(item);
+            await service!.AddItemAsync(item);
 
             // Assert
-            Assert.True(Guid.Empty != result);
         }
 
         [Fact]
@@ -124,10 +123,9 @@ namespace TestServices
             TodoItemData updateItem = new TodoItemData { Title = item1.Title, Description = item1.Description };
 
             // Act
-            var result = await service.UpdateItemAsync(item1.ID, updateItem);
+            await service.UpdateItemAsync(item1.ID, updateItem);
 
             // Assert 
-            Assert.True(result);
 
             
         }

@@ -22,7 +22,7 @@ namespace TasksWebApp.Pages
 
 
         [BindProperty]
-        public TodoItemViewModel? TodoItem { get; set; }
+        public TodoItemViewModel? TodoItem { get; set; }  
 
 
         public void OnGet()
