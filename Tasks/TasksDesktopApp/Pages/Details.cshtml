@@ -1,0 +1,137 @@
+﻿@page "{id:Guid}/{handler?}"
+@model DetailsModel
+
+
+<div class="d-flex">
+    <div class="flex-grow-1"><h2>Details</h2></div>
+    <div><a asp-page="Index" class="btn btn-info m-2 pull-right">« Back </a></div>
+
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-lg-12 py-2">
+            <div class="card flex-row flex-wrap" style="min-width:22rem">
+
+                <div class="mx-auto align-self-center p-3"><i class="fa fa-solid fa-list-alt fa-4x home-icon"></i></div>
+                <div class="card-block flex-fill mx-auto p-2">
+                    <h3 class="card-title">@Model.TodoItem?.Title </h3>
+                    <p class="card-text">
+                        @Model.TodoItem?.Description<br />
+                        <span class="pull-right px-2 mx-auto">
+                            <a class="px-2" asp-page="Edit" asp-route-id="@Model.TodoItem?.ID">Edit</a>
+                            <a class="px-2 text-danger" asp-page="Delete" asp-route-id="@Model.TodoItem?.ID">Delete</a>
+                        </span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 py-2">
+            <div class="card">
+                <h5 class="card-header">Track Messages</h5>
+
+                <div class="card-body">
+                    <form asp-action="Details">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-primary"
+                                    data-toggle="tooltip" data-placement="top" title="Add New Message"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                <strong class="me-auto"><i class="fa fa-plus"></i></strong>
+                            </button>
+                            <button type="submit" asp-page-handler="unread" asp-route-id="@Model.TodoItem?.ID" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Show Unread Messages"><strong class="me-auto"><i class="fa fa-envelope"></i></strong></button>
+                            <button type="submit" asp-page-handler="read" asp-route-id="@Model.TodoItem?.ID" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Show Read Messages"><strong class="me-auto"><i class="fa fa-envelope-open-o"></i></strong></button>
+                        </div>
+
+
+                        <div class="py-2 collapse" id="collapseExample">
+                            <div id="add-message">
+                                <div class="py-2">
+                                    <!-- This is not showing that DateCreated is invalid -->
+                                    <div asp-validation-summary="ModelOnly" class="text-danger alert alert-danger "></div>
+                                </div>
+
+                                <!-- Hack for now -->
+                                <input type="hidden" asp-for="Message.DateCreated" value="Now" />
+
+
+                                <div class="card shadow">
+                                    <div class="card-body ">
+
+                                        <div class="form-group py-2">
+                                            <input asp-for="Message.Subject" placeholder="Subject" class="form-control" />
+                                            <span asp-validation-for="Message.Subject" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group py-2">
+                                            <input asp-for="Message.Body" placeholder="Body" class="form-control" />
+                                            <span asp-validation-for="Message.Body" class="text-danger"></span>
+                                        </div>
+
+                                    </div>
+                                    <div class="card-footer py-2 bg-light d-flex justify-content-end">
+                                        <input type="submit" value="Save"
+                                               asp-page-handler="message" asp-route-id="@Model.TodoItem?.ID"
+                                               class=" card-link btn btn-sm btn-success" />
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="py-2 toast-container">
+                        @foreach (var message in @Model.Messages)
+                        {
+                            var icon = message.UnRead == true ? "fa fa-envelope" : "fa fa-envelope-open-o";
+                            <!-- Message -->
+                            <div class="toast fade show" id="message-@message?.ID">
+                                <div class="toast-header">
+                                    <strong class="me-auto"><i class="@icon"></i> @message?.Subject </strong>
+                                    <small>@message?.DateCreated</small>
+                                    @if (message.UnRead == true)
+                                    {
+                                <form asp-page="Details">
+
+                                    <input type="hidden" asp-for="Message.ID" value="@message.ID" />
+                                    <button type="submit" asp-page-handler="close" asp-route-id="@message.TodoItemID"
+                                            class="btn-close" data-bs-dismiss="toast"></button>
+                                </form>
+
+                                    }
+                                </div>
+                                <div class="toast-body">
+                                    @message?.Body
+                                </div>
+                            </div>
+                            <!-- End Message -->
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>$(document).ready(function () {
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+
+            $(".toast").toast({
+                autohide: false
+            });
+        });</script>
+}
+
