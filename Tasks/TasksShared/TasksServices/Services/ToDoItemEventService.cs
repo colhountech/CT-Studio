@@ -38,7 +38,8 @@ namespace TasksServices.Services
 
         public async Task AddItemAsync(TodoItemData item)
         {
-            throw new NotImplementedException();
+            CmdAdditem<TodoItemData> cmd = new CmdAdditem<TodoItemData>(item);
+            await _cloudStorageRepository.Send(cmd);
 
         }
 

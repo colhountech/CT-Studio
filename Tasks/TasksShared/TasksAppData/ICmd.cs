@@ -1,6 +1,6 @@
-﻿namespace CloudStorage
+namespace TasksAppData
 {
-    public interface ICommand
+    public interface ICmd
     {
         
     }

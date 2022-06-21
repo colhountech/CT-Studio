@@ -6,5 +6,9 @@ namespace TasksServices.Services
     {
         // Queries
         Task<IEnumerable<TodoItemData>> GetItemsAsync(bool archived);
+
+        // Commands
+        Task AddItemAsync(TodoItemData item);
+
     }
 }

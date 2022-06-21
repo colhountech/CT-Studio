@@ -7,5 +7,8 @@ namespace CloudStorage
         Task ValidateSourceAsync();
         Task StoreBlobAsync(List<TodoItemData> blob);
         Task<List<TodoItemData>> RestoreBlobAsync();
+
+        // Commands
+        Task Send(ICmd cmd);
     }
 }
