@@ -35,26 +35,41 @@ namespace CloudStorage
 
         public async Task ValidateSourceAsync()
         {
-            BlobContainerClient container = new BlobContainerClient(_azureConnectionString, _azureContainer);
-            BlobClient blobClient = container.GetBlobClient(_azureBlobStore);
-            var exists = await blobClient.ExistsAsync();
-
-            if (!exists)
+            try
             {
-                throw new ApplicationException("Can't find Your Database. Have you changed something?");
+                if (string.IsNullOrEmpty(_azureConnectionString))
+                    throw new ApplicationException("You don't have a Database connection defined");
+                if (string.IsNullOrEmpty(_azureContainer))
+                    throw new ApplicationException("You don't have a Container for your Database");
+                if (string.IsNullOrEmpty(_azureBlobStore))
+                    throw new ApplicationException("Your Database Store is missing");
+
+                BlobContainerClient container = new BlobContainerClient(_azureConnectionString, _azureContainer);
+                BlobClient blobClient = container.GetBlobClient(_azureBlobStore);
+                var exists = await blobClient.ExistsAsync();
+
+                if (!exists)
+                {
+                    throw new ApplicationException("Can't find Your Database. Have you changed something?");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("You don't have valid Database settings. Try reinstalling", ex);
             }
         }
 
         public async Task StoreBlobAsync(List<TodoItemData> blob)
         {
-            BlobUploadOptions blobUploadOptions = setETag(_eTag);
 
             BlobContainerClient container = new BlobContainerClient(_azureConnectionString, _azureContainer);
-            await container.CreateIfNotExistsAsync();
+            var creatResonse = await container.CreateIfNotExistsAsync();
+                
             BlobClient blobClient = container.GetBlobClient(_azureBlobStore);
             var json = JsonSerializer.Serialize<List<TodoItemData>>(blob);
             try
-            {               
+            {
+                BlobUploadOptions blobUploadOptions = setETag(_eTag);
                 var azureResponse = await blobClient.UploadAsync(BinaryData.FromString(json), blobUploadOptions);
                 _eTag = azureResponse.Value.ETag;
             }
@@ -69,7 +84,7 @@ namespace CloudStorage
             }
         }
 
-        public async Task<List<TodoItemData>?> RestoreBlobAsync()
+        public async Task<List<TodoItemData>> RestoreBlobAsync()
         {
             BlobContainerClient container = new BlobContainerClient(_azureConnectionString, _azureContainer);
             BlobClient blobClient = container.GetBlobClient(_azureBlobStore);
@@ -80,11 +95,12 @@ namespace CloudStorage
                 var options = new JsonSerializerOptions();
                 var blob = await JsonSerializer.DeserializeAsync<List<TodoItemData>>(downloadStream, options);
                 _logger.LogTrace($"Restored Message: Got ({blob?.Count}) Items");
-                return blob;
+                return blob ?? new List<TodoItemData>();
             }
         }
         private BlobUploadOptions setETag(Azure.ETag eTag)
         {
+           
             return new BlobUploadOptions()
             {
                 Conditions = new BlobRequestConditions()

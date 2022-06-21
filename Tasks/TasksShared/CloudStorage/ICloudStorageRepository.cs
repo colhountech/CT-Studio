@@ -6,6 +6,6 @@ namespace CloudStorage
     {
         Task ValidateSourceAsync();
         Task StoreBlobAsync(List<TodoItemData> blob);
-        Task<List<TodoItemData>?> RestoreBlobAsync();
+        Task<List<TodoItemData>> RestoreBlobAsync();
     }
 }

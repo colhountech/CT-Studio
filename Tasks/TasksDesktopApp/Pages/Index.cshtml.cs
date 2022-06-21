@@ -2,29 +2,32 @@
 using AutoMapper;
 using TasksServices.Services;
 using TasksDesktopApp.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TasksDesktopApp.Pages;
 
 public class IndexModel : PageModel
 {
-    public List<TodoItemViewModel> TodoItems = new List<TodoItemViewModel>();
+   
     private readonly ILogger<IndexModel> _logger;
-    private readonly IToDoItemService _service;
+    private readonly IToDoItemEventService _service;
     private readonly IMapper _mapper;
 
-    public IndexModel(ILogger<IndexModel> logger, IToDoItemService service, IMapper mapper)
+    public IndexModel(ILogger<IndexModel> logger, IToDoItemEventService service, IMapper mapper)
     {
         _logger = logger;
         _service = service;
         _mapper = mapper;
     }
 
-    public void OnGet()
-    {
+    public List<TodoItemViewModel> TodoItems { get; set; } = new List<TodoItemViewModel>();
 
-        var items = _service.GetItems(archived: false);
-        // Map TodoItemData --> TodoItemViewModel      
+    public async Task OnGetAsync()
+    {
+        var items = await _service.GetItemsAsync(archived: false);
         this.TodoItems = _mapper.Map<List<TodoItemViewModel>>(items.OrderBy(x => x.Order));
     }
+
+  
 }
 
