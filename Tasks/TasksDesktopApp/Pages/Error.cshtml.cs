@@ -42,11 +42,11 @@ public class ErrorModel : PageModel
         }
         if (exHPF?.Path == "/")
         {
-            ExceptionMessage += " Page: Home.";
+            ExceptionMessage += " (Page: Home)";
         }
         else
         {
-            ExceptionMessage += $" Page: {exHPF?.Path}";
+            ExceptionMessage += $" (Page: {exHPF?.Path})";
         }
 
         _logger.LogCritical($"Request Id: {RequestId}  {ExceptionMessage ?? string.Empty}");

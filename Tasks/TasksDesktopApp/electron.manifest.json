@@ -4,13 +4,13 @@
     "imageFile": ""
   },
   "name": "TasksDesktopApp",
-  "author": "",
+  "author": "Micheal Colhoun - ColhounTech",
   "singleInstance": false,
   "environment": "Production",
   "build": {
     "appId": "com.TasksDesktopApp.app",
     "productName": "TasksDesktopApp",
-    "copyright": "Copyright © 2020",
+    "copyright": "Copyright © 2022",
     "buildVersion": "1.0.0",
     "compression": "maximum",
     "directories": {
