@@ -297,3 +297,8 @@ func azure functionapp publish
 
 echo `echo $(az storage message get --account-name azsa1234 --queue-name outqueue -o tsv --query '[].{Message:content}') | base64 --decode`
 
+# Next Steps 
+
+look at complete Example projects in c#
+
+https://docs.microsoft.com/en-us/samples/browse/?products=azure-functions&languages=csharp
