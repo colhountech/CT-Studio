@@ -302,3 +302,96 @@ echo `echo $(az storage message get --account-name azsa1234 --queue-name outqueu
 look at complete Example projects in c#
 
 https://docs.microsoft.com/en-us/samples/browse/?products=azure-functions&languages=csharp
+
+
+# Templates examples
+
+## QueueTrigger
+
+```c#
+
+func new --name queue_demo --template queueTrigger
+
+[FunctionName("queue_demo")]
+[QueueTrigger("myqueue-items", Connection = "")]string myQueueItem, ILogger log)
+
+```
+
+## HttpTrigger
+
+```c#
+func new  --name http_demo  --template "HttpTrigger" --authlevel "anonymous"
+
+[FunctionName("http_demo")]
+[Queue("outqueue"),StorageAccount("AzureWebJobsStorage")] ICollector<string> output,
+[HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]
+
+```
+
+
+## BlobTrigger
+
+
+```c#
+
+func new --name blob_demo --template BlobTrigger 
+
+[FunctionName("blob_demo")]
+[BlobTrigger("samples-workitems/{name}", Connection = "")]Stream myBlob, string name, ILogger log)
+
+```
+
+
+## TimerTrigger
+
+```c#
+func new --template TimerTrigger --name timer_demo  
+[FunctionName("timer_demo")]
+[TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, ILogger log)
+
+```
+
+## SendGrid
+
+```c#
+func new --template SendGrid --name sendgrid_demo 
+
+ [FunctionName("sendgrid_demo")]
+         [return: SendGrid(ApiKey = "", To = "{CustomerEmail}", From =
+"SenderEmail@org.com")]
+        public SendGridMessage Run([QueueTrigger("sampleMessages",
+Connection = "")]Order order, ILogger log)
+```
+9. EventHubTrigger
+
+
+```c#
+```
+10. ServiceBusQueueTrigger
+
+
+```c#
+```
+
+11. ServiceBusTopicTrigger
+
+```c#
+```
+
+12. EventGridTrigger
+
+```c#
+```
+
+13. CosmosDBTrigger
+
+
+```c#
+```
+14. IotHubTrigger
+
+
+```c#
+```
+
+
