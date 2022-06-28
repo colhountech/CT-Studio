@@ -81,11 +81,12 @@ builder.ConfigurationBuilder.AddAzureAppConfiguration(
 					      
 ```
 
-[!Tip]: if you don't want any configuration other than feature flags to be
-loaded to your application, you can call Select("_") to only load a
-nonexisting dummy key "_". By default, all configuration key-values in
-your App Configuration store will be loaded if no Select method is
-called.
+> **Tip** 
+> if you don't want any configuration other than feature flags to be
+> loaded to your application, you can call Select("_") to only load a
+> nonexisting dummy key "_". By default, all configuration key-values in
+> your App Configuration store will be loaded if no Select method is
+> called.
 
 
 Add `AddAzureAppConfiguration` and `AddFeaturemanagement` to Configure:
@@ -114,7 +115,8 @@ access the feature flag:
     
 ```
 
-**Note:*** this is a test note
+>**Note**
+> this is a test note
 
 
 ### Appendix: FREE Vs Standard App Configuraiton Plans
