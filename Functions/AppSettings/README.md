@@ -81,7 +81,7 @@ builder.ConfigurationBuilder.AddAzureAppConfiguration(
 					      
 ```
 
-> **Tip** 
+> **Note** 
 > if you don't want any configuration other than feature flags to be
 > loaded to your application, you can call Select("_") to only load a
 > nonexisting dummy key "_". By default, all configuration key-values in
@@ -114,9 +114,6 @@ access the feature flag:
     if (beta) { /* ... /* }
     
 ```
-
->**Note**
-> this is a test note
 
 
 ### Appendix: FREE Vs Standard App Configuraiton Plans
