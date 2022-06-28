@@ -83,8 +83,8 @@ builder.ConfigurationBuilder.AddAzureAppConfiguration(
 
 > **Note** 
 > if you don't want any configuration other than feature flags to be
-> loaded to your application, you can call Select("_") to only load a
-> nonexisting dummy key "_". By default, all configuration key-values in
+> loaded to your application, you can call Select("\_") to only load a
+> nonexisting dummy key "\_". By default, all configuration key-values in
 > your App Configuration store will be loaded if no Select method is
 > called.
 
