@@ -52,7 +52,8 @@ In the Azure Functions app, add the following nuget pakages:
 
 Add a new Startup.cs file and register as a Startup file:
 
-```
+```c#
+
 [assembly: FunctionsStartup(typeof(FunctionApp.Startup))]
 class Startup : FunctionsStartup
 {
@@ -68,7 +69,8 @@ class Startup : FunctionsStartup
 
 add the following:
 
-```
+```c#
+
 builder.ConfigurationBuilder.AddAzureAppConfiguration(
     options =>
     {
