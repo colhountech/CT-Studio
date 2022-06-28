@@ -28,3 +28,27 @@ az functionapp create --resource-group ms-learn --consumption-plan-location nort
 func azure functionapp publish azfnv4
 ```
 
+If I need to pull the azure function app setting from azure to local,
+do this:
+
+```
+ func azure functionapp fetch-app-settings azfnv4
+```
+
+this will update `local.settings.json' and replace `AzureWebJobsStorage": "UseDevelopmentStorage=true"` with the full Storage Accocunt Connection String for that Function App.
+
+this fetch will also add 5 more key-value pairs for the `Values` object:
+
+    * FUNCTIONS_EXTENSION_VERSION - now set to 4
+    * WEBSITE_CONTENTAZUREFILECONNECTIONSTRING - seems to be the same as the `AzureWeJobsStorage`
+    * WEBSITE_CONTENTSHARE
+    * APPINSIGHTS_INSTRUMENTATIONKEY
+    * WEBSITE_RUN_FROM_PACKAGE - set to 1
+    
+ also adds a new object which is empty called
+ 
+    * ConnectionStrings
+    
+Note: all the value are not encrypted. If you change the `IsEncrypted`
+to `true`, the fetch will download the value encrypted
+
