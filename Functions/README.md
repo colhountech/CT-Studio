@@ -32,6 +32,18 @@ for windows, download hte msi installer
 [v4.x - Windows 64-bit](https://go.microsoft.com/fwlink/?linkid=2174087)
 
 
+for wsl, 
+
+```bash
+wget -q
+https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+
+sudo apt-get update
+sudo apt-get install azure-functions-core-tools-4
+```
+
+
 We are only interested in version4.9 which support .NET Core 6.0
 
 # Azure Function Isolation
@@ -82,6 +94,15 @@ brew link --overwrite azure-functions-core-tools@4
 
 for windows, download hte msi installer
 [v4.x - Windows 64-bit](https://go.microsoft.com/fwlink/?linkid=2174087)
+
+
+for wsl - Ubuntu 20.4
+
+```
+wget -q
+https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+```
 
 
 We are only interested in version4.9 which support .NET Core 6.0
