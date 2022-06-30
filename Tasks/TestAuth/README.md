@@ -56,9 +56,74 @@ clientid=$(az rest -m post -uhttps://graph.microsoft.com/v1.0/applications  --he
 # Add a client secret, not required for public api
 # todo
 
-# Add redirect URLs
+# Add redirect URLs (replace localhost with your local/azure settings)
+#redirecttype=spa | web | publicClient
 redirecttype=publicClient
-redirecturl=https://www.getpostman.com/oauth2/callback
+redirecturl=https://localhost:7063/signin-oidc
 graphurl=https://graph.microsoft.com/v1.0/applications/$objectid
 az rest --method PATCH --uri $graphurl --headers 'Content-Type=application/json' --body '{"'$redirecttype'":{"redirectUris":["'$redirecturl'"]}}'
 
+# Add to appsettings
+
+tenantid=$(az account show --query tenantId --output tsv)
+echo "tenantId is $tenantid"
+echo "clientId is $clientid"
+
+jq '.AzureAd.Instance="https://login.microsoftonline.com/"' > _.json < appsettings.json && mv  _.json appsettings.json
+jq '.AzureAd.TenantId = "'$tenantid'" ' > _.json < appsettings.json && mv  _.json appsettings.json
+jq '.AzureAd.ClientId = "'$clientid'" ' > _.json < appsettings.json && mv  _.json appsettings.json
+
+
+# Add nuget packages
+
+dotnet add package Microsoft.AspNetCore.Authentication.OpenIdConnect
+dotnet add package Microsoft.Identity.Web
+
+
+
+# update Startup
+
+
+Add a new class for the Authorization policy you want, replace the
+guid with the Group ID of the authorized group
+
+```c#
+{
+    public static class MyAuthorizationPolicy
+    {
+        public static string Name => "My Users";
+        public static void Build(AuthorizationPolicyBuilder builder) =>  
+	builder.RequireClaim("groups","0000000-0000-0000-00000000000");
+    }
+```
+
+Add the following to startup
+```c#
+
+services
+    .AddAuthentication(AzureADDefaults.AuthenticationScheme)
+    .AddAzureAD(options => Configuration.Bind("AzureAd")
+    ;
+
+services.AddAuthorization(options =>
+{
+   options.AddPolicy("AllUsers", policy => policy.RequireAuthenticatedUser());
+   options.AddPolicy(MyAuthorizationPolicy.Name, MyAuthorizationPolicy.Build);
+});
+
+ app.UseAuthentication();
+
+```;
+
+Decorate each controller with the AD group you want to authorize
+
+```c#
+
+ [Authorize("Users")]
+ public class HomeController : Controller
+     
+```
+
+
+
+>>>>>>> e36611f (WIP:Adding Azure AD to dotnet web app)
