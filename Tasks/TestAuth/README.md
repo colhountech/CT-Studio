@@ -1,4 +1,4 @@
-# Adding Azure AD to ASP.NET Core 6.0 c# WebApps
+ Adding Azure AD to ASP.NET Core 6.0 c# WebApps
 
 Sample project on how to implement Azure AD Authentication in ASP.NET
 Core 6.0 Web application, starting with a blank ASP.NET Core 6.0
@@ -63,15 +63,14 @@ redirecturl=https://localhost:7063/signin-oidc
 graphurl=https://graph.microsoft.com/v1.0/applications/$objectid
 az rest --method PATCH --uri $graphurl --headers 'Content-Type=application/json' --body '{"'$redirecttype'":{"redirectUris":["'$redirecturl'"]}}'
 
-# Add to appsettings
+
 
 tenantid=$(az account show --query tenantId --output tsv)
 echo "tenantId is $tenantid"
 echo "clientId is $clientid"
 
-jq '.AzureAd.Instance="https://login.microsoftonline.com/"' > _.json < appsettings.json && mv  _.json appsettings.json
-jq '.AzureAd.TenantId = "'$tenantid'" ' > _.json < appsettings.json && mv  _.json appsettings.json
-jq '.AzureAd.ClientId = "'$clientid'" ' > _.json < appsettings.json && mv  _.json appsettings.json
+# Create webapp
+
 
 
 # Add nuget packages
@@ -124,6 +123,3 @@ Decorate each controller with the AD group you want to authorize
      
 ```
 
-
-
->>>>>>> e36611f (WIP:Adding Azure AD to dotnet web app)
