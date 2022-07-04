@@ -19,6 +19,10 @@ az login
 # for business, not azure devops), then login as follows
 az login --allow-no-subscriptions 
 
+# Choose correct subscription
+az account show --output table
+az account set --subscription "MPN..."
+
 # list existing apps
 az ad app list --query "[].displayName"
 

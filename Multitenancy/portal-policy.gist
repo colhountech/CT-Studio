@@ -1,0 +1,15 @@
+ services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
+                .AddAzureAD(options => Configuration.Bind("AzureAd", options))
+                //.AddCookie( options =>
+                //{
+                //    options.AccessDeniedPath = "/AzureAd/Account/AccessDenied";
+                //})
+                ;
+
+services.AddAuthorization(options =>
+            {
+               // options.AddPolicy("AllUsers", policy => policy.RequireAuthenticatedUser());
+                options.AddPolicy(HQAuthorizationPolicy.Name, HQAuthorizationPolicy.Build);
+              
+               
+            });

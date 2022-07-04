@@ -1,0 +1,13 @@
+            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+                .AddMicrosoftIdentityWebApp(
+                    options =>
+                    {
+                        Configuration.Bind("AzureAd", options);
+                        options.Events = new SurveyAuthenticationEvents(loggerFactory);
+                        options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                        options.Events.OnTokenValidated += options.Events.TokenValidated;
+                    })
+               .EnableTokenAcquisitionToCallDownstreamApi()
+               .AddDownstreamWebApi(configOptions.SurveyApi.Name, Configuration.GetSection("SurveyApi"))
+               .AddDistributedTokenCaches();
+

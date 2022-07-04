@@ -1,0 +1,4 @@
+
+builder.Services.AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
+builder.Services.AddAuthorization(o => {o.FallbackPolicy = o.DefaultPolicy; });
+builder.Services.AddRazorPages().AddMicrosoftIdentityUI();
