@@ -1,0 +1,36 @@
+    .AddMicrosoftIdentityWebApp (options =>
+    {
+        builder.Configuration.Bind("AzureAd", options);
+        // Restrict users to specific belonging to specific tenants
+        options.TokenValidationParameters.IssuerValidator = ValidateSpecificIssuers;
+    });
+    
+ string ValidateSpecificIssuers(string issuer, SecurityToken securityToken,
+                                          TokenValidationParameters validationParameters)
+    {
+        var validIssuers = GetAcceptedTenantIds()
+                             .Select(tid => $"https://login.microsoftonline.com/{tid}/v2.0");
+        if (validIssuers.Contains(issuer))
+        {
+            return issuer;
+        }
+        else
+        {
+            throw new SecurityTokenInvalidIssuerException("The sign-in user's account does not belong to one of the tenants that this Web App accepts users from.");
+        }
+    }
+
+     string[] GetAcceptedTenantIds()
+    {
+        // If you are an ISV who wants to make the Web app available only to certain customers who
+        // are paying for the service, you might want to fetch this list of accepted tenant ids from
+        // a database.
+        // Here for simplicity we just return a hard-coded list of TenantIds.
+	//  "<GUID1>",
+    //        "<GUID2>"
+        return new string[]
+        {
+	  "" // Add guid here
+        };
+    }
+
