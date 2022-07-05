@@ -10,10 +10,10 @@ example:
 Change the value of "Instance" to one of 
 
 |National cloudAzure |AD authentication endpoint
-+--------------------+----------------------------
-Azure AD for US Government | https://login.microsoftonline.us
-Azure AD China operated by 21Vianet | https://login.partner.microsoftonline.cn
-Azure AD (global service)|https://login.microsoftonline.com
+|--------------------|----------------------------
+| Azure AD for US Government | https://login.microsoftonline.us
+| Azure AD China operated by 21Vianet | https://login.partner.microsoftonline.cn
+| Azure AD (global service)|https://login.microsoftonline.com
 
 
 Set the tenant id to the correct value:
