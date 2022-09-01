@@ -1,4 +1,10 @@
-﻿# ASP.NET Core 6.0 Web REST API Patterns (not minimal api)
+﻿# Obsolete
+
+I've moved the WebApi Functionality into the WebApp Project.
+This project is no long being used.
+I've keep the README files because it gives some interesting insights.
+
+# ASP.NET Core 6.0 Web REST API Patterns (not minimal api)
 
 ## Dependency Injection (DI)
 

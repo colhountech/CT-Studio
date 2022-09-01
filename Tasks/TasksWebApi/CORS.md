@@ -1,4 +1,11 @@
-﻿# Web API and CORS
+﻿# Obsolete
+
+I've moved the WebApi Functionality into the WebApp Project.
+This project is no long being used.
+I've keep the README files because it gives some interesting insights.
+
+
+# Web API and CORS
 
 PUT https://localhost:7011/SyncOrder net::ERR_FAILED
 

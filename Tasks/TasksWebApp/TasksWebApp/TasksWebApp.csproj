@@ -10,7 +10,8 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-  </ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\TasksShared\CloudStorage\CloudStorage.csproj" />
@@ -18,4 +19,10 @@
     <ProjectReference Include="..\..\TasksShared\TasksServices\TasksServices.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Controllers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
 </Project>

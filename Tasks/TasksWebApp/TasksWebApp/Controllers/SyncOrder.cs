@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TasksServices.Services;
 using TasksAppData;
-using TasksWebApi.ViewModels;
+using TasksWebApp.ViewModels;
 
 namespace TasksWebApp
 {

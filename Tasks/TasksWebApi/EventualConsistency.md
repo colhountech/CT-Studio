@@ -1,4 +1,9 @@
-﻿
+﻿# Obsolete
+
+I've moved the WebApi Functionality into the WebApp Project.
+This project is no long being used.
+I've keep the README files because it gives some interesting insights.
+
 # Eventual Consistency
 
 This ASP.NET REST Api implementation is a great example of how eventual consistency can cause
