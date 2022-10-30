@@ -7,7 +7,6 @@ provided, and can be extended to add others.
 
 For example:
 
-```
 Injecting IHostEnvironment into a dotnet app.
 
 E.g. in a razor Page
@@ -39,6 +38,7 @@ public class DoWork
 You can then access from the class Methods
 
 
+```c#
 environment.IsDevelopment() - Checks if the current host environment name is
 Development. 
 
@@ -51,7 +51,7 @@ environment.IsProduction(); - Checks if the current host environment name is Pro
 
 you can also add your own environment checks, e.g.
 
-```
+```c#
 
 environment.IsEnvironment("UAT") - Compares the current host environment name against the specified value e.g. "UAT" or "INT" 
 
@@ -63,7 +63,8 @@ environment.IsEnvironment("UAT") - Compares the current host environment name ag
 * You *can* (but shouldn't) override this by setting a value in the environment varible. 
 * If you do this, you will get a warning:
 
-```
+```txt
+
     Skipping 'AZURE_FUNCTIONS_ENVIRONMENT' from local settings as it's already defined in current environment variables.
 
 ```
@@ -74,7 +75,7 @@ environment settings.
 
 e.g. via the Properite/launchsettings.json file:
 
-```
+```json
  "ASPNETCORE_ENVIRONMENT" : "UAT"
 ```
 
