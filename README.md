@@ -21,16 +21,17 @@ As it evolves you will need to Download and install `Azure Storage Explorer` and
 
 #### Lessson 1: Getting Started
 
-Open Visual Studio 2022, and create a new Project called using the **ASP.NET Core Web App** Template. 
+Open Visual Studio 2022, and create a new Project called "TasksWebApp" using the **ASP.NET Core Web App** Template. 
 
-Choose .NET 6.0 Framework, No Authentication, No support for HTTPS and Don't enable Docker.
+Choose .NET 8.0 Framework, No Authentication, No support for HTTPS and Don't enable Docker.
 
 To summarise:
 
+  * .NET 8.0 Support
   * No Authentication
   * No HTTPS support
   * No Docker Supporet
-  * .NET 6.0 Support
+  * use top-level statements
 
 Click [Create] and we get a Basic Web App up and running.
 
@@ -148,7 +149,7 @@ Some lesser known files and folders include:
 * _ViewStart.cshtml - a default setting for supporting different themes. The default theme is in the Shared folder as _Layout.cshtml
 * _ViewImports.cstml - This is like a global bucket that is used to give hints on searching for other libraries and code pages
 * Shared\ - Folder of shared resource such as Themes and shared Controls
-* Shared\_ValidationSCriptPartial - This is used for forms that need client side validation before we send form data to the server. Mostly this just works and we won't need to worry about this ( for a while )
+* Shared\_ValidationScriptsPartial - This is used for forms that need client side validation before we send form data to the server. Mostly this just works and we won't need to worry about this ( for a while )
 
 OK. Let's run this. Our request is reouted to the default Razor Page `Index.cshtml` and is rendered to our browser. 
 
@@ -209,7 +210,7 @@ body {
     text-align: left;
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: ghostwhite;
-    padding-top: 5rem;
+    /* padding-top: 5rem; */
 }
 
 body-content {
@@ -308,10 +309,10 @@ This looks a bit better but some of the awesome fonts are missing.
 
 Right click on wwwroot and select Add > Client Side Library. 
 
-Using the default Provider of cdjs, search for `font awesome` in the Library: field and change the version to 4.7.0 
-and includ all library files. The target location should be wwwroot. 
+Using the default Provider of cdjs, search for `font-awesome` in the Library: field and change the version to @6.5.2 
+and include all library files. The target location should be wwwroot/lib/font-awesome/. 
 
-You will see the font-awesome libraries added to the wwwroot/lib folder.
+You will see the font-awesome libraries added to the wwwroot/lib/font-awesome/ folder.
 
 Check your libman.json file in the root folder of your project. It should look like this:
 
@@ -321,7 +322,7 @@ Check your libman.json file in the root folder of your project. It should look l
   "defaultProvider": "cdnjs",
   "libraries": [
     {
-      "library": "font-awesome@4.7.0",
+      "library": "font-awesome@6.5.2",
       "destination": "wwwroot/lib/font-awesome/"
     }
   ]
@@ -344,9 +345,9 @@ The top and <head> section of your _Layout.cshtml file should now look like this
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TasksWebApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
-    <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TasksWebApp.styles.css" asp-append-version="true" />
 </head>
@@ -494,7 +495,7 @@ Click the cursor onto one of the `toDoItem` type and press <Ctrl> and . (the ful
 
 Finally, change the foreach line to reference the new IndexModel `Model` and the new todoItems property of the Model
 ```c#
-        @foreach (var item in @Model.todoItems)
+        @foreach (var item in @Model.TodoItems)
 
 ```
 Some Razor magic going on here! There is a convention that whatever you describe at the top of the razor page in the `@model` section become the `@Model` property for the page, so the `IndexModel` type has become magically "transmorgofied" (not a real word) into a `@Model` object. This magic is used a lot later in Razor.
