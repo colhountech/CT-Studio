@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-TasksDesktopApp-264D8E75-28B5-4083-9E7E-BC93CFBE2D5E</UserSecretsId>
@@ -23,7 +23,7 @@
     <ProjectReference Include="..\TasksShared\TasksAppData\TasksAppData.csproj" />
     <ProjectReference Include="..\TasksShared\TasksServices\TasksServices.csproj" />
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <Content Update="electron.manifest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

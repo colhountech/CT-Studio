@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksWebApp", "TasksWebApp\TasksWebApp.csproj", "{1EA6D73A-25CB-4BD1-B53B-E6322B1D87B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksWebApp", "TasksWebApp\TasksWebApp.csproj", "{1EA6D73A-25CB-4BD1-B53B-E6322B1D87B0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestServices", "TestServices\TestServices.csproj", "{DBBA875A-47D3-48B8-A88A-508F5AF1AFAD}"
 EndProject
@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksAppData", "..\TasksSha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksDesktopApp", "..\TasksDesktopApp\TasksDesktopApp.csproj", "{DA64E0A9-8EC1-4E24-904A-C87C7EA9C7EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksBlazor", "..\TasksBlazor\TasksBlazor.csproj", "{EB72F8A8-79EC-467D-9DD2-8223907DB8F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksBlazor", "..\TasksBlazor\TasksBlazor.csproj", "{EB72F8A8-79EC-467D-9DD2-8223907DB8F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
