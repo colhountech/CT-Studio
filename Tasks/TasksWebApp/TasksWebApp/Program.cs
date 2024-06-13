@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using TasksServices.Repository;
 using TasksServices.Services;
+using Microsoft.Extensions.Azure;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
@@ -11,6 +12,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IToDoItemService, ToDoItemService>();
 builder.Services.AddTransient<IToDoItemRepository, ToDoItemAzureBlobRepository>();
 builder.Services.AddTransient<ICloudStorageRepository, AzureStorageRepository>();
+builder.Services.AddAzureClients(clientBuilder =>
+{
+    clientBuilder.AddBlobServiceClient(builder.Configuration["AzuriteConnectionString:blob"]!, preferMsi: true);
+    clientBuilder.AddQueueServiceClient(builder.Configuration["AzuriteConnectionString:queue"]!, preferMsi: true);
+});
 var app = builder.Build();
 
 app.UseHttpsRedirection();
