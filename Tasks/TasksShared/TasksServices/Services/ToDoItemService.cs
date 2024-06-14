@@ -30,24 +30,13 @@ namespace TasksServices.Services
             // change from static, so db is loaded in memory on **every**  _service call
             if (ItemsDatabase.Count == 0)
             {
-                LoadAsync().GetAwaiter().GetResult();
+                   LoadAsync().ConfigureAwait(false);
             }
-        }
-
-        private async void SetupDummyDataAsync()
-        {
-            // This is a new database. Setup some dummy data 
-            await AddItemAsync(new TodoItemData { Title = "Tast Item 1", Description = "This is the first thing on my todo list" });
-            await AddItemAsync(new TodoItemData { Title = "Tast Item 2", Description = "This is the second thing on my todo list" });
-            await AddItemAsync(new TodoItemData { Title = "Tast Item 3", Description = "This is the third thing on my todo list" });
-            await AddItemAsync(new TodoItemData { Title = "Tast Item 4", Description = "This is the fourth thing on my todo list" });
-            await SaveAsync();
         }
 
         private async Task LoadAsync()
         {
-            _toDoItemRepository.ValidateSourceAsync().GetAwaiter().GetResult();
-
+            await _toDoItemRepository.ValidateSourceAsync();
             var db = await _toDoItemRepository.RestoreData();
             _logger.LogInformation($"Restored ({db?.Count}) items to db from Blob.");
             if (db is not null) ItemsDatabase = db;
