@@ -54,11 +54,11 @@ namespace CloudStorage
             try
             {
                 if (string.IsNullOrEmpty(_azureConnectionString))
-                    throw new ApplicationException("You don't have a Database connection defined");
+                    throw new ApplicationException("You don't have an AzureConnectionString defined");
                 if (string.IsNullOrEmpty(_azureContainer))
-                    throw new ApplicationException("You don't have a Container for your Database");
+                    throw new ApplicationException("You don't have a AzureContainer");
                 if (string.IsNullOrEmpty(_azureBlobStore))
-                    throw new ApplicationException("Your Database Store is missing");
+                    throw new ApplicationException("Your AzureBlobStore is missing");
 
                 BlobContainerClient container = new BlobContainerClient(_azureConnectionString, _azureContainer);
                 BlobClient blobClient = container.GetBlobClient(_azureBlobStore);
@@ -66,7 +66,7 @@ namespace CloudStorage
 
                 if (!exists)
                 {
-                    throw new ApplicationException("Can't find Your Database. Have you changed something?");
+                    throw new ApplicationException("Can't find Your Database blob. Have you changed something?");
                 }
             }
             catch (Exception ex)
