@@ -18,7 +18,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        var connectionString = Configuration.GetConnectionString("DefaultConnection");
+        var connectionString = Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite(connectionString));
         services.AddDatabaseDeveloperPageExceptionFilter();

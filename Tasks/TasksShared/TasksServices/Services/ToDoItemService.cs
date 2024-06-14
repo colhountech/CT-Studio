@@ -58,6 +58,7 @@ namespace TasksServices.Services
             var db = ItemsDatabase;
             _logger.LogInformation($"Storing {db?.Count} items");
             if (db is not null) await _toDoItemRepository.StoreData(db);
+            // this could throw a contention exceptions
         }
 
 

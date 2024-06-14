@@ -34,10 +34,10 @@ namespace CloudStorage
         {
             _logger = logger;
             _config = config;
-            _azureConnectionString = _config["AppConfig:AzureConnectionString"];
-            _azureContainer = _config["AppConfig:AzureContainer"];
-            _azureBlobStore = _config["AppConfig:AzureBlobStore"];
-            _azureQueueName = _config["AppConfig:AzureQueueName"];
+            _azureConnectionString = _config["AppConfig:AzureConnectionString"] ?? string.Empty;
+            _azureContainer = _config["AppConfig:AzureContainer"] ?? string.Empty;
+            _azureBlobStore = _config["AppConfig:AzureBlobStore"] ?? string.Empty;
+            _azureQueueName = _config["AppConfig:AzureQueueName"] ?? string.Empty;
             _client = new QueueClient(_azureConnectionString, _azureQueueName);
             _accountName = _client.AccountName;
 
@@ -71,11 +71,11 @@ namespace CloudStorage
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("You don't have valid Database settings. Try reinstalling", ex);
+                throw new ApplicationException("You don't have valid Database", ex);
             }
         }
 
-        public async Task StoreBlobAsync(List<TodoItemData> blob)
+        public async Task<bool> StoreBlobAsync(List<TodoItemData> blob)
         {
 
             BlobContainerClient container = new BlobContainerClient(_azureConnectionString, _azureContainer);
@@ -85,6 +85,7 @@ namespace CloudStorage
             var json = JsonSerializer.Serialize<List<TodoItemData>>(blob);
             try
             {
+                // if _eTag is different between Restore and Store we get a conflict exceptions
                 BlobUploadOptions blobUploadOptions = setETag(_eTag);
                 var azureResponse = await blobClient.UploadAsync(BinaryData.FromString(json), blobUploadOptions);
                 _eTag = azureResponse.Value.ETag;
@@ -93,11 +94,15 @@ namespace CloudStorage
             {
                 if (e.Status == (int)HttpStatusCode.PreconditionFailed)
                 {
-                    _logger.LogError($"Blob's ETag does not match ETag provided.");
+                    _logger.LogError($"Blob has Changed : Blob's ETag does not match ETag provided.");
+                    // We probably want to mark database as IsDirty and allow the
+                    // calling app to fallback and try again
                 }
-                // We probably want to mark database as IsDirty and allow the
-                // calling app to fallback and try again
+                throw;
+
             }
+            // Success
+            return true; 
         }
 
         public async Task<List<TodoItemData>> RestoreBlobAsync()
@@ -105,6 +110,7 @@ namespace CloudStorage
             BlobContainerClient container = new BlobContainerClient(_azureConnectionString, _azureContainer);
             BlobClient blobClient = container.GetBlobClient(_azureBlobStore);
             var azureResponse = await blobClient.DownloadStreamingAsync();
+            // if _eTag is different between Restore and Store we get a conflict exceptions
             _eTag = azureResponse.Value.Details.ETag;
             using (Stream downloadStream = azureResponse.Value.Content)
             {

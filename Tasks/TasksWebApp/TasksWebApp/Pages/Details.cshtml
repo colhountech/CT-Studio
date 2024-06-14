@@ -94,7 +94,7 @@
                                 <div class="toast-header">
                                     <strong class="me-auto"><i class="@icon"></i> @message?.Subject </strong>
                                     <small>@message?.DateCreated</small>
-                                    @if (message.UnRead == true)
+                                    @if (message?.UnRead == true)
                                     {
                                 <form asp-page="Details">
 
