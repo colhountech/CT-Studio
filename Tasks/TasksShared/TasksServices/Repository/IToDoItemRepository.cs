@@ -6,7 +6,7 @@ namespace TasksServices.Repository
     public interface IToDoItemRepository
     {
         Task ValidateSourceAsync();
-        Task<List<TodoItemData>?> RestoreData();
+        Task<List<TodoItemData>?> RestoreDataAsync();
         Task StoreData(List<TodoItemData>? db);
     }
 }
