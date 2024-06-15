@@ -30,7 +30,7 @@ namespace TasksServices.Services
             // change from static, so db is loaded in memory on **every**  _service call
             if (ItemsDatabase.Count == 0)
             {
-                   LoadAsync().ConfigureAwait(false);
+                   LoadAsync().GetAwaiter().GetResult();
             }
         }
 
