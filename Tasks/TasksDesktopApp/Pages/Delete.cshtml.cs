@@ -55,7 +55,8 @@ namespace TasksDesktopApp.Pages
             if (TodoItem != null)
             {
                 var itemData = _mapper.Map<TodoItemData>(TodoItem);
-                 await _service.DeleteItemAsync(itemData);
+                 _service.DeleteItem(itemData);
+                await _service.SaveAsync();
             }
 
 

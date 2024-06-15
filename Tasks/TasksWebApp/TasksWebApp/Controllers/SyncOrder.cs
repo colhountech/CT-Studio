@@ -59,7 +59,8 @@ namespace TasksWebApp
 
                 // update db
                 // TODO
-                await _service.UpdateItems(updateItems);
+                _service.UpdateItems(updateItems);
+                await _service.SaveAsync();
 
                  
             }

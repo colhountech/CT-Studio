@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TasksAppData;
@@ -14,8 +15,7 @@ namespace TasksServices.Services
         private readonly ILogger<ToDoItemService> _logger;
         private readonly IToDoItemRepository _toDoItemRepository;
 
-        private static bool IsAvailable { get; set; } = false;
-
+        private static bool IsDirty { get; set; } = false;
 
         protected List<TodoItemData> ItemsDatabase = new List<TodoItemData>();
   
@@ -34,20 +34,26 @@ namespace TasksServices.Services
             }
         }
 
-        private async Task LoadAsync()
+        public async Task LoadAsync()
         {
             await _toDoItemRepository.ValidateSourceAsync();
-            var db = await _toDoItemRepository.RestoreData();
+            var db = await _toDoItemRepository.RestoreDataAsync();
             _logger.LogInformation($"Restored ({db?.Count}) items to db from Blob.");
             if (db is not null) ItemsDatabase = db;
+            IsDirty = false;
+
         }
  
-        private async Task SaveAsync()
+        public async Task SaveAsync()
         {
-            var db = ItemsDatabase;
-            _logger.LogInformation($"Storing {db?.Count} items");
-            if (db is not null) await _toDoItemRepository.StoreData(db);
-            // this could throw a contention exceptions
+            if (IsDirty)
+            {
+                var db = ItemsDatabase;
+                _logger.LogInformation($"Storing {db?.Count} items.");
+                if (db is not null) await _toDoItemRepository.StoreDataAsync(db);
+                // this could throw a contention exceptions
+                IsDirty = false;
+            }
         }
 
 
@@ -64,13 +70,14 @@ namespace TasksServices.Services
 
         }
 
-        public async Task AddItemAsync(TodoItemData item)
+        public void AddItem(TodoItemData item)
         {
             ItemsDatabase.Add(item);
-            await SaveAsync();
+            IsDirty = true;
         }
 
-        public async Task UpdateItemAsync(Guid oldID, TodoItemData item)
+
+        public void UpdateItem(Guid oldID, TodoItemData item)
         {
             var oldItem = ItemsDatabase.Find(x => x.ID == oldID);
 
@@ -79,22 +86,21 @@ namespace TasksServices.Services
                 // Removes old item and replace with new item
                 ItemsDatabase.Remove(oldItem);
                 ItemsDatabase.Add(item);
-                await SaveAsync();
+                IsDirty = true;
             }
         }
 
-        public async Task DeleteItemAsync(TodoItemData item)
+        public void DeleteItem(TodoItemData item)
         {
             var oldItem = ItemsDatabase.Find(x => x.ID == item.ID);
             if (oldItem is not null)
             {
                 var newItem = oldItem with { Archived = true };
-                var updateItem = UpdateItemAsync(oldItem.ID, newItem);
-                await SaveAsync();
+                UpdateItem(oldItem.ID, newItem);
             }
         }
 
-        public async Task AddItemMessageAsync(Guid itemID, MessageData message)
+        public void AddItemMessage(Guid itemID, MessageData message)
         {
             var item = ItemsDatabase.Find(x => x.ID == itemID);
 
@@ -102,12 +108,11 @@ namespace TasksServices.Services
             {
                 message.TodoItemID = item.ID;
                 item.Messages.Add(message);
-                await SaveAsync();
+                IsDirty = true;
             }
-
         }
 
-        public async Task MarkItemMessageRead(Guid itemID, Guid MessageID)
+        public void MarkItemMessageRead(Guid itemID, Guid MessageID)
         {
             var item = ItemsDatabase.Find(x => x.ID == itemID);
 
@@ -120,11 +125,11 @@ namespace TasksServices.Services
                 var newMessage = oldMessage with { UnRead = false };
                 item.Messages.Remove(oldMessage);
                 item.Messages.Add(newMessage);
-                await SaveAsync();
+                IsDirty = true;
             }
         }
 
-        public async Task UpdateItems(List<TodoItemData> items)
+        public void UpdateItems(List<TodoItemData> items)
         {
             foreach (var item in items)
             {
@@ -134,11 +139,9 @@ namespace TasksServices.Services
                 {
                     ItemsDatabase.Remove(oldItem);
                     ItemsDatabase.Add(item);
+                    IsDirty = true;
                 }
             }
-            await SaveAsync();
-
         }
     }
-
 }

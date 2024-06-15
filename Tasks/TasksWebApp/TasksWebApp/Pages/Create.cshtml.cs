@@ -39,7 +39,8 @@ namespace TasksWebApp.Pages
             if (TodoItem != null)
             {
                 var itemData = _mapper.Map<TodoItemData>(TodoItem);
-                await _service.AddItemAsync(itemData);
+                _service.AddItem(itemData);
+                await _service.SaveAsync();
             }
 
 

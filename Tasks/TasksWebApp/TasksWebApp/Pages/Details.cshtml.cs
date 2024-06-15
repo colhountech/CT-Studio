@@ -74,8 +74,8 @@ namespace TasksWebApp.Pages
                 UnRead = true,
                 ID = Guid.NewGuid()
             };
-            await _service.AddItemMessageAsync(ID.Value, messageData);
-
+            _service.AddItemMessage(ID.Value, messageData);
+            await _service.SaveAsync();
             return RedirectToPage("Details", new { id = ID });
         }
 
@@ -92,7 +92,8 @@ namespace TasksWebApp.Pages
                 return NotFound();
             }
 
-            await _service.MarkItemMessageRead(ID!.Value, Message!.ID);
+            _service.MarkItemMessageRead(ID!.Value, Message!.ID);
+            await _service.SaveAsync();
 
             //if (!ok) return NotFound();
 

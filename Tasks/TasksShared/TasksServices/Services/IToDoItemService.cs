@@ -10,12 +10,15 @@ namespace TasksServices.Services
         IEnumerable<TodoItemData> GetItems(bool archived);
 
         // Commands
-        Task AddItemAsync(TodoItemData item);
-        Task UpdateItemAsync(Guid oldID, TodoItemData item);
-        Task UpdateItems(List<TodoItemData> items);
-        Task DeleteItemAsync(TodoItemData item);
-        Task AddItemMessageAsync(Guid itemID, MessageData message);
-        Task MarkItemMessageRead(Guid itemID, Guid MessageID);
+        void AddItem(TodoItemData item);
+        void UpdateItem(Guid oldID, TodoItemData item);
+        void UpdateItems(List<TodoItemData> items);
+        void DeleteItem(TodoItemData item);
+        void AddItemMessage(Guid itemID, MessageData message);
+        void MarkItemMessageRead(Guid itemID, Guid MessageID);
 
+        Task LoadAsync();
+
+        Task SaveAsync();
     }
 }

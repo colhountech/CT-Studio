@@ -40,12 +40,12 @@ namespace TasksServices.Repository
             }
         }
 
-        public async Task<List<TodoItemData>?> RestoreData()
+        public async Task<List<TodoItemData>?> RestoreDataAsync()
         {
             return await _cloudStorageRepository.RestoreBlobAsync();
         }
 
-        public async Task StoreData(List<TodoItemData>? db)
+        public async Task StoreDataAsync(List<TodoItemData>? db)
         {
             if (db is not null) await _cloudStorageRepository.StoreBlobAsync(db);
         }

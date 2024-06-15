@@ -50,8 +50,8 @@ namespace TestServices
             TodoItemData item = new TodoItemData { Title = "Title", Description = "Description" };            
 
             // Act
-            await service!.AddItemAsync(item);
-
+            service!.AddItem(item);
+            await service.SaveAsync();
             // Assert
         }
 
@@ -64,22 +64,24 @@ namespace TestServices
             TodoItemData item1 = new TodoItemData { Title = "Title1", Description = "Description1" };
             TodoItemData item2 = new TodoItemData { Title = "Title2", Description = "Description2" };
             // Act
-            await service!.AddItemAsync(item1);
-            await service.AddItemAsync(item2);
+            service.AddItem(item1);
+            service.AddItem(item2);
+            await service.SaveAsync();
 
             // Assert
         }
 
         [Fact]
-        public async void Test_GetItemsAsync()
+        public async Task Test_GetItemsAsync()
         {
             // Arrange
             var service = _fixture.GetService<IToDoItemService>(_testOutputHelper);
             Assert.NotNull(service);
             TodoItemData item1 = new TodoItemData { Title = "Title1", Description = "Description1" };
             TodoItemData item2 = new TodoItemData { Title = "Title2", Description = "Description2" };
-            await service!.AddItemAsync(item1);
-            await service.AddItemAsync(item2);
+            service!.AddItem(item1);
+            service.AddItem(item2);
+            await service.SaveAsync();
 
             // Act
             var items =  service.GetItems(archived: false);
@@ -96,13 +98,14 @@ namespace TestServices
 
         }
         [Fact]
-        public async void Test_GetItemByID()
+        public async Task Test_GetItemByID()
         {
             // Arrange
             var service = _fixture.GetService<IToDoItemService>(_testOutputHelper);
             Assert.NotNull(service);
             TodoItemData item1 = new TodoItemData { Title = "Title1", Description = "Description1" };
-            await service!.AddItemAsync(item1);
+            service!.AddItem(item1);
+            await service.SaveAsync();
 
             // Act
             var result = service.GetItemByID(item1.ID);
@@ -118,12 +121,13 @@ namespace TestServices
             var service = _fixture.GetService<IToDoItemService>(_testOutputHelper);
             Assert.NotNull(service);
             TodoItemData item1 = new TodoItemData { Title = "Title1", Description = "Description1" };
-            await service!.AddItemAsync(item1);
+            service!.AddItem(item1);
             var item = service.GetItemByID(item1.ID);
             TodoItemData updateItem = new TodoItemData { Title = item1.Title, Description = item1.Description };
 
             // Act
-            await service.UpdateItemAsync(item1.ID, updateItem);
+            service.UpdateItem(item1.ID, updateItem);
+            await service.SaveAsync();
 
             // Assert 
 
@@ -137,11 +141,11 @@ namespace TestServices
             var service = _fixture.GetService<IToDoItemService>(_testOutputHelper);
             Assert.NotNull(service);
             TodoItemData item1 = new TodoItemData { Title = "Title1", Description = "Description1" };
-            await service.AddItemAsync(item1);
+            service.AddItem(item1);
             var item = service.GetItemByID(item1.ID);
             // Act
-            if (item is not null) await service.DeleteItemAsync(item);
-
+            if (item is not null) service.DeleteItem(item);
+            await service.SaveAsync();
             // Assert
 
         }

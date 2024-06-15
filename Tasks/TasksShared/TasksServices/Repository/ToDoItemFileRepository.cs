@@ -41,7 +41,7 @@ namespace TasksServices.Repository
             await Task.CompletedTask;
         }
 
-        public async Task<List<TodoItemData>?> RestoreData()
+        public async Task<List<TodoItemData>?> RestoreDataAsync()
         {
             using (var fs = File.OpenRead(_path))
             {
@@ -51,7 +51,7 @@ namespace TasksServices.Repository
             
         }
 
-        public async Task StoreData(List<TodoItemData>? db)
+        public async Task StoreDataAsync(List<TodoItemData>? db)
         {
             try
             {
