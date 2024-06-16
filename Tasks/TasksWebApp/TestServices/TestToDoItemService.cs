@@ -12,14 +12,14 @@ namespace TestServices
 {
     /// <summary>
     /// Basic Tests - incomplete and of course could be better
-    /// using ToDoItemFileRepository.cs so db written to Database.json in debug folder
+    /// using TodoItemFileRepository.cs so db written to Database.json in debug folder
     /// Really should use an InMemoryDatabase
     /// </summary>
     /// 
     [CollectionDefinition("Dependency Injection")]
-    public class TestToDoItemService : TestBed<TestFixture>
+    public class TestTodoItemService : TestBed<TestFixture>
     {
-        public TestToDoItemService(ITestOutputHelper testOutputHelper, TestFixture fixture)
+        public TestTodoItemService(ITestOutputHelper testOutputHelper, TestFixture fixture)
        : base(testOutputHelper, fixture)
         {
         }
@@ -30,7 +30,7 @@ namespace TestServices
             // Arrange
 
             // Act 
-            IToDoItemService? service = _fixture.GetService<IToDoItemService>(_testOutputHelper);
+            ITodoItemService? service = _fixture.GetService<ITodoItemService>(_testOutputHelper);
             
 
             // Assert
@@ -44,7 +44,7 @@ namespace TestServices
         public async Task Test_AddItem()
         {
             // Arrange 
-            var service = _fixture.GetService<IToDoItemService>(_testOutputHelper);
+            var service = _fixture.GetService<ITodoItemService>(_testOutputHelper);
             Assert.NotNull(service);
             
             TodoItemData item = new TodoItemData { Title = "Title", Description = "Description" };            
@@ -59,7 +59,7 @@ namespace TestServices
         public async void Test_AddTwoItems()
         {
             // Arrange
-            var service = _fixture.GetService<IToDoItemService>(_testOutputHelper);
+            var service = _fixture.GetService<ITodoItemService>(_testOutputHelper);
             Assert.NotNull(service);
             TodoItemData item1 = new TodoItemData { Title = "Title1", Description = "Description1" };
             TodoItemData item2 = new TodoItemData { Title = "Title2", Description = "Description2" };
@@ -75,7 +75,7 @@ namespace TestServices
         public async Task Test_GetItemsAsync()
         {
             // Arrange
-            var service = _fixture.GetService<IToDoItemService>(_testOutputHelper);
+            var service = _fixture.GetService<ITodoItemService>(_testOutputHelper);
             Assert.NotNull(service);
             TodoItemData item1 = new TodoItemData { Title = "Title1", Description = "Description1" };
             TodoItemData item2 = new TodoItemData { Title = "Title2", Description = "Description2" };
@@ -101,7 +101,7 @@ namespace TestServices
         public async Task Test_GetItemByID()
         {
             // Arrange
-            var service = _fixture.GetService<IToDoItemService>(_testOutputHelper);
+            var service = _fixture.GetService<ITodoItemService>(_testOutputHelper);
             Assert.NotNull(service);
             TodoItemData item1 = new TodoItemData { Title = "Title1", Description = "Description1" };
             service!.AddItem(item1);
@@ -118,7 +118,7 @@ namespace TestServices
         public async Task Test_UpdateItem()
         {
             // Arrange
-            var service = _fixture.GetService<IToDoItemService>(_testOutputHelper);
+            var service = _fixture.GetService<ITodoItemService>(_testOutputHelper);
             Assert.NotNull(service);
             TodoItemData item1 = new TodoItemData { Title = "Title1", Description = "Description1" };
             service!.AddItem(item1);
@@ -138,7 +138,7 @@ namespace TestServices
         async Task Test_DeleteItem()
         {
             // Arrange
-            var service = _fixture.GetService<IToDoItemService>(_testOutputHelper);
+            var service = _fixture.GetService<ITodoItemService>(_testOutputHelper);
             Assert.NotNull(service);
             TodoItemData item1 = new TodoItemData { Title = "Title1", Description = "Description1" };
             service.AddItem(item1);

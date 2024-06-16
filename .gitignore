@@ -354,3 +354,4 @@ MigrationBackup/
 
 # No Secrets setup for Mac OS X so storing secrets here. don't commit
 launchSettings.json
+/Tasks/TasksWebApp/TasksWebApp/.config

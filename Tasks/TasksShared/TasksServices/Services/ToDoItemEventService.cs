@@ -8,15 +8,15 @@ using TasksServices.Repository;
 
 namespace TasksServices.Services
 {
-    // Next commit, this files gets renamed to ToDoItemService
+    // Next commit, this files gets renamed to TodoItemService
 
-    public class ToDoItemEventService : IToDoItemEventService
+    public class TodoItemEventService : ITodoItemEventService
     {
-        private readonly ILogger<ToDoItemEventService> _logger;
+        private readonly ILogger<TodoItemEventService> _logger;
         private readonly ICloudStorageRepository _cloudStorageRepository;
 
-        public ToDoItemEventService(
-            ILogger<ToDoItemEventService> logger,
+        public TodoItemEventService(
+            ILogger<TodoItemEventService> logger,
             ICloudStorageRepository cloudStorageRepository
             )
         {

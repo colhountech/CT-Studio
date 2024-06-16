@@ -1,4 +1,5 @@
 ﻿
+using Azure;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Text.Json;
@@ -8,26 +9,23 @@ using TasksServices.Repository;
 
 namespace TasksServices.Services
 {
-    // Next commit, this files gets renamed to ToDoItemService
-
-    public class ToDoItemService : IToDoItemService
+    public class TodoItemService : ITodoItemService
     {
-        private readonly ILogger<ToDoItemService> _logger;
-        private readonly IToDoItemRepository _toDoItemRepository;
+        private readonly ILogger<TodoItemService> _logger;
+        private readonly ITodoItemRepository _TodoItemRepository;
 
-        private static bool IsDirty { get; set; } = false;
+        private bool IsDirty { get; set; } = false;
 
         protected List<TodoItemData> ItemsDatabase = new List<TodoItemData>();
   
-        public ToDoItemService(
-            ILogger<ToDoItemService> logger,
-            IToDoItemRepository toDoItemRepository
+        public TodoItemService(
+            ILogger<TodoItemService> logger,
+            ITodoItemRepository TodoItemRepository
             )
         {
             _logger = logger;
-            _toDoItemRepository = toDoItemRepository;
+            _TodoItemRepository = TodoItemRepository;
            
-            // change from static, so db is loaded in memory on **every**  _service call
             if (ItemsDatabase.Count == 0)
             {
                    LoadAsync().GetAwaiter().GetResult();
@@ -36,29 +34,28 @@ namespace TasksServices.Services
 
         public async Task LoadAsync()
         {
-            await _toDoItemRepository.ValidateSourceAsync();
-            var db = await _toDoItemRepository.RestoreDataAsync();
+            await _TodoItemRepository.ValidateSourceAsync();
+            var db = await _TodoItemRepository.RestoreDataAsync();
             _logger.LogInformation($"Restored ({db?.Count}) items to db from Blob.");
             if (db is not null) ItemsDatabase = db;
             IsDirty = false;
 
         }
- 
+
         public async Task SaveAsync()
         {
-            if (IsDirty)
-            {
-                var db = ItemsDatabase;
-                _logger.LogInformation($"Storing {db?.Count} items.");
-                if (db is not null) await _toDoItemRepository.StoreDataAsync(db);
-                // this could throw a contention exceptions
-                IsDirty = false;
-            }
+
+            var db = ItemsDatabase;
+            _logger.LogInformation($"Storing {db?.Count} items.");
+            if (db is not null) await _TodoItemRepository.StoreDataAsync(db);
+            // this could throw a contention exceptions
+            IsDirty = false;
+
         }
 
 
         public IEnumerable<TodoItemData> GetItems(bool archived)
-        {            
+        {
             return ItemsDatabase
                 .Where(x => x.Archived == archived)
                 .AsEnumerable();

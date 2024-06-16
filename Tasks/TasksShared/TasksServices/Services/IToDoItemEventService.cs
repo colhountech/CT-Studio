@@ -2,7 +2,7 @@
 
 namespace TasksServices.Services
 {
-    public interface IToDoItemEventService
+    public interface ITodoItemEventService
     {
         // Queries
         Task<IEnumerable<TodoItemData>> GetItemsAsync(bool archived);

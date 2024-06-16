@@ -7,19 +7,19 @@ using TasksAppData;
 
 namespace TasksServices.Repository
 {
-	public class ToDoItemFileRepository : IToDoItemRepository
+	public class TodoItemFileRepository : ITodoItemRepository
 	{
         // on mac os x, Alt-Enter is Quick Fix
         //
-        private readonly ILogger<ToDoItemFileRepository> _logger;
+        private readonly ILogger<TodoItemFileRepository> _logger;
 
         private static readonly string _path = "Database.json";
         private static bool validated = false;
 
 
 
-        public ToDoItemFileRepository(
-            ILogger<ToDoItemFileRepository> logger
+        public TodoItemFileRepository(
+            ILogger<TodoItemFileRepository> logger
             )
         {
             _logger = logger;

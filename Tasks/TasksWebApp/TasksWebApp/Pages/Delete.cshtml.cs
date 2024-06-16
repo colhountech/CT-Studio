@@ -11,10 +11,10 @@ namespace TasksWebApp.Pages
     {
 
         private readonly ILogger<IndexModel> _logger;
-        private readonly IToDoItemService _service;
+        private readonly ITodoItemService _service;
         private readonly IMapper _mapper;
 
-        public DeleteModel(ILogger<IndexModel> logger, IToDoItemService service, IMapper mapper)
+        public DeleteModel(ILogger<IndexModel> logger, ITodoItemService service, IMapper mapper)
         {
             _logger = logger;
             _service = service;

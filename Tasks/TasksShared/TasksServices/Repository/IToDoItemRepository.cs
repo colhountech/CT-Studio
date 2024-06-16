@@ -3,7 +3,7 @@ using TasksAppData;
 
 namespace TasksServices.Repository
 {
-    public interface IToDoItemRepository
+    public interface ITodoItemRepository
     {
         Task ValidateSourceAsync();
         Task<List<TodoItemData>?> RestoreDataAsync();

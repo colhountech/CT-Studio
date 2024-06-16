@@ -10,10 +10,10 @@ namespace TasksWebApp.Pages
         public List<TodoItemViewModel> TodoItems = new List<TodoItemViewModel>();
 
         private readonly ILogger<IndexModel> _logger;
-        private readonly IToDoItemService _service;
+        private readonly ITodoItemService _service;
         private readonly IMapper _mapper;
 
-        public IndexModel(ILogger<IndexModel> logger, IToDoItemService service, IMapper mapper)
+        public IndexModel(ILogger<IndexModel> logger, ITodoItemService service, IMapper mapper)
         {
             _logger = logger;
             _service = service;

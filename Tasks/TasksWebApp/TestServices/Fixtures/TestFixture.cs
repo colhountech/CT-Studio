@@ -15,8 +15,8 @@ namespace TestServices.Fixtures
     {
         protected override void AddServices(IServiceCollection services, IConfiguration? configuration)
         {
-            services.AddTransient<IToDoItemService, ToDoItemService>();
-            services.AddTransient<IToDoItemRepository, ToDoItemFileRepository>();
+            services.AddTransient<ITodoItemService, TodoItemService>();
+            services.AddTransient<ITodoItemRepository, TodoItemFileRepository>();
         }
 
         protected override ValueTask DisposeAsyncCore() => new ValueTask();

@@ -10,10 +10,10 @@ namespace TasksDesktopApp.Pages
     public class DetailsModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly IToDoItemService _service;
+        private readonly ITodoItemService _service;
         private readonly IMapper _mapper;
 
-        public DetailsModel(ILogger<IndexModel> logger, IToDoItemService service, IMapper mapper)
+        public DetailsModel(ILogger<IndexModel> logger, ITodoItemService service, IMapper mapper)
         {
             _logger = logger;
             _service = service;
@@ -118,7 +118,7 @@ namespace TasksDesktopApp.Pages
             }
             TodoItem = _mapper.Map<TodoItemViewModel>(itemData);
 
-            // Mapper does not map Messages because there is no Messages collection in the todoItem ViewModel
+            // Mapper does not map Messages because there is no Messages collection in the TodoItem ViewModel
             Messages = _mapper.Map<IEnumerable<MessageViewModel>>(
                 itemData.Messages
                 .Where(x => x.UnRead == unread)

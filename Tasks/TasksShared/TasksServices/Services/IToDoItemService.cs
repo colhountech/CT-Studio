@@ -3,7 +3,7 @@ using TasksAppData;
 
 namespace TasksServices.Services
 {
-    public interface IToDoItemService
+    public interface ITodoItemService
     {
         // Queries
         TodoItemData? GetItemByID(Guid ID);

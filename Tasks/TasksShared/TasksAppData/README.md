@@ -2,7 +2,7 @@
 
 This is a good time to introduce Class Libraries.
 
-At this stage we have stored the ToDoItemData.cs and MessageData.cs in the Web App project. 
+At this stage we have stored the TodoItemData.cs and MessageData.cs in the Web App project. 
 
 Now we are introducing some new functionality, namely the `CloudStorage` project.
 

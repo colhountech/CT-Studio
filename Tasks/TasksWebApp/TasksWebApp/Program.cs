@@ -9,8 +9,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<IToDoItemService, ToDoItemService>();
-builder.Services.AddTransient<IToDoItemRepository, ToDoItemAzureBlobRepository>();
+builder.Services.AddTransient<ITodoItemService, TodoItemService>();
+builder.Services.AddTransient<ITodoItemRepository, TodoItemAzureBlobRepository>();
 builder.Services.AddTransient<ICloudStorageRepository, AzureStorageRepository>();
 
 

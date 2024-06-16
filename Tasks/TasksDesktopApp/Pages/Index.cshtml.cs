@@ -10,10 +10,10 @@ public class IndexModel : PageModel
 {
    
     private readonly ILogger<IndexModel> _logger;
-    private readonly IToDoItemEventService _service;
+    private readonly ITodoItemEventService _service;
     private readonly IMapper _mapper;
 
-    public IndexModel(ILogger<IndexModel> logger, IToDoItemEventService service, IMapper mapper)
+    public IndexModel(ILogger<IndexModel> logger, ITodoItemEventService service, IMapper mapper)
     {
         _logger = logger;
         _service = service;

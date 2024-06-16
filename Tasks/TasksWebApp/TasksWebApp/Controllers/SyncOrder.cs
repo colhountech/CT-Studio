@@ -10,11 +10,11 @@ namespace TasksWebApp
     public class SyncOrder : ControllerBase
     {
         private readonly ILogger<SyncOrder> _logger;
-        private readonly IToDoItemService _service;
+        private readonly ITodoItemService _service;
 
         public SyncOrder(
             ILogger<SyncOrder> logger,
-            IToDoItemService service
+            ITodoItemService service
             )
         {
             _logger = logger;
@@ -58,7 +58,6 @@ namespace TasksWebApp
                 }
 
                 // update db
-                // TODO
                 _service.UpdateItems(updateItems);
                 await _service.SaveAsync();
 

@@ -23,10 +23,9 @@ namespace CloudStorage
         private readonly string _azureQueueName;
         private QueueClient _client;
         private string _accountName;
+        private Azure.ETag _eTag;
 
 
-
-        private static Azure.ETag _eTag;
 
         public AzureStorageRepository(
             ILogger<AzureStorageRepository> logger,

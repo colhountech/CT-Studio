@@ -26,9 +26,9 @@ public class Startup
             .AddEntityFrameworkStores<ApplicationDbContext>();
         services.AddRazorPages();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-        services.AddTransient<IToDoItemEventService, ToDoItemEventService>();
-        //services.AddTransient<IToDoItemRepository, ToDoItemFileRepository>();
-        //services.AddTransient<IToDoItemRepository, ToDoItemAzureBlobRepository>();
+        services.AddTransient<ITodoItemEventService, TodoItemEventService>();
+        //services.AddTransient<ITodoItemRepository, TodoItemFileRepository>();
+        //services.AddTransient<ITodoItemRepository, TodoItemAzureBlobRepository>();
         services.AddTransient<ICloudStorageRepository, AzureStorageRepository>();
     }
 

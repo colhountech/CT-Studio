@@ -6,16 +6,17 @@ using TasksAppData;
 
 namespace TasksServices.Repository
 {
-	public class ToDoItemAzureBlobRepository : IToDoItemRepository
+	public class TodoItemAzureBlobRepository : ITodoItemRepository
 	{
 
-        private readonly ILogger<ToDoItemAzureBlobRepository> _logger;
+        private readonly ILogger<TodoItemAzureBlobRepository> _logger;
         private readonly ICloudStorageRepository _cloudStorageRepository;
         private static bool validated = false;
+        private string myEtag = string.Empty;
 
 
-        public ToDoItemAzureBlobRepository(
-            ILogger<ToDoItemAzureBlobRepository> logger,
+        public TodoItemAzureBlobRepository(
+            ILogger<TodoItemAzureBlobRepository> logger,
             ICloudStorageRepository cloudStorageRepository
             )
 		{
