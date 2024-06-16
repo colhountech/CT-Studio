@@ -60,8 +60,10 @@ namespace TasksWebApp
                 // update db
                 _service.UpdateItems(updateItems);
                 await _service.SaveAsync();
+                // this may throw an OptimisticConcurrencyControl exception
+                // if so, just reload page
 
-                 
+
             }
             catch (Exception ex)
             {                

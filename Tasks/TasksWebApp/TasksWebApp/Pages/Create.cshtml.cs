@@ -1,8 +1,11 @@
 using AutoMapper;
+using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Net;
 using TasksAppData;
 using TasksServices.Services;
+using TasksWebApp.Pages.Extensions;
 using TasksWebApp.ViewModels;
 
 namespace TasksWebApp.Pages
@@ -39,8 +42,10 @@ namespace TasksWebApp.Pages
             if (TodoItem != null)
             {
                 var itemData = _mapper.Map<TodoItemData>(TodoItem);
-                _service.AddItem(itemData);
-                await _service.SaveAsync();
+                await this.OptimisticConcurrencyControl(
+                () => _service.AddItem(itemData),
+                _service,
+                _logger);
             }
 
 

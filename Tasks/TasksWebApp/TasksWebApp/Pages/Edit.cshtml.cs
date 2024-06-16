@@ -4,6 +4,7 @@ using AutoMapper;
 using TasksAppData;
 using TasksServices.Services;
 using TasksWebApp.ViewModels;
+using TasksWebApp.Pages.Extensions;
 
 namespace TasksWebApp.Pages
 {
@@ -56,10 +57,13 @@ namespace TasksWebApp.Pages
                 var oldData = _service.GetItemByID(TodoItem.ID);
                 if (oldData is null) return Page(); // edited item does not exist
                 var itemData = _mapper.Map<TodoItemData>(TodoItem) with { Messages = oldData.Messages };
-                _service.UpdateItem(TodoItem.ID, itemData);
-                await _service.SaveAsync();
 
-            return RedirectToPage("Details", new { id = itemData?.ID });
+                await this.OptimisticConcurrencyControl(
+                () => _service.UpdateItem(TodoItem.ID, itemData),
+                _service,
+                _logger);
+
+                return RedirectToPage("Details", new { id = itemData?.ID });
         }
         return RedirectToPage("Index");
     }

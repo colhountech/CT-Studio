@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using TasksAppData;
 using TasksServices.Services;
 using TasksWebApp.ViewModels;
+using TasksWebApp.Pages.Extensions;
 
 namespace TasksWebApp.Pages
 {
@@ -55,8 +56,11 @@ namespace TasksWebApp.Pages
             if (TodoItem != null)
             {
                 var itemData = _mapper.Map<TodoItemData>(TodoItem);
-                 _service.DeleteItem(itemData);
-                await _service.SaveAsync();
+
+                await this.OptimisticConcurrencyControl(
+                   () => _service.DeleteItem(itemData),
+                   _service,
+                   _logger);
             }
 
 

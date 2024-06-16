@@ -4,6 +4,7 @@ using AutoMapper;
 using TasksAppData;
 using TasksServices.Services;
 using TasksWebApp.ViewModels;
+using TasksWebApp.Pages.Extensions;
 
 namespace TasksWebApp.Pages
 {
@@ -74,8 +75,15 @@ namespace TasksWebApp.Pages
                 UnRead = true,
                 ID = Guid.NewGuid()
             };
-            _service.AddItemMessage(ID.Value, messageData);
-            await _service.SaveAsync();
+
+            //_service.AddItemMessage(ID.Value, messageData);
+            //await _service.SaveAsync();
+            await this.OptimisticConcurrencyControl(
+              () => _service.AddItemMessage(ID.Value, messageData),
+              _service,
+              _logger);
+
+
             return RedirectToPage("Details", new { id = ID });
         }
 
@@ -92,8 +100,13 @@ namespace TasksWebApp.Pages
                 return NotFound();
             }
 
-            _service.MarkItemMessageRead(ID!.Value, Message!.ID);
-            await _service.SaveAsync();
+            //_service.MarkItemMessageRead(ID!.Value, Message!.ID);
+            //await _service.SaveAsync();
+            await this.OptimisticConcurrencyControl(
+            () => _service.MarkItemMessageRead(ID!.Value, Message!.ID),
+            _service,
+            _logger);
+
 
             //if (!ok) return NotFound();
 
