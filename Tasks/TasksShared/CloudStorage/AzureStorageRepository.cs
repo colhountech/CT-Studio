@@ -94,8 +94,6 @@ namespace CloudStorage
                 if (e.Status == (int)HttpStatusCode.PreconditionFailed)
                 {
                     _logger.LogError($"Blob has Changed : Blob's ETag does not match ETag provided.");
-                    // We probably want to mark database as IsDirty and allow the
-                    // calling app to fallback and try again
                 }
                 throw;
 

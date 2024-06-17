@@ -1,7 +1,10 @@
 ﻿using Azure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Polly.Retry;
+using Polly;
 using System.Net;
 using TasksServices.Services;
+using System;
 
 namespace TasksWebApp.Pages.Extensions;
 
@@ -9,25 +12,33 @@ public static class PageModelExtensions
 {
     public static async Task OptimisticConcurrencyControl
         (this PageModel pageModel, 
-        Action operation, ITodoItemService service, ILogger logger)
+        Func<Task> operation, ITodoItemService service, ILogger logger)
     {
-        try
+        // The sleep time doubles with each retry attempt, starting from 2 seconds.
+        // We use a Func becuase it returns an int
+        Func<int, TimeSpan> sleepTimeProvider = (retryCount) => TimeSpan.FromSeconds(Math.Pow(2, retryCount));
+        
+        // What we log for each retry
+        // We use an Action instead of a Func because it returns void
+        Action<Exception, TimeSpan, int, Context> onRetry = (exception, timeSpan, retryCount, context) =>
         {
-            operation();
+            string? firstLine = exception.Message.Split(new[] { Environment.NewLine }, StringSplitOptions.None).FirstOrDefault();
+
+            logger.LogWarning($"Warning: Attempt {retryCount} failed with exception: {firstLine}. Next retry in {timeSpan}.");
+        };
+
+         // Define the retry policy with exponential backoff
+         var retryPolicy = Policy
+           .Handle<RequestFailedException>(ex => ex.Status == (int)HttpStatusCode.PreconditionFailed)
+           .WaitAndRetryAsync(5, sleepTimeProvider,onRetry);
+
+
+        // Use the retry policy
+         await retryPolicy.ExecuteAsync( async () =>
+        {
+            await service.LoadAsync();
+            await operation();
             await service.SaveAsync();
-        }
-        catch (RequestFailedException e)
-        {
-            if (e.Status == (int)HttpStatusCode.PreconditionFailed)
-            {
-                logger.LogInformation("Azure Blob changed. Reloading the DB");
-                await service.LoadAsync();
-                // try again. 
-                // TODO: This will try forever if it fails
-                // should have expontential backoff waits here
-                operation();
-                await service.SaveAsync();
-            }
-        }
+        });
     }
 }
