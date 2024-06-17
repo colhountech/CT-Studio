@@ -1,0 +1,44 @@
+@page "/todo"
+@rendermode InteractiveServer
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Todo</PageTitle>
+
+<h3>Todo (@items.Count(todo => !todo.IsDone))</h3>
+
+<ul>
+    @foreach (var todo in items)
+    {
+    <li>
+       <input type="checkbox" @bind="todo.IsDone" />
+       <input type="text" @bind="todo.Title" />       
+    </li>
+    }
+ </ul>
+		    
+<input placeholder="Something todo" @bind="newTodo" />
+
+<button @onclick="AddTodo">Add todo</button>
+
+
+
+@code {
+    private List<TodoItem> items = new();
+    private string? newTodo;
+    
+    private async Task AddTodo()
+    {
+    
+     await JSRuntime.InvokeVoidAsync("console.log", newTodo);
+
+     if (!string.IsNullOrWhiteSpace(newTodo))
+     {
+         var  newItem = new TodoItem { Title = newTodo};
+	 items.Add(newItem);
+	 
+	 newTodo = string.Empty;
+     }
+
+    
+    }
+}
