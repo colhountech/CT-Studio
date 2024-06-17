@@ -7,6 +7,8 @@ using TasksAppData;
 using TasksServices.Services;
 using TasksWebApp.Pages.Extensions;
 using TasksWebApp.ViewModels;
+using Polly;
+using Polly.Retry;
 
 namespace TasksWebApp.Pages
 {
@@ -21,6 +23,8 @@ namespace TasksWebApp.Pages
             _logger = logger;
             _service = service;
             _mapper = mapper;
+
+           
         }
 
 
@@ -43,7 +47,7 @@ namespace TasksWebApp.Pages
             {
                 var itemData = _mapper.Map<TodoItemData>(TodoItem);
                 await this.OptimisticConcurrencyControl(
-                () => _service.AddItem(itemData),
+                async () => _service.AddItem(itemData),
                 _service,
                 _logger);
             }
@@ -53,3 +57,4 @@ namespace TasksWebApp.Pages
         }
     }
 }
+

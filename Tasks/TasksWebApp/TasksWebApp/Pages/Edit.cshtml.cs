@@ -25,13 +25,13 @@ namespace TasksWebApp.Pages
         public TodoItemViewModel? TodoItem { get; set; }
 
 
-        public IActionResult OnGet(Guid? ID)
+        public async Task<IActionResult> OnGetAsync(Guid? ID)
         {
             if (ID == null)
             {
                 return NotFound();
             }
-
+            await _service.LoadAsync();
             var itemData = _service.GetItemByID(ID.Value);
 
             if (itemData == null)
@@ -53,13 +53,14 @@ namespace TasksWebApp.Pages
         }
 
         if (TodoItem != null)
-        {
+            {
+                await _service.LoadAsync();
                 var oldData = _service.GetItemByID(TodoItem.ID);
                 if (oldData is null) return Page(); // edited item does not exist
                 var itemData = _mapper.Map<TodoItemData>(TodoItem) with { Messages = oldData.Messages };
 
                 await this.OptimisticConcurrencyControl(
-                () => _service.UpdateItem(TodoItem.ID, itemData),
+                async () =>  _service.UpdateItem(TodoItem.ID, itemData),
                 _service,
                 _logger);
 

@@ -26,13 +26,13 @@ namespace TasksWebApp.Pages
         public TodoItemViewModel? TodoItem { get; set; }
 
 
-        public IActionResult OnGet(Guid? ID)
+        public async Task<IActionResult> OnGetAsync(Guid? ID)
         {
             if (ID == null)
             {
                 return NotFound();
             }
-
+            await _service.LoadAsync();
             var itemData = _service.GetItemByID(ID.Value);
 
             if (itemData == null)
@@ -58,7 +58,7 @@ namespace TasksWebApp.Pages
                 var itemData = _mapper.Map<TodoItemData>(TodoItem);
 
                 await this.OptimisticConcurrencyControl(
-                   () => _service.DeleteItem(itemData),
+                   async () => _service.DeleteItem(itemData),
                    _service,
                    _logger);
             }

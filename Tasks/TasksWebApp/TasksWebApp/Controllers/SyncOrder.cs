@@ -34,6 +34,7 @@ namespace TasksWebApp
 
             try
             {
+                await _service.LoadAsync();
                 var storedItems = _service.GetItems(archived: false);
                 var updateItems = new List<TodoItemData>();
 

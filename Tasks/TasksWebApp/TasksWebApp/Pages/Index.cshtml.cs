@@ -21,8 +21,9 @@ namespace TasksWebApp.Pages
 
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
+            await _service.LoadAsync();
             var items = _service.GetItems(archived: false);
 
             // Map TodoItemData --> TodoItemViewModel      

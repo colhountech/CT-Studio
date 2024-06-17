@@ -28,30 +28,28 @@ namespace TasksWebApp.Pages
 
         public IEnumerable<MessageViewModel> Messages = new List<MessageViewModel>();
 
-        public IActionResult OnGet(Guid? ID)
+        public async Task<IActionResult> OnGetAsync(Guid? ID)
         {
-
-            if (!LoadItem(ID))
+            if (!await LoadItemAsync(ID))
             {
                 return NotFound();
             }
             return Page();
         }
 
-        public IActionResult OnPostUnreadAsync(Guid? ID)
+        public async Task<IActionResult> OnPostUnreadAsync(Guid? ID)
         {
-          
-            if (!LoadItem(ID))
+
+            if (!await LoadItemAsync(ID))
             {
                 return NotFound();
             }
             return Page();
         }
 
-        public IActionResult OnPostReadAsync(Guid? ID)
+        public async Task<IActionResult> OnPostReadAsync(Guid? ID)
         {
-
-            if (!LoadItem(ID, unread: false))
+            if (!await LoadItemAsync(ID, unread: false))
             {
                 return NotFound();
             }
@@ -76,10 +74,8 @@ namespace TasksWebApp.Pages
                 ID = Guid.NewGuid()
             };
 
-            //_service.AddItemMessage(ID.Value, messageData);
-            //await _service.SaveAsync();
             await this.OptimisticConcurrencyControl(
-              () => _service.AddItemMessage(ID.Value, messageData),
+              async () => _service.AddItemMessage(ID.Value, messageData), 
               _service,
               _logger);
 
@@ -95,15 +91,13 @@ namespace TasksWebApp.Pages
         /// <returns></returns>
         public async Task<IActionResult> OnPostCloseAsync(Guid? ID)
         {
-            if (!LoadItem(ID))
+            if (!await LoadItemAsync(ID))
             {
                 return NotFound();
             }
 
-            //_service.MarkItemMessageRead(ID!.Value, Message!.ID);
-            //await _service.SaveAsync();
             await this.OptimisticConcurrencyControl(
-            () => _service.MarkItemMessageRead(ID!.Value, Message!.ID),
+            async () => _service.MarkItemMessageRead(ID!.Value, Message!.ID),
             _service,
             _logger);
 
@@ -115,12 +109,14 @@ namespace TasksWebApp.Pages
         }
 
 
-        private  bool LoadItem(Guid? ID, bool unread = true)
+        private async  Task<bool> LoadItemAsync(Guid? ID, bool unread = true)
         {
             if (ID == null)
             {
                 return false;
             }
+
+            await _service.LoadAsync();
 
             var itemData = _service.GetItemByID(ID.Value);
 

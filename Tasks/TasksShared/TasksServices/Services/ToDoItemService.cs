@@ -26,10 +26,7 @@ namespace TasksServices.Services
             _logger = logger;
             _TodoItemRepository = TodoItemRepository;
            
-            if (ItemsDatabase.Count == 0)
-            {
-                   LoadAsync().GetAwaiter().GetResult();
-            }
+         
         }
 
         public async Task LoadAsync()
