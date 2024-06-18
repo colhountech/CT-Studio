@@ -5,6 +5,7 @@ using TasksServices.Services;
 using TasksDesktopApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using TasksAppData;
 
 public class Startup
 {
@@ -29,7 +30,7 @@ public class Startup
         services.AddTransient<ITodoItemEventService, TodoItemEventService>();
         //services.AddTransient<ITodoItemRepository, TodoItemFileRepository>();
         //services.AddTransient<ITodoItemRepository, TodoItemAzureBlobRepository>();
-        services.AddTransient<ICloudStorageRepository, AzureStorageRepository>();
+        services.AddTransient<ICloudStorageRepository<TodoItemData>, AzureStorageRepository<TodoItemData>>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

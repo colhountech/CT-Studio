@@ -9,12 +9,13 @@
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.20.0" />
     <PackageReference Include="Azure.Storage.Queues" Version="12.18.0" />
+    <PackageReference Include="Fulfilled.CloudStorage" Version="1.0.1" />
     <PackageReference Include="Microsoft.Extensions.Azure" Version="1.7.4" />
     <PackageReference Include="Polly" Version="8.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TasksShared\CloudStorage\CloudStorage.csproj" />
+    <!--<ProjectReference Include="..\..\TasksShared\CloudStorage\CloudStorage.csproj" />-->
     <ProjectReference Include="..\..\TasksShared\TasksAppData\TasksAppData.csproj" />
     <ProjectReference Include="..\..\TasksShared\TasksServices\TasksServices.csproj" />
   </ItemGroup>

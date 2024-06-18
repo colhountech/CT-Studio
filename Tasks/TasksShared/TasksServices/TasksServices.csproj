@@ -5,8 +5,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CloudStorage\CloudStorage.csproj" />
+    <!--<ProjectReference Include="..\CloudStorage\CloudStorage.csproj" />-->
     <ProjectReference Include="..\TasksAppData\TasksAppData.csproj" />
+    <PackageReference Include="Fulfilled.CloudStorage" Version="1.0.1" />
+
   </ItemGroup>
  
 </Project>

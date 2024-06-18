@@ -13,6 +13,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
+    <PackageReference Include="Fulfilled.CloudStorage" Version="1.0.1" />
+
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,7 +23,7 @@
     <PackageReference Include="ElectronNET.API" Version="23.6.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TasksShared\CloudStorage\CloudStorage.csproj" />
+    <!--<ProjectReference Include="..\TasksShared\CloudStorage\CloudStorage.csproj" />-->
     <ProjectReference Include="..\TasksShared\TasksAppData\TasksAppData.csproj" />
     <ProjectReference Include="..\TasksShared\TasksServices\TasksServices.csproj" />
   </ItemGroup>

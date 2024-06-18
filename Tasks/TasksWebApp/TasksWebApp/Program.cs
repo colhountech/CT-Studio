@@ -1,5 +1,6 @@
 ﻿using CloudStorage;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using TasksAppData;
 using TasksServices.Repository;
 using TasksServices.Services;
 
@@ -11,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ITodoItemService, TodoItemService>();
 builder.Services.AddTransient<ITodoItemRepository, TodoItemAzureBlobRepository>();
-builder.Services.AddTransient<ICloudStorageRepository, AzureStorageRepository>();
+builder.Services.AddTransient<ICloudStorageRepository<TodoItemData>, AzureStorageRepository<TodoItemData>>();
 
 
 var app = builder.Build();

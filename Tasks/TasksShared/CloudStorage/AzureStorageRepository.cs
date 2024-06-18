@@ -25,8 +25,6 @@ namespace CloudStorage
         private string _accountName;
         private Azure.ETag _eTag;
 
-
-
         public AzureStorageRepository(
             ILogger<AzureStorageRepository> logger,
             IConfiguration config)

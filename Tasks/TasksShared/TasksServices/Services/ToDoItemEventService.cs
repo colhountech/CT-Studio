@@ -13,11 +13,11 @@ namespace TasksServices.Services
     public class TodoItemEventService : ITodoItemEventService
     {
         private readonly ILogger<TodoItemEventService> _logger;
-        private readonly ICloudStorageRepository _cloudStorageRepository;
+        private readonly ICloudStorageRepository<TodoItemData> _cloudStorageRepository;
 
         public TodoItemEventService(
             ILogger<TodoItemEventService> logger,
-            ICloudStorageRepository cloudStorageRepository
+            ICloudStorageRepository<TodoItemData> cloudStorageRepository
             )
         {
             _logger = logger;
@@ -39,7 +39,9 @@ namespace TasksServices.Services
         public async Task AddItemAsync(TodoItemData item)
         {
             CmdAdditem<TodoItemData> cmd = new CmdAdditem<TodoItemData>(item);
-            await _cloudStorageRepository.Send(cmd);
+            //await _cloudStorageRepository.Send(cmd);
+            throw new NotImplementedException();
+
 
         }
 

@@ -10,14 +10,14 @@ namespace TasksServices.Repository
 	{
 
         private readonly ILogger<TodoItemAzureBlobRepository> _logger;
-        private readonly ICloudStorageRepository _cloudStorageRepository;
+        private readonly ICloudStorageRepository<TodoItemData> _cloudStorageRepository;
         private static bool validated = false;
         private string myEtag = string.Empty;
 
 
         public TodoItemAzureBlobRepository(
             ILogger<TodoItemAzureBlobRepository> logger,
-            ICloudStorageRepository cloudStorageRepository
+            ICloudStorageRepository<TodoItemData> cloudStorageRepository
             )
 		{
             _logger = logger;
