@@ -1,8 +1,7 @@
 ﻿using CloudStorage;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using TasksAppData;
-using TasksServices.Repository;
-using TasksServices.Services;
+using Tasks.AppData;
+using Tasks.Repository;
+using Tasks.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();

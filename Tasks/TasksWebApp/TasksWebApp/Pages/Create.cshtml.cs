@@ -1,14 +1,10 @@
 using AutoMapper;
-using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Net;
-using TasksAppData;
-using TasksServices.Services;
+using Tasks.AppData;
+using Tasks.Services;
 using TasksWebApp.Pages.Extensions;
 using TasksWebApp.ViewModels;
-using Polly;
-using Polly.Retry;
 
 namespace TasksWebApp.Pages
 {

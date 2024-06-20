@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using AutoMapper;
-using TasksServices.Services;
 using TasksWebApp.ViewModels;
+using Tasks.Services;
 
 namespace TasksWebApp.Pages
 {

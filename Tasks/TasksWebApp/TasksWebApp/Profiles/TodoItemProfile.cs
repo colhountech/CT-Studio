@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using TasksAppData;
+using Tasks.AppData;
 using TasksWebApp.ViewModels;
 
 namespace TasksWebApp.Profiles

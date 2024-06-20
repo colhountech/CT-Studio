@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TasksServices.Services;
-using TasksAppData;
+using Tasks.AppData;
+using Tasks.Services;
 using TasksWebApp.ViewModels;
 
 namespace TasksWebApp

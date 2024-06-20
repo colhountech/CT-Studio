@@ -1,10 +1,8 @@
 ﻿using Azure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Polly.Retry;
 using Polly;
 using System.Net;
-using TasksServices.Services;
-using System;
+using Tasks.Services;
 
 namespace TasksWebApp.Pages.Extensions;
 
