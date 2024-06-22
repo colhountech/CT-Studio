@@ -14,9 +14,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fulfilled.CloudStorage" Version="1.0.1" />
+    <!--<PackageReference Include="Fulfilled.CloudStorage" Version="1.0.1" />-->
     <PackageReference Include="TasksAppData" Version="1.0.0" />
     <PackageReference Include="TasksRepository" Version="1.0.0" />
     <PackageReference Include="TasksServices" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\AzureDevOps\VideoBatch\Fulfilled.Cloudstorage\Fulfilled.CloudStorage.csproj" />
   </ItemGroup>
 </Project>

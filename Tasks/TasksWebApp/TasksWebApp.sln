@@ -20,7 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksDesktopApp", "..\Tasks
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksBlazor", "..\TasksBlazor\TasksBlazor.csproj", "{EF48706B-0300-4CBF-9228-8424665B20FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TasksAuth", "TasksAuth\TasksAuth.csproj", "{CBF8DB34-B841-4479-BD47-6FDF25DDFAD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TasksAuth", "TasksAuth\TasksAuth.csproj", "{CBF8DB34-B841-4479-BD47-6FDF25DDFAD4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fulfilled.CloudStorage", "..\..\..\..\AzureDevOps\VideoBatch\Fulfilled.Cloudstorage\Fulfilled.CloudStorage.csproj", "{7E2582C6-2B10-457C-B57F-6300718E64DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +66,10 @@ Global
 		{CBF8DB34-B841-4479-BD47-6FDF25DDFAD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBF8DB34-B841-4479-BD47-6FDF25DDFAD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBF8DB34-B841-4479-BD47-6FDF25DDFAD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E2582C6-2B10-457C-B57F-6300718E64DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E2582C6-2B10-457C-B57F-6300718E64DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E2582C6-2B10-457C-B57F-6300718E64DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E2582C6-2B10-457C-B57F-6300718E64DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
